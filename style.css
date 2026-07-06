@@ -4,275 +4,203 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #ECECEC;
-  color: #1A1A1A;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+html {
+  scroll-behavior: smooth;
 }
 
-/* 1. MENÚ FIJO EDITORIAL */
+body {
+  font-family: "Inter", sans-serif;
+  background: #111;
+  overflow-x: hidden;
+  color: white;
+}
+
+/* NAV */
+
 .nav-editorial {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 4vw;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  z-index: 2000; 
-  background-color: rgba(236, 236, 236, 0.85); 
-  backdrop-filter: blur(10px); 
-  border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  z-index: 999;
 }
 
-.nav-editorial .logo {
-  font-family: 'MuseoModerno', sans-serif;
+.logo {
+  font-family: "MuseoModerno", sans-serif;
+  font-size: 1.6rem;
   font-weight: 900;
-  font-size: 1.8rem;
-  color: #1A1A1A;
-  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #1A1A1A;
-  margin-left: 30px;
-  font-size: 0.8rem;
-  font-weight: 700;
+  color: white;
+  font-size: .8rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  transition: opacity 0.3s ease;
+  letter-spacing: .1em;
 }
 
-.nav-links a:hover {
-  opacity: 0.6;
-}
+/* SCENES */
 
-.nav-links a.link-destacado {
-  border: 1px solid #1A1A1A;
-  padding: 6px 16px;
-  border-radius: 30px;
-}
-
-/* 2. CONTENEDOR Y PANELES */
-#story-container {
+.scene {
+  height: 300vh;
   position: relative;
-  width: 100%;
 }
 
-.panel {
-  width: 100vw;
+.sticky-scene {
+  position: sticky;
+  top: 0;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background-color: #ECECEC;
-  border-bottom: 1px solid #1A1A1A;
-  z-index: 1; 
+  overflow: hidden;
 }
 
-.panel:nth-child(even) {
-  background-color: #F4F4F4;
-}
+/* HERO */
 
-/* INTRO PORTADA */
-.intro-panel {
-  text-align: center;
-  padding-top: 80px;
-}
-
-.marquee-gigante h1 {
-  font-family: 'MuseoModerno', sans-serif;
-  font-size: 8vw;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
-}
-
-.sub-editorial {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.1rem;
-  margin-top: 20px;
-  letter-spacing: 0.1em;
-}
-
-/* DISTRIBUCIÓN INTERNA LADO A LADO */
-.contenido-story {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  height: 100%;
-  padding: 12vh 6vw 4vh 6vw;
-  align-items: center;
-  gap: 4vw;
-}
-
-.texto-lado {
+.hero {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-left: 8vw;
 }
 
-.numero {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 1.2rem;
-  opacity: 0.5;
-  margin-bottom: 10px;
+.hero-title {
+  font-family: "MuseoModerno", sans-serif;
+  font-size: 10vw;
+  line-height: .85;
 }
 
-.texto-lado h2 {
-  font-family: 'MuseoModerno', sans-serif;
-  font-size: 4.5vw;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 1;
-  margin-bottom: 25px;
+.hero-subtitle {
+  margin-top: 20px;
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: .15em;
 }
 
-.texto-lado p {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  max-width: 85%;
-  opacity: 0.8;
+/* IMAGENES */
+
+.bg-image {
+  position: absolute;
+  inset: 0;
 }
 
-/* CONTENEDOR DE IMAGEN TIPO REVISTA */
-.imagen-lado {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-}
-
-.marco-foto {
-  width: 100%;
-  height: 100%;
-  max-width: 450px;
-  max-height: 550px;
-  overflow: hidden;
-  border: 1px solid #1A1A1A;
-  background-color: #DDD;
-}
-
-.marco-foto img {
+.bg-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* PANEL FINAL: CONTACTO */
-.contacto-panel {
-  background-color: #1A1A1A !important;
-  color: #ECECEC;
-  z-index: 2; 
+.bg-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
 }
 
-.contacto-full {
-  text-align: center;
-  padding-top: 80px;
+/* TEXTOS */
+
+.texto-lado {
+  position: absolute;
+  left: 8vw;
+  bottom: 15vh;
+  max-width: 600px;
+  z-index: 10;
 }
 
-.contacto-full h2 {
-  font-family: 'MuseoModerno', sans-serif;
-  font-size: 4vw;
+.numero {
+  display: block;
+  font-size: 12vw;
+  line-height: .9;
+  opacity: .12;
+  font-weight: 900;
+}
+
+.texto-lado h2 {
+  font-family: "MuseoModerno", sans-serif;
+  font-size: 7vw;
+  line-height: .9;
   margin-bottom: 20px;
 }
 
-.email-grandote {
-  font-family: 'IBM Plex Mono', monospace;
+.texto-lado p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* CONTACTO */
+
+.contacto {
+  background: #111;
+}
+
+.contacto-contenido {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 8vw;
+}
+
+.contacto-contenido h2 {
   font-size: 5vw;
-  color: #ECECEC;
-  text-decoration: underline;
-  font-weight: 600;
-  display: inline-block;
+  margin-bottom: 30px;
 }
 
-.redes-footer {
-  margin-top: 60px;
-}
-
-.redes-footer a {
-  color: #ECECEC;
+.email {
+  color: white;
+  font-size: 4vw;
   text-decoration: none;
-  margin: 0 20px;
-  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.redes {
+  display: flex;
+  gap: 30px;
+}
+
+.redes a {
+  color: white;
+  text-decoration: none;
   text-transform: uppercase;
-  font-size: 0.9rem;
-  transition: opacity 0.3s;
+  font-size: .85rem;
+  letter-spacing: .1em;
 }
 
-.redes-footer a:hover {
-  opacity: 0.6;
-}
+/* MOBILE */
 
-/* 3. RESPONSIVE MÓVIL OPTIMIZADO (Mantiene la altura rígida 100vh para GSAP) */
 @media (max-width: 768px) {
-  .nav-editorial {
-    padding: 15px 4vw;
+  .nav-links {
+    display: none;
   }
-  .nav-editorial .logo {
-    font-size: 1.4rem;
+
+  .hero-title {
+    font-size: 4rem;
   }
-  .nav-links { 
-    display: flex;
-    gap: 10px;
+
+  .texto-lado h2 {
+    font-size: 3rem;
   }
-  .nav-links a {
-    margin-left: 0;
-    font-size: 0.7rem;
+
+  .texto-lado p {
+    font-size: 1rem;
   }
-  .nav-links a.link-destacado {
-    padding: 4px 10px;
+
+  .contacto-contenido h2 {
+    font-size: 2.5rem;
   }
-  .panel {
-    height: 100vh; /* Obligatorio mantener 100vh para que GSAP fije la pantalla sin saltos */
-    overflow: hidden;
+
+  .email {
+    font-size: 1.5rem;
   }
-  .contenido-story {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr; /* Estructura vertical estricta */
-    padding: 100px 6vw 20px 6vw;
-    gap: 15px;
-  }
-  .texto-lado {
-    text-align: center;
-  }
-  .texto-lado h2 { 
-    font-size: 2.2rem; 
-    margin-bottom: 8px; 
-  }
-  .texto-lado p { 
-    max-width: 100%; 
-    font-size: 0.9rem; 
-    line-height: 1.4;
-  }
-  .imagen-lado { 
-    height: 35vh; /* Reduce el tamaño de la foto para que no se desborde del viewport móvil */
-    width: 100%;
-  }
-  .marco-foto {
-    max-width: 280px;
-    max-height: 100%;
-  }
-  .marquee-gigante h1 { 
-    font-size: 2.5rem; 
-  }
-  .sub-editorial {
-    font-size: 0.85rem;
-  }
-  .contacto-full h2 {
-    font-size: 1.8rem;
-  }
-  .email-grandote { 
-    font-size: 1.4rem; 
-  }
-  .redes-footer {
-    margin-top: 30px;
-  }
-  .redes-footer a {
-    margin: 0 10px;
-    font-size: 0.75rem;
+
+  .scene {
+    height: 250vh;
   }
 }
