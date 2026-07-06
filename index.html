@@ -103,27 +103,33 @@
   </div>
 
   <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING -->
+  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING (CORREGIDO) -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Seleccionamos todos los paneles
       const paneles = gsap.utils.toArray('.panel');
 
-      // Creamos el efecto donde las secciones se apilan rígidamente
       paneles.forEach((panel, i) => {
-        // No bloqueamos el último panel (contacto) para que termine de manera natural
+        // Asignamos capas de profundidad incrementales para que cada panel tape al anterior limpiamente
+        gsap.set(panel, { zIndex: i + 1 });
+
+        // No bloqueamos el último panel (contacto) para que fluya de manera natural al final
         if (i < paneles.length - 1) {
           ScrollTrigger.create({
             trigger: panel,
             start: "top top",
+            end: "bottom top", // Define el punto exacto de finalización de la fijación
             pin: true,
-            pinSpacing: false, // Evita espacios vacíos entre transiciones
-            scrub: true
+            pinSpacing: false, // Mantiene el apilado rígido tipo revista sin huecos en blanco
+            scrub: true,
+            anticipatePin: 1,  // Evita el parpadeo visual en celulares y pantallas a 120Hz
+            invalidateOnRefresh: true // Recalcula posiciones si el usuario rota la pantalla del celular
           });
         }
       });
     });
   </script>
+
 
 </body>
