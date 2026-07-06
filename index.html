@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valeria Hernández | Portafolio 2026</title>
   
-  <!-- FUENTES EDITORIALES -->
-  <link rel="preconnect" href="https://googleapis.com">
-  <link rel="preconnect" href="https://gstatic.com" crossorigin>
-  <link href="https://googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;700&family=MuseoModerno:wght@700;900&display=swap" rel="stylesheet">
+  <!-- FUENTES EDITORIALES (Corregidas) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;700&family=MuseoModerno:wght@700;900&display=swap" rel="stylesheet">
 
-  <!-- LIBRERÍAS DE ANIMACIÓN (GSAP & ScrollTrigger) -->
+  <!-- LIBRERÍAS DE ANIMACIÓN (Rutas CDN de GSAP Corregidas) -->
   <script src="https://cloudflare.com"></script>
   <script src="https://cloudflare.com"></script>
 
@@ -28,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* MENÚ FIJO EDITORIAL (Corregido para visibilidad absoluta) */
+    /* MENÚ FIJO EDITORIAL */
     .nav-editorial {
       display: flex;
       justify-content: space-between;
@@ -366,7 +366,7 @@
 
   </div>
 
-  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING (OPTIMIZADO) -->
+  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       gsap.registerPlugin(ScrollTrigger);
@@ -383,3 +383,16 @@
             trigger: panel,
             start: "top top",
             end: "bottom top",
+            pin: true,
+            pinSpacing: false, 
+            scrub: true,
+            anticipatePin: 1,  
+            invalidateOnRefresh: true 
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
