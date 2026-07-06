@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-/* MENÚ FIJO EDITORIAL */
+/* 1. MENÚ FIJO EDITORIAL (Corregido para ser visible) */
 .nav-editorial {
   display: flex;
   justify-content: space-between;
@@ -20,8 +20,10 @@ body {
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: 1000;
-  mix-blend-mode: difference; /* Efecto Magnolia: cambia de color según el fondo */
+  z-index: 2000; /* Aumentado para estar siempre por encima de los paneles */
+  background-color: rgba(236, 236, 236, 0.85); /* Fondo sutil para legibilidad */
+  backdrop-filter: blur(10px); /* Desenfoque moderno de fondo */
+  border-bottom: 1px solid rgba(26, 26, 26, 0.1);
 }
 
 .nav-editorial .logo {
@@ -29,6 +31,7 @@ body {
   font-weight: 900;
   font-size: 1.8rem;
   color: #1A1A1A;
+  text-decoration: none;
 }
 
 .nav-links a {
@@ -39,6 +42,11 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.6;
 }
 
 .nav-links a.link-destacado {
@@ -47,7 +55,12 @@ body {
   border-radius: 30px;
 }
 
-/* CONFIGURACIÓN DE PANELES STORYSCROLLING */
+/* 2. CONTENEDOR Y PANELES (Ajustes de profundidad para GSAP) */
+#story-container {
+  position: relative;
+  width: 100%;
+}
+
 .panel {
   width: 100vw;
   height: 100vh;
@@ -57,6 +70,7 @@ body {
   position: relative;
   background-color: #ECECEC;
   border-bottom: 1px solid #1A1A1A;
+  z-index: 1; /* Posicionamiento base */
 }
 
 /* Alternamos el fondo para marcar las transiciones de historia */
@@ -67,6 +81,7 @@ body {
 /* INTRO PORTADA */
 .intro-panel {
   text-align: center;
+  padding-top: 80px;
 }
 
 .marquee-gigante h1 {
@@ -84,13 +99,13 @@ body {
   letter-spacing: 0.1em;
 }
 
-/* DISTRIBUCIÓN LADO A LADO INTERNA */
+/* DISTRIBUCIÓN INTERNA LADO A LADO */
 .contenido-story {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
   height: 100%;
-  padding: 10vh 6vw 4vh 6vw;
+  padding: 12vh 6vw 4vh 6vw;
   align-items: center;
   gap: 4vw;
 }
@@ -148,14 +163,16 @@ body {
   object-fit: cover;
 }
 
-/* PANEL FINAL: CONTACTO */
+/* PANEL FINAL: CONTACTO (Z-index superior para cierre de scroll) */
 .contacto-panel {
   background-color: #1A1A1A !important;
   color: #ECECEC;
+  z-index: 2; 
 }
 
 .contacto-full {
   text-align: center;
+  padding-top: 80px;
 }
 
 .contacto-full h2 {
@@ -170,6 +187,7 @@ body {
   color: #ECECEC;
   text-decoration: underline;
   font-weight: 600;
+  display: inline-block;
 }
 
 .redes-footer {
@@ -183,18 +201,45 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.9rem;
+  transition: opacity 0.3s;
 }
 
-/* RESPONSIVE PARA DISPOSITIVOS MÓVILES */
+.redes-footer a:hover {
+  opacity: 0.6;
+}
+
+/* 3. RESPONSIVE COMPLETO PARA CELULARES */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .nav-editorial {
+    padding: 15px 4vw;
+  }
+  .nav-editorial .logo {
+    font-size: 1.4rem;
+  }
+  .nav-links { 
+    display: flex;
+    gap: 10px;
+  }
+  .nav-links a {
+    margin-left: 0;
+    font-size: 0.7rem;
+  }
+  .nav-links a.link-destacado {
+    padding: 4px 10px;
+  }
+  .panel {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
   .contenido-story {
     grid-template-columns: 1fr;
-    padding-top: 15vh;
+    padding-top: 100px;
+    gap: 20px;
   }
-  .texto-lado h2 { font-size: 2.5rem; }
-  .texto-lado p { max-width: 100%; font-size: 1rem; }
-  .imagen-lado { height: 40vh; }
-  .marquee-gigante h1 { font-size: 3rem; }
+  .texto-lado h2 { font-size: 2rem; margin-bottom: 10px; }
+  .texto-lado p { max-width: 100%; font-size: 0.95rem; }
+  .imagen-lado { height: 45vh; }
+  .marquee-gigante h1 { font-size: 2.5rem; }
   .email-grandote { font-size: 1.8rem; }
 }
