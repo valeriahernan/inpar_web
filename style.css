@@ -30,7 +30,7 @@ body {
 }
 
 .logo {
-  font-family: "Emilys Candy", serif;
+  font-family: "MuseoModerno", sans-serif;
   font-size: 1.6rem;
   font-weight: 900;
 }
@@ -73,7 +73,7 @@ body {
 }
 
 .hero-title {
-  font-family: "Emilys Candy", serif;
+  font-family: "MuseoModerno", sans-serif;
   font-size: 10vw;
   line-height: .85;
 }
@@ -123,7 +123,7 @@ body {
 }
 
 .texto-lado h2 {
-  font-family: "Emilys Candy", serif;
+  font-family: "MuseoModerno", sans-serif;
   font-size: 7vw;
   line-height: .9;
   margin-bottom: 20px;
