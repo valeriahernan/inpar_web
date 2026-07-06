@@ -1,3 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valeria Hernández | Portafolio 2026</title>
+  
+  <!-- FUENTES EDITORIALES -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;700&family=MuseoModerno:wght@700;900&display=swap" rel="stylesheet">
+
+  <!-- LIBRERÍAS DE ANIMACIÓN (GSAP & ScrollTrigger) -->
+  <script src="https://cloudflare.com"></script>
+  <script src="https://cloudflare.com"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ECECEC;
+      color: #1A1A1A;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* MENÚ FIJO EDITORIAL (Corregido para visibilidad absoluta) */
+    .nav-editorial {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 4vw;
+      position: fixed;
+      top: 0;
+      width: 100vw;
+      z-index: 2000; 
+      background-color: rgba(236, 236, 236, 0.85); 
+      backdrop-filter: blur(10px); 
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    }
+
+    .nav-editorial .logo {
+      font-family: 'MuseoModerno', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1A1A1A;
+      margin-left: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.6;
+    }
+
+    .nav-links a.link-destacado {
+      border: 1px solid #1A1A1A;
+      padding: 6px 16px;
+      border-radius: 30px;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    #story-container {
+      position: relative;
+      width: 100%;
+    }
+
+    /* CONFIGURACIÓN DE PANELES STORYSCROLLING */
+    .panel {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: #ECECEC;
+      border-bottom: 1px solid #1A1A1A;
+      z-index: 1; 
+    }
+
+    .panel:nth-child(even) {
+      background-color: #F4F4F4;
+    }
+
+    /* INTRO PORTADA */
+    .intro-panel {
+      text-align: center;
+      padding-top: 80px;
+    }
+
+    .marquee-gigante h1 {
+      font-family: 'MuseoModerno', sans-serif;
+      font-size: 8vw;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+    }
+
+    .sub-editorial {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.1rem;
+      margin-top: 20px;
+      letter-spacing: 0.1em;
+    }
+
+    /* DISTRIBUCIÓN LADO A LADO INTERNA */
+    .contenido-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      height: 100%;
+      padding: 12vh 6vw 4vh 6vw;
+      align-items: center;
+      gap: 4vw;
+    }
+
+    .texto-lado {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .numero {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.2rem;
+      opacity: 0.5;
+      margin-bottom: 10px;
+    }
+
+    .texto-lado h2 {
+      font-family: 'MuseoModerno', sans-serif;
+      font-size: 4.5vw;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 25px;
+    }
+
+    .texto-lado p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      max-width: 85%;
+      opacity: 0.8;
+    }
+
+    /* CONTENEDOR DE IMAGEN TIPO REVISTA */
+    .imagen-lado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 70vh;
+    }
+
+    .marco-foto {
+      width: 100%;
+      height: 100%;
+      max-width: 450px;
+      max-height: 550px;
+      overflow: hidden;
+      border: 1px solid #1A1A1A;
+      background-color: #DDD;
+    }
+
+    .marco-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* PANEL FINAL: CONTACTO */
+    .contacto-panel {
+      background-color: #1A1A1A !important;
+      color: #ECECEC;
+      z-index: 2; 
+    }
+
+    .contacto-full {
+      text-align: center;
+      padding-top: 80px;
+    }
+
+    .contacto-full h2 {
+      font-family: 'MuseoModerno', sans-serif;
+      font-size: 4vw;
+      margin-bottom: 20px;
+    }
+
+    .email-grandote {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 5vw;
+      color: #ECECEC;
+      text-decoration: underline;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .redes-footer {
+      margin-top: 60px;
+    }
+
+    .redes-footer a {
+      color: #ECECEC;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      transition: opacity 0.3s;
+    }
+
+    .redes-footer a:hover {
+      opacity: 0.6;
+    }
+
+    /* RESPONSIVE OPTIMIZADO PARA DISPOSITIVOS MÓVILES */
+    @media (max-width: 768px) {
+      .nav-editorial {
+        padding: 15px 4vw;
+      }
+      .nav-editorial .logo {
+        font-size: 1.4rem;
+      }
+      .nav-links { 
+        display: flex;
+        gap: 10px;
+      }
+      .nav-links a {
+        margin-left: 0;
+        font-size: 0.7rem;
+      }
+      .nav-links a.link-destacado {
+        padding: 4px 10px;
+      }
+      .panel {
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: 40px;
+      }
+      .contenido-story {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        gap: 20px;
+      }
+      .texto-lado h2 { font-size: 2rem; margin-bottom: 10px; }
+      .texto-lado p { max-width: 100%; font-size: 0.95rem; }
+      .imagen-lado { height: 45vh; }
+      .marquee-gigante h1 { font-size: 2.5rem; }
+      .email-grandote { font-size: 1.8rem; }
+    }
+  </style>
+</head>
 <body>
 
   <!-- NAVEGACIÓN MINIMALISTA FIJA -->
@@ -102,8 +366,7 @@
 
   </div>
 
-  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING -->
-  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING (CORREGIDO) -->
+  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING (OPTIMIZADO) -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       gsap.registerPlugin(ScrollTrigger);
@@ -111,25 +374,12 @@
       const paneles = gsap.utils.toArray('.panel');
 
       paneles.forEach((panel, i) => {
-        // Asignamos capas de profundidad incrementales para que cada panel tape al anterior limpiamente
+        // Profundidades incrementales automáticas para apilamiento rígido
         gsap.set(panel, { zIndex: i + 1 });
 
-        // No bloqueamos el último panel (contacto) para que fluya de manera natural al final
+        // No bloqueamos el último panel para un cierre fluido de página
         if (i < paneles.length - 1) {
           ScrollTrigger.create({
             trigger: panel,
             start: "top top",
-            end: "bottom top", // Define el punto exacto de finalización de la fijación
-            pin: true,
-            pinSpacing: false, // Mantiene el apilado rígido tipo revista sin huecos en blanco
-            scrub: true,
-            anticipatePin: 1,  // Evita el parpadeo visual en celulares y pantallas a 120Hz
-            invalidateOnRefresh: true // Recalcula posiciones si el usuario rota la pantalla del celular
-          });
-        }
-      });
-    });
-  </script>
-
-
-</body>
+            end: "bottom top",
