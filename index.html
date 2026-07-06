@@ -1,165 +1,129 @@
-<!DOCTYPE html>
-<html lang="es">
+<body>
 
-<head>
+  <!-- NAVEGACIÓN MINIMALISTA FIJA -->
+  <nav class="nav-editorial">
+    <div class="logo">INPAR*</div>
+    <div class="nav-links">
+      <a href="#arte">Arte</a>
+      <a href="#multimedia">Multimedia</a>
+      <a href="#diseno">Diseño</a>
+      <a href="#musica">Música</a>
+      <a href="#contacto" class="link-destacado">Contacto</a>
+    </div>
+  </nav>
 
-  <!-- ==========================================================
-       META
-  =========================================================== -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- CONTENEDOR PRINCIPAL DE STORYSCROLLING -->
+  <div id="story-container">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <!-- SECCIÓN INTRO / MARQUESINA -->
+    <section class="panel intro-panel">
+      <div class="marquee-gigante">
+        <h1>VALERIA HERNÁNDEZ</h1>
+        <p class="sub-editorial">PORTAFOLIO MULTIDISCIPLINAR / EDICIÓN 2026</p>
+      </div>
+    </section>
 
-  <title>INPAR | Artista Multimedia · Diseño · Música · Dibujo · Animación</title>
+    <!-- SECCIÓN 01: ARTE -->
+    <section id="arte" class="panel">
+      <div class="contenido-story">
+        <div class="texto-lado">
+          <span class="numero">01</span>
+          <h2>Arte</h2>
+          <p>Exploraciones gráficas, dibujo contemporáneo y obras analógicas con sensibilidad editorial.</p>
+        </div>
+        <div class="imagen-lado">
+          <div class="marco-foto">
+            <img src="assets/images/arte-1.jpg" alt="Arte Valeria Hernández">
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <meta name="description"
-        content="Portafolio de Valeria Hernández. Artista multimedia especializada en artes visuales, diseño, música, dibujo, animación y experiencias digitales.">
+    <!-- SECCIÓN 02: MULTIMEDIA -->
+    <section id="multimedia" class="panel">
+      <div class="contenido-story">
+        <div class="texto-lado">
+          <span class="numero">02</span>
+          <h2>Multimedia</h2>
+          <p>Instalaciones interactivas, nuevos medios y el desarrollo de experiencias digitales inmersivas.</p>
+        </div>
+        <div class="imagen-lado">
+          <div class="marco-foto">
+            <img src="assets/images/multimedia-1.jpg" alt="Multimedia INPAR">
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <meta name="author"
-        content="Valeria Hernández">
+    <!-- SECCIÓN 03: DISEÑO -->
+    <section id="diseno" class="panel">
+      <div class="contenido-story">
+        <div class="texto-lado">
+          <span class="numero">03</span>
+          <h2>Diseño</h2>
+          <p>Dirección de arte, diseño editorial rígido y maquetación de identidades visuales fuertes.</p>
+        </div>
+        <div class="imagen-lado">
+          <div class="marco-foto">
+            <img src="assets/images/diseno-1.jpg" alt="Diseño INPAR">
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <meta name="keywords"
-        content="Valeria Hernández, artista multimedia, diseño gráfico, arte digital, dirección de arte, música, dibujo, animación, diseño web, Chile">
+    <!-- SECCIÓN 04: MÚSICA -->
+    <section id="musica" class="panel">
+      <div class="contenido-story">
+        <div class="texto-lado">
+          <span class="numero">04</span>
+          <h2>Música</h2>
+          <p>Composición experimental, piezas de diseño sonoro y paisajes acústicos intangibles.</p>
+        </div>
+        <div class="imagen-lado">
+          <div class="marco-foto">
+            <img src="assets/images/musica-1.jpg" alt="Música Valeria">
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <meta name="theme-color"
-        content="#ECECEC">
+    <!-- SECCIÓN 05: CONTACTO -->
+    <section id="contacto" class="panel contacto-panel">
+      <div class="contacto-full">
+        <h2>¿Creamos algo juntos?</h2>
+        <a href="mailto:hola@inpar.cl" class="email-grandote">hola@inpar.cl</a>
+        <div class="redes-footer">
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Behance</a>
+        </div>
+      </div>
+    </section>
 
-  <meta name="color-scheme"
-        content="light">
+  </div>
 
-  <meta name="robots"
-        content="index, follow">
+  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      gsap.registerPlugin(ScrollTrigger);
 
-  <!-- ==========================================================
-       OPEN GRAPH
-  =========================================================== -->
+      // Seleccionamos todos los paneles
+      const paneles = gsap.utils.toArray('.panel');
 
-  <meta property="og:type"
-        content="website">
-
-  <meta property="og:title"
-        content="INPAR">
-
-  <meta property="og:description"
-        content="Artes Visuales · Diseño · Música · Dibujo · Animación">
-
-  <meta property="og:image"
-        content="assets/images/social-cover.jpg">
-
-  <meta property="og:url"
-        content="https://www.inpar.cl">
-
-  <meta property="og:site_name"
-        content="INPAR">
-
-  <!-- ==========================================================
-       TWITTER
-  =========================================================== -->
-
-  <meta name="twitter:card"
-        content="summary_large_image">
-
-  <meta name="twitter:title"
-        content="INPAR">
-
-  <meta name="twitter:description"
-        content="Artes Visuales · Diseño · Música · Dibujo · Animación">
-
-  <meta name="twitter:image"
-        content="assets/images/social-cover.jpg">
-
-  <!-- ==========================================================
-       FAVICONS
-  =========================================================== -->
-
-  <link rel="icon"
-        type="image/png"
-        href="assets/images/favicon.png">
-
-  <link rel="apple-touch-icon"
-        href="assets/images/apple-touch-icon.png">
-
-  <!-- ==========================================================
-       PRECONNECT
-  =========================================================== -->
-
-  <link rel="preconnect"
-        href="https://fonts.googleapis.com">
-
-  <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-  <!-- ==========================================================
-       GOOGLE FONTS
-  =========================================================== -->
-
-  <!-- MuseoModerno -->
-  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
-  <!-- Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-  <!-- IBM Plex Mono -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-
-  <!-- ==========================================================
-       LOCOMOTIVE / LENIS (más adelante elegiremos uno)
-  =========================================================== -->
-
-  <!--
-  <link rel="stylesheet"
-        href="https://unpkg.com/lenis/dist/lenis.css">
-  -->
-
-  <!-- ==========================================================
-       GSAP
-  =========================================================== -->
-
-  <script defer
-          src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js">
+      // Creamos el efecto donde las secciones se apilan rígidamente
+      paneles.forEach((panel, i) => {
+        // No bloqueamos el último panel (contacto) para que termine de manera natural
+        if (i < paneles.length - 1) {
+          ScrollTrigger.create({
+            trigger: panel,
+            start: "top top",
+            pin: true,
+            pinSpacing: false, // Evita espacios vacíos entre transiciones
+            scrub: true
+          });
+        }
+      });
+    });
   </script>
 
-  <script defer
-          src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js">
-  </script>
-
-  <!-- ==========================================================
-       SPLITTING.JS
-  =========================================================== -->
-
-  <link rel="stylesheet"
-        href="https://unpkg.com/splitting/dist/splitting.css">
-
-  <script defer
-          src="https://unpkg.com/splitting/dist/splitting.min.js">
-  </script>
-
-  <!-- ==========================================================
-       THREE.JS
-  =========================================================== -->
-
-  <script type="module"
-          src="https://cdn.jsdelivr.net/npm/three@0.181.1/build/three.module.js">
-  </script>
-
-  <!-- ==========================================================
-       REMIX ICONS
-  =========================================================== -->
-
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
-
-  <!-- ==========================================================
-       STYLES
-  =========================================================== -->
-
-  <link rel="stylesheet"
-        href="style.css">
-
-</head>
+</body>
