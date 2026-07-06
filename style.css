@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-/* 1. MENÚ FIJO EDITORIAL (Corregido para ser visible) */
+/* 1. MENÚ FIJO EDITORIAL */
 .nav-editorial {
   display: flex;
   justify-content: space-between;
@@ -20,9 +20,9 @@ body {
   position: fixed;
   top: 0;
   width: 100vw;
-  z-index: 2000; /* Aumentado para estar siempre por encima de los paneles */
-  background-color: rgba(236, 236, 236, 0.85); /* Fondo sutil para legibilidad */
-  backdrop-filter: blur(10px); /* Desenfoque moderno de fondo */
+  z-index: 2000; 
+  background-color: rgba(236, 236, 236, 0.85); 
+  backdrop-filter: blur(10px); 
   border-bottom: 1px solid rgba(26, 26, 26, 0.1);
 }
 
@@ -55,7 +55,7 @@ body {
   border-radius: 30px;
 }
 
-/* 2. CONTENEDOR Y PANELES (Ajustes de profundidad para GSAP) */
+/* 2. CONTENEDOR Y PANELES */
 #story-container {
   position: relative;
   width: 100%;
@@ -70,10 +70,9 @@ body {
   position: relative;
   background-color: #ECECEC;
   border-bottom: 1px solid #1A1A1A;
-  z-index: 1; /* Posicionamiento base */
+  z-index: 1; 
 }
 
-/* Alternamos el fondo para marcar las transiciones de historia */
 .panel:nth-child(even) {
   background-color: #F4F4F4;
 }
@@ -163,7 +162,7 @@ body {
   object-fit: cover;
 }
 
-/* PANEL FINAL: CONTACTO (Z-index superior para cierre de scroll) */
+/* PANEL FINAL: CONTACTO */
 .contacto-panel {
   background-color: #1A1A1A !important;
   color: #ECECEC;
@@ -208,7 +207,7 @@ body {
   opacity: 0.6;
 }
 
-/* 3. RESPONSIVE COMPLETO PARA CELULARES */
+/* 3. RESPONSIVE MÓVIL OPTIMIZADO (Mantiene la altura rígida 100vh para GSAP) */
 @media (max-width: 768px) {
   .nav-editorial {
     padding: 15px 4vw;
@@ -228,18 +227,52 @@ body {
     padding: 4px 10px;
   }
   .panel {
-    height: auto;
-    min-height: 100vh;
-    padding-bottom: 40px;
+    height: 100vh; /* Obligatorio mantener 100vh para que GSAP fije la pantalla sin saltos */
+    overflow: hidden;
   }
   .contenido-story {
     grid-template-columns: 1fr;
-    padding-top: 100px;
-    gap: 20px;
+    grid-template-rows: auto 1fr; /* Estructura vertical estricta */
+    padding: 100px 6vw 20px 6vw;
+    gap: 15px;
   }
-  .texto-lado h2 { font-size: 2rem; margin-bottom: 10px; }
-  .texto-lado p { max-width: 100%; font-size: 0.95rem; }
-  .imagen-lado { height: 45vh; }
-  .marquee-gigante h1 { font-size: 2.5rem; }
-  .email-grandote { font-size: 1.8rem; }
+  .texto-lado {
+    text-align: center;
+  }
+  .texto-lado h2 { 
+    font-size: 2.2rem; 
+    margin-bottom: 8px; 
+  }
+  .texto-lado p { 
+    max-width: 100%; 
+    font-size: 0.9rem; 
+    line-height: 1.4;
+  }
+  .imagen-lado { 
+    height: 35vh; /* Reduce el tamaño de la foto para que no se desborde del viewport móvil */
+    width: 100%;
+  }
+  .marco-foto {
+    max-width: 280px;
+    max-height: 100%;
+  }
+  .marquee-gigante h1 { 
+    font-size: 2.5rem; 
+  }
+  .sub-editorial {
+    font-size: 0.85rem;
+  }
+  .contacto-full h2 {
+    font-size: 1.8rem;
+  }
+  .email-grandote { 
+    font-size: 1.4rem; 
+  }
+  .redes-footer {
+    margin-top: 30px;
+  }
+  .redes-footer a {
+    margin: 0 10px;
+    font-size: 0.75rem;
+  }
 }
