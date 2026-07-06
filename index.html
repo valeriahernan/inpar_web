@@ -3,396 +3,191 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valeria Hernández | Portafolio 2026</title>
-  
-  <!-- FUENTES EDITORIALES (Corregidas) -->
+  <title>Valeria Hernández | Portafolio</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;700&family=MuseoModerno:wght@700;900&display=swap" rel="stylesheet">
 
-  <!-- LIBRERÍAS DE ANIMACIÓN (Rutas CDN de GSAP Corregidas) -->
-  <script src="https://cloudflare.com"></script>
-  <script src="https://cloudflare.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;700&family=MuseoModerno:wght@700;900&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <link rel="stylesheet" href="style.css">
 
-    body {
-      background-color: #ECECEC;
-      color: #1A1A1A;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* MENÚ FIJO EDITORIAL */
-    .nav-editorial {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 4vw;
-      position: fixed;
-      top: 0;
-      width: 100vw;
-      z-index: 2000; 
-      background-color: rgba(236, 236, 236, 0.85); 
-      backdrop-filter: blur(10px); 
-      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
-    }
-
-    .nav-editorial .logo {
-      font-family: 'MuseoModerno', sans-serif;
-      font-weight: 900;
-      font-size: 1.8rem;
-      color: #1A1A1A;
-      text-decoration: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #1A1A1A;
-      margin-left: 30px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: opacity 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      opacity: 0.6;
-    }
-
-    .nav-links a.link-destacado {
-      border: 1px solid #1A1A1A;
-      padding: 6px 16px;
-      border-radius: 30px;
-    }
-
-    /* CONTENEDOR PRINCIPAL */
-    #story-container {
-      position: relative;
-      width: 100%;
-    }
-
-    /* CONFIGURACIÓN DE PANELES STORYSCROLLING */
-    .panel {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color: #ECECEC;
-      border-bottom: 1px solid #1A1A1A;
-      z-index: 1; 
-    }
-
-    .panel:nth-child(even) {
-      background-color: #F4F4F4;
-    }
-
-    /* INTRO PORTADA */
-    .intro-panel {
-      text-align: center;
-      padding-top: 80px;
-    }
-
-    .marquee-gigante h1 {
-      font-family: 'MuseoModerno', sans-serif;
-      font-size: 8vw;
-      font-weight: 900;
-      letter-spacing: -0.05em;
-      line-height: 0.9;
-    }
-
-    .sub-editorial {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.1rem;
-      margin-top: 20px;
-      letter-spacing: 0.1em;
-    }
-
-    /* DISTRIBUCIÓN LADO A LADO INTERNA */
-    .contenido-story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      width: 100%;
-      height: 100%;
-      padding: 12vh 6vw 4vh 6vw;
-      align-items: center;
-      gap: 4vw;
-    }
-
-    .texto-lado {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .numero {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.2rem;
-      opacity: 0.5;
-      margin-bottom: 10px;
-    }
-
-    .texto-lado h2 {
-      font-family: 'MuseoModerno', sans-serif;
-      font-size: 4.5vw;
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 25px;
-    }
-
-    .texto-lado p {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      max-width: 85%;
-      opacity: 0.8;
-    }
-
-    /* CONTENEDOR DE IMAGEN TIPO REVISTA */
-    .imagen-lado {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 70vh;
-    }
-
-    .marco-foto {
-      width: 100%;
-      height: 100%;
-      max-width: 450px;
-      max-height: 550px;
-      overflow: hidden;
-      border: 1px solid #1A1A1A;
-      background-color: #DDD;
-    }
-
-    .marco-foto img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* PANEL FINAL: CONTACTO */
-    .contacto-panel {
-      background-color: #1A1A1A !important;
-      color: #ECECEC;
-      z-index: 2; 
-    }
-
-    .contacto-full {
-      text-align: center;
-      padding-top: 80px;
-    }
-
-    .contacto-full h2 {
-      font-family: 'MuseoModerno', sans-serif;
-      font-size: 4vw;
-      margin-bottom: 20px;
-    }
-
-    .email-grandote {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 5vw;
-      color: #ECECEC;
-      text-decoration: underline;
-      font-weight: 600;
-      display: inline-block;
-    }
-
-    .redes-footer {
-      margin-top: 60px;
-    }
-
-    .redes-footer a {
-      color: #ECECEC;
-      text-decoration: none;
-      margin: 0 20px;
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      transition: opacity 0.3s;
-    }
-
-    .redes-footer a:hover {
-      opacity: 0.6;
-    }
-
-    /* RESPONSIVE OPTIMIZADO PARA DISPOSITIVOS MÓVILES */
-    @media (max-width: 768px) {
-      .nav-editorial {
-        padding: 15px 4vw;
-      }
-      .nav-editorial .logo {
-        font-size: 1.4rem;
-      }
-      .nav-links { 
-        display: flex;
-        gap: 10px;
-      }
-      .nav-links a {
-        margin-left: 0;
-        font-size: 0.7rem;
-      }
-      .nav-links a.link-destacado {
-        padding: 4px 10px;
-      }
-      .panel {
-        height: auto;
-        min-height: 100vh;
-        padding-bottom: 40px;
-      }
-      .contenido-story {
-        grid-template-columns: 1fr;
-        padding-top: 100px;
-        gap: 20px;
-      }
-      .texto-lado h2 { font-size: 2rem; margin-bottom: 10px; }
-      .texto-lado p { max-width: 100%; font-size: 0.95rem; }
-      .imagen-lado { height: 45vh; }
-      .marquee-gigante h1 { font-size: 2.5rem; }
-      .email-grandote { font-size: 1.8rem; }
-    }
-  </style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-  <!-- NAVEGACIÓN MINIMALISTA FIJA -->
-  <nav class="nav-editorial">
-    <div class="logo">INPAR*</div>
-    <div class="nav-links">
-      <a href="#arte">Arte</a>
-      <a href="#multimedia">Multimedia</a>
-      <a href="#diseno">Diseño</a>
-      <a href="#musica">Música</a>
-      <a href="#contacto" class="link-destacado">Contacto</a>
+<nav class="nav-editorial">
+  <div class="logo">INPAR*</div>
+
+  <div class="nav-links">
+    <a href="#arte">Arte</a>
+    <a href="#multimedia">Multimedia</a>
+    <a href="#diseno">Diseño</a>
+    <a href="#musica">Música</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</nav>
+
+<!-- INTRO -->
+
+<section class="scene intro">
+
+  <div class="sticky-scene">
+
+    <div class="hero">
+
+      <h1 class="hero-title">
+        VALERIA<br>
+        HERNÁNDEZ
+      </h1>
+
+      <p class="hero-subtitle">
+        PORTAFOLIO MULTIDISCIPLINAR · EDICIÓN 2026
+      </p>
+
     </div>
-  </nav>
-
-  <!-- CONTENEDOR PRINCIPAL DE STORYSCROLLING -->
-  <div id="story-container">
-
-    <!-- SECCIÓN INTRO / MARQUESINA -->
-    <section class="panel intro-panel">
-      <div class="marquee-gigante">
-        <h1>VALERIA HERNÁNDEZ</h1>
-        <p class="sub-editorial">PORTAFOLIO MULTIDISCIPLINAR / EDICIÓN 2026</p>
-      </div>
-    </section>
-
-    <!-- SECCIÓN 01: ARTE -->
-    <section id="arte" class="panel">
-      <div class="contenido-story">
-        <div class="texto-lado">
-          <span class="numero">01</span>
-          <h2>Arte</h2>
-          <p>Exploraciones gráficas, dibujo contemporáneo y obras analógicas con sensibilidad editorial.</p>
-        </div>
-        <div class="imagen-lado">
-          <div class="marco-foto">
-            <img src="assets/images/arte-1.jpg" alt="Arte Valeria Hernández">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN 02: MULTIMEDIA -->
-    <section id="multimedia" class="panel">
-      <div class="contenido-story">
-        <div class="texto-lado">
-          <span class="numero">02</span>
-          <h2>Multimedia</h2>
-          <p>Instalaciones interactivas, nuevos medios y el desarrollo de experiencias digitales inmersivas.</p>
-        </div>
-        <div class="imagen-lado">
-          <div class="marco-foto">
-            <img src="assets/images/multimedia-1.jpg" alt="Multimedia INPAR">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN 03: DISEÑO -->
-    <section id="diseno" class="panel">
-      <div class="contenido-story">
-        <div class="texto-lado">
-          <span class="numero">03</span>
-          <h2>Diseño</h2>
-          <p>Dirección de arte, diseño editorial rígido y maquetación de identidades visuales fuertes.</p>
-        </div>
-        <div class="imagen-lado">
-          <div class="marco-foto">
-            <img src="assets/images/diseno-1.jpg" alt="Diseño INPAR">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN 04: MÚSICA -->
-    <section id="musica" class="panel">
-      <div class="contenido-story">
-        <div class="texto-lado">
-          <span class="numero">04</span>
-          <h2>Música</h2>
-          <p>Composición experimental, piezas de diseño sonoro y paisajes acústicos intangibles.</p>
-        </div>
-        <div class="imagen-lado">
-          <div class="marco-foto">
-            <img src="assets/images/musica-1.jpg" alt="Música Valeria">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN 05: CONTACTO -->
-    <section id="contacto" class="panel contacto-panel">
-      <div class="contacto-full">
-        <h2>¿Creamos algo juntos?</h2>
-        <a href="mailto:hola@inpar.cl" class="email-grandote">hola@inpar.cl</a>
-        <div class="redes-footer">
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Behance</a>
-        </div>
-      </div>
-    </section>
 
   </div>
 
-  <!-- SCRIPT SÚPER GSAP DE STORYSCROLLING -->
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      gsap.registerPlugin(ScrollTrigger);
+</section>
 
-      const paneles = gsap.utils.toArray('.panel');
+<!-- ARTE -->
 
-      paneles.forEach((panel, i) => {
-        // Profundidades incrementales automáticas para apilamiento rígido
-        gsap.set(panel, { zIndex: i + 1 });
+<section id="arte" class="scene">
 
-        // No bloqueamos el último panel para un cierre fluido de página
-        if (i < paneles.length - 1) {
-          ScrollTrigger.create({
-            trigger: panel,
-            start: "top top",
-            end: "bottom top",
-            pin: true,
-            pinSpacing: false, 
-            scrub: true,
-            anticipatePin: 1,  
-            invalidateOnRefresh: true 
-          });
-        }
-      });
-    });
-  </script>
+  <div class="sticky-scene">
+
+    <div class="bg-image">
+      <img src="assets/images/arte-1.jpg" alt="Arte">
+    </div>
+
+    <div class="texto-lado">
+
+      <span class="numero">01</span>
+
+      <h2>Arte</h2>
+
+      <p>
+        Exploraciones gráficas, dibujo contemporáneo y obras analógicas con sensibilidad editorial.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MULTIMEDIA -->
+
+<section id="multimedia" class="scene">
+
+  <div class="sticky-scene">
+
+    <div class="bg-image">
+      <img src="assets/images/multimedia-1.jpg" alt="Multimedia">
+    </div>
+
+    <div class="texto-lado">
+
+      <span class="numero">02</span>
+
+      <h2>Multimedia</h2>
+
+      <p>
+        Instalaciones interactivas, nuevos medios y experiencias digitales inmersivas.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- DISEÑO -->
+
+<section id="diseno" class="scene">
+
+  <div class="sticky-scene">
+
+    <div class="bg-image">
+      <img src="assets/images/diseno-1.jpg" alt="Diseño">
+    </div>
+
+    <div class="texto-lado">
+
+      <span class="numero">03</span>
+
+      <h2>Diseño</h2>
+
+      <p>
+        Dirección de arte, diseño editorial y construcción de identidades visuales.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MÚSICA -->
+
+<section id="musica" class="scene">
+
+  <div class="sticky-scene">
+
+    <div class="bg-image">
+      <img src="assets/images/musica-1.jpg" alt="Música">
+    </div>
+
+    <div class="texto-lado">
+
+      <span class="numero">04</span>
+
+      <h2>Música</h2>
+
+      <p>
+        Composición experimental y paisajes sonoros que expanden la experiencia visual.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTACTO -->
+
+<section id="contacto" class="scene contacto">
+
+  <div class="sticky-scene">
+
+    <div class="contacto-contenido">
+
+      <h2>¿Creamos algo juntos?</h2>
+
+      <a
+        href="mailto:hola@inpar.cl"
+        class="email"
+      >
+        hola@inpar.cl
+      </a>
+
+      <div class="redes">
+
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Behance</a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script src="script.js"></script>
 
 </body>
 </html>
