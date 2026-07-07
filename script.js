@@ -68,16 +68,16 @@ gsap.utils.toArray(".scene").forEach((scene) => {
   // Zoom lento
   images.forEach((img) => {
     gsap.to(img, {
-      scale: 1.15,
-      ease: "none",
-      scrollTrigger: {
-        trigger: scene,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    });
-  });
+    scale: 1.2,
+    yPercent: -15,
+    ease: "none",
+    scrollTrigger: {
+    trigger: scene,
+    start: "top bottom",
+    end: "bottom top",
+    scrub: true
+  }
+});
 
   // Imagen 2
   if (images[1]) {
@@ -207,4 +207,5 @@ document.querySelectorAll('.nav-links a').forEach((link) => {
       duration: 2
     });
   });
+});
 });

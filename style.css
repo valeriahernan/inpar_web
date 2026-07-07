@@ -269,4 +269,8 @@ body {
     flex-direction: column;
     gap: 15px;
   }
+
+  .layer {
+  transition: opacity 1.5s ease;
+}
 }
