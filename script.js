@@ -1,3 +1,4 @@
+```js
 // =========================
 // LENIS SMOOTH SCROLL
 // =========================
@@ -7,17 +8,7 @@ const lenis = new Lenis({
   smoothWheel: true
 });
 
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-
-requestAnimationFrame(raf);
-
-// =========================
-// GSAP
-// =========================
-
+// Integración Lenis + GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 lenis.on("scroll", ScrollTrigger.update);
@@ -61,23 +52,23 @@ gsap.to(".hero-subtitle", {
 // =========================
 
 gsap.utils.toArray(".scene").forEach((scene) => {
-
   const images = scene.querySelectorAll(".layer");
   const captions = scene.querySelectorAll(".caption");
 
-  // Zoom lento
+  // Zoom lento de las imágenes
   images.forEach((img) => {
     gsap.to(img, {
-    scale: 1.2,
-    yPercent: -15,
-    ease: "none",
-    scrollTrigger: {
-    trigger: scene,
-    start: "top bottom",
-    end: "bottom top",
-    scrub: true
-  }
-});
+      scale: 1.2,
+      yPercent: -15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: scene,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+  });
 
   // Imagen 2
   if (images[1]) {
@@ -118,6 +109,7 @@ gsap.utils.toArray(".scene").forEach((scene) => {
       {
         opacity: 1,
         y: 0,
+        ease: "none",
         scrollTrigger: {
           trigger: scene,
           start: "top center",
@@ -130,6 +122,7 @@ gsap.utils.toArray(".scene").forEach((scene) => {
     gsap.to(captions[0], {
       opacity: 0,
       y: -100,
+      ease: "none",
       scrollTrigger: {
         trigger: scene,
         start: "30% center",
@@ -150,6 +143,7 @@ gsap.utils.toArray(".scene").forEach((scene) => {
       {
         opacity: 1,
         y: 0,
+        ease: "none",
         scrollTrigger: {
           trigger: scene,
           start: "40% center",
@@ -162,6 +156,7 @@ gsap.utils.toArray(".scene").forEach((scene) => {
     gsap.to(captions[1], {
       opacity: 0,
       y: -100,
+      ease: "none",
       scrollTrigger: {
         trigger: scene,
         start: "60% center",
@@ -182,6 +177,7 @@ gsap.utils.toArray(".scene").forEach((scene) => {
       {
         opacity: 1,
         y: 0,
+        ease: "none",
         scrollTrigger: {
           trigger: scene,
           start: "70% center",
@@ -197,15 +193,15 @@ gsap.utils.toArray(".scene").forEach((scene) => {
 // MENÚ SUAVE
 // =========================
 
-document.querySelectorAll('.nav-links a').forEach((link) => {
-  link.addEventListener('click', (e) => {
+document.querySelectorAll(".nav-links a").forEach((link) => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const id = link.getAttribute('href');
+    const id = link.getAttribute("href");
 
     lenis.scrollTo(id, {
       duration: 2
     });
   });
 });
-});
+```

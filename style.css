@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -73,8 +74,12 @@ body {
 }
 
 .contacto {
-  height: 200vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
+
+/* ---------------- STICKY ---------------- */
 
 .sticky-scene {
   position: sticky;
@@ -83,9 +88,20 @@ body {
   overflow: hidden;
 }
 
+.sticky-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .35);
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* ---------------- HERO ---------------- */
 
 .hero {
+  position: relative;
+  z-index: 3;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -119,27 +135,13 @@ body {
   height: 100%;
   object-fit: cover;
   opacity: 0;
+  z-index: 0;
+  transition: opacity 1.5s ease;
+  will-change: transform, opacity;
 }
 
 .layer:first-child {
   opacity: 1;
-}
-
-.layer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-}
-
-/* Oscurecedor */
-
-.sticky-scene::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-  z-index: 2;
 }
 
 /* ---------------- TEXTOS ---------------- */
@@ -149,7 +151,7 @@ body {
   left: 8vw;
   bottom: 15vh;
   max-width: 600px;
-  z-index: 10;
+  z-index: 3;
   opacity: 0;
 }
 
@@ -184,11 +186,8 @@ body {
 /* ---------------- CONTACTO ---------------- */
 
 .contacto-contenido {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 8vw;
+  width: 100%;
+  padding: 0 8vw;
 }
 
 .contacto-contenido h2 {
@@ -199,6 +198,7 @@ body {
 }
 
 .email {
+  display: inline-block;
   color: white;
   text-decoration: none;
   font-size: 4vw;
@@ -217,6 +217,7 @@ body {
   letter-spacing: .12em;
   font-size: .8rem;
   opacity: .7;
+  transition: opacity .3s;
 }
 
 .redes a:hover {
@@ -226,7 +227,6 @@ body {
 /* ---------------- MÓVIL ---------------- */
 
 @media (max-width: 768px) {
-
   .nav-links {
     display: none;
   }
@@ -237,6 +237,10 @@ body {
 
   .hero-title {
     font-size: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: .75rem;
   }
 
   .caption {
@@ -269,8 +273,4 @@ body {
     flex-direction: column;
     gap: 15px;
   }
-
-  .layer {
-  transition: opacity 1.5s ease;
-}
 }
