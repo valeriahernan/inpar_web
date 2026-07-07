@@ -1,4 +1,4 @@
-```js
+
 // =========================
 // LENIS SMOOTH SCROLL
 // =========================
@@ -204,4 +204,33 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     });
   });
 });
-```
+
+
+// =========================
+// CUSTOM CURSOR
+// =========================
+
+const cursor = document.querySelector(".cursor");
+const follower = document.querySelector(".cursor-follower");
+
+let mouseX = 0;
+let mouseY = 0;
+
+let posX = 0;
+let posY = 0;
+
+window.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  cursor.style.left = mouseX + "px";
+  cursor.style.top = mouseY + "px";
+});
+
+gsap.ticker.add(() => {
+  posX += (mouseX - posX) * 0.15;
+  posY += (mouseY - posY) * 0.15;
+
+  follower.style.left = posX + "px";
+  follower.style.top = posY + "px";
+});
