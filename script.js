@@ -210,27 +210,54 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 // CUSTOM CURSOR
 // =========================
 
-const cursor = document.querySelector(".cursor");
-const follower = document.querySelector(".cursor-follower");
+// =========================
+// CUBES CURSOR EFFECT
+// =========================
 
-let mouseX = 0;
-let mouseY = 0;
+const cubesEl = document.getElementById("cubes");
 
-let posX = 0;
-let posY = 0;
+const GRID = 24;
+const CUBE_LIFETIME = 800;
+const CUBE_FADE_MS = 350;
+
+const cubeMap = new Map();
+
+function snap(v) {
+  return Math.floor(v / GRID) * GRID;
+}
+
+function key(x, y) {
+  return `${x},${y}`;
+}
+
+function addCube(x, y) {
+  const k = key(x, y);
+
+  if (cubeMap.has(k)) return;
+
+  const cube = document.createElement("div");
+  cube.className = "cube";
+  cube.style.left = `${x}px`;
+  cube.style.top = `${y}px`;
+
+  cubesEl.appendChild(cube);
+  cubeMap.set(k, cube);
+
+  setTimeout(() => {
+    if (!cubeMap.has(k)) return;
+
+    cube.classList.add("is-dying");
+
+    setTimeout(() => {
+      cube.remove();
+      cubeMap.delete(k);
+    }, CUBE_FADE_MS);
+  }, CUBE_LIFETIME);
+}
 
 window.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  const x = snap(e.clientX);
+  const y = snap(e.clientY);
 
-  cursor.style.left = mouseX + "px";
-  cursor.style.top = mouseY + "px";
-});
-
-gsap.ticker.add(() => {
-  posX += (mouseX - posX) * 0.15;
-  posY += (mouseY - posY) * 0.15;
-
-  follower.style.left = posX + "px";
-  follower.style.top = posY + "px";
+  addCube(x, y);
 });

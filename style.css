@@ -275,34 +275,24 @@ body {
   }
 }
 
-.cursor,
-.cursor-follower {
+#cubes {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   pointer-events: none;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
   z-index: 9999;
 }
 
-.cursor {
-  width: 8px;
-  height: 8px;
-  background: #fff;
+.cube {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.25);
+  backdrop-filter: blur(2px);
+  transform: translate(-50%, -50%);
+  transition: opacity .35s ease;
 }
 
-.cursor-follower {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(255,255,255,.5);
-  transition: transform .3s ease;
-}
-
-/* Ocultar en móviles */
-@media (max-width: 768px) {
-  .cursor,
-  .cursor-follower {
-    display: none;
-  }
+.cube.is-dying {
+  opacity: 0;
 }
