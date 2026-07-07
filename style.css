@@ -283,11 +283,10 @@ body {
 }
 
 .cube {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: rgba(255,255,255,.18);
-  border: 1px solid rgba(255,255,255,.25);
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.12);
   backdrop-filter: blur(2px);
   transform: translate(-50%, -50%);
   transition: opacity .35s ease;
