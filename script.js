@@ -200,7 +200,7 @@ document.querySelectorAll(".scene-content").forEach(content=>{
 });
 
 // ==========================================================
-// ARTE (Desplazamiento Lateral Rápido)
+// ARTE (Desplazamiento Lateral Plano y Corregido)
 // ==========================================================
 
 const arte = document.querySelector("#arte");
@@ -216,7 +216,7 @@ if (arte) {
             trigger: arte,
             start: "top top",
             end: "bottom bottom",
-            scrub: 0.5 // Mantiene la respuesta rápida al interactuar
+            scrub: 0.5
         }
     });
 
@@ -227,37 +227,41 @@ if (arte) {
         0
     );
 
-    // 2. Desplazamiento lateral plano y veloz (Hacia los lados opuestos)
-    tl.to(leftDoor, {
-        xPercent: -100,      // Se desliza completamente hacia la izquierda fuera de la pantalla
-        opacity: 0,          // Desvanecimiento sutil para mayor suavidad visual
-        duration: 0.25,      // Duración corta para que despeje rápido el centro
-        ease: "power2.inOut"
-    }, 0);
+    // 2. Desplazamiento lateral plano hacia los extremos (Efecto Cortina)
+    if (leftDoor) {
+        tl.to(leftDoor, {
+            xPercent: -100, // Se barre completamente a la izquierda
+            opacity: 0,
+            duration: 0.25,
+            ease: "power2.inOut"
+        }, 0);
+    }
 
-    tl.to(rightDoor, {
-        xPercent: 100,       // Se desliza completamente hacia la derecha fuera de la pantalla
-        opacity: 0,
-        duration: 0.25,
-        ease: "power2.inOut"
-    }, 0);
+    if (rightDoor) {
+        tl.to(rightDoor, {
+            xPercent: 100, // Se barre completamente a la derecha
+            opacity: 0,
+            duration: 0.25,
+            ease: "power2.inOut"
+        }, 0);
+    }
 
-    // 3. Zoom coordinado en las imágenes de los paneles mientras se deslizan
+    // 3. Zoom de las imágenes mientras se deslizan
     tl.to(".panel img", {
         scale: 1.12,
         ease: "none",
         duration: 0.25
     }, 0);
 
-    // 4. Textos secuenciales (Empiezan justo después de que las imágenes salieron de pantalla)
-    if (captions[0]) {
+    // 4. Textos secuenciales (Corrección de índices e IFs estables)
+    if (captions.length > 0 && captions[0]) {
         gsap.fromTo(captions[0],
             { opacity: 0, y: 40 },
             {
                 opacity: 1, y: 0,
                 scrollTrigger: {
                     trigger: arte,
-                    start: "30% center", // Espera al 30% del scroll para mostrar el primer texto
+                    start: "28% center",
                     end: "45% center",
                     scrub: true
                 }
@@ -265,14 +269,14 @@ if (arte) {
         );
     }
 
-    if (captions[1]) {
+    if (captions.length > 1 && captions[1]) {
         gsap.fromTo(captions[1],
             { opacity: 0, y: 40 },
             {
                 opacity: 1, y: 0,
                 scrollTrigger: {
                     trigger: arte,
-                    start: "50% center",
+                    start: "48% center",
                     end: "65% center",
                     scrub: true
                 }
@@ -280,14 +284,14 @@ if (arte) {
         );
     }
 
-    if (captions[2]) {
+    if (captions.length > 2 && captions[2]) {
         gsap.fromTo(captions[2],
             { opacity: 0, y: 40 },
             {
                 opacity: 1, y: 0,
                 scrollTrigger: {
                     trigger: arte,
-                    start: "70% center",
+                    start: "68% center",
                     end: "85% center",
                     scrub: true
                 }
@@ -502,10 +506,9 @@ if (arte) {
         );
 
     }
-
 // ==========================================================
-// ESCENAS GENERALES
-// Multimedia / Diseño / Música
+// ESCENAS GENERALES (Multimedia / Diseño / Música)
+// Corrección de textos cortados y sincronización limpia
 // ==========================================================
 
 ["#multimedia", "#diseno", "#musica"].forEach((id) => {
@@ -529,146 +532,62 @@ if (arte) {
     // -----------------------
     // IMAGEN 1
     // -----------------------
-
     if (layers[0]) {
-
         tl.fromTo(
             layers[0],
-            {
-                opacity: 1,
-                scale: 1
-            },
-            {
-                opacity: 1,
-                scale: 1.12,
-                ease: "none"
-            },
+            { opacity: 1, scale: 1 },
+            { opacity: 1, scale: 1.12, ease: "none" },
             0
         );
-
     }
 
     // -----------------------
     // IMAGEN 2
     // -----------------------
-
     if (layers[1]) {
-
         tl.fromTo(
             layers[1],
-            {
-                opacity: 0,
-                scale: 1.05
-            },
-            {
-                opacity: 1,
-                scale: 1.15,
-                ease: "none"
-            },
+            { opacity: 0, scale: 1.05 },
+            { opacity: 1, scale: 1.15, ease: "none" },
             0.35
         );
-
     }
 
     // -----------------------
     // IMAGEN 3
     // -----------------------
-
     if (layers[2]) {
-
         tl.fromTo(
             layers[2],
-            {
-                opacity: 0,
-                scale: 1.05
-            },
-            {
-                opacity: 1,
-                scale: 1.18,
-                ease: "none"
-            },
+            { opacity: 0, scale: 1.05 },
+            { opacity: 1, scale: 1.18, ease: "none" },
             0.7
         );
-
     }
 
     // -----------------------
-    // TEXTOS
+    // TEXTOS SECUENCIALES (Reparado y Sincronizado)
     // -----------------------
-    // -----------------------
-    // TEXTOS (Cierre correcto del bucle que se encontraba cortado)
-    // -----------------------
-    captions.forEach((caption, i) => {
-        gsap.fromTo(
-            caption,
-            {
-                opacity: 0,
-                y: 40
-            },
-            {
-                opacity: 1,
-                y: 0,
-                scrollTrigger: {
-                    trigger: scene,
-                    // Divide el scroll de la sección equitativamente para activar cada texto
-                    start: `${(i * 30) + 10}% center`,
-                    end: `${((i + 1) * 30) + 10}% center`,
-                    scrub: true
+    if (captions.length > 0) {
+        captions.forEach((caption, i) => {
+            gsap.fromTo(
+                caption,
+                {
+                    opacity: 0,
+                    y: 30
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scrollTrigger: {
+                        trigger: scene,
+                        // Divide proporcionalmente el scroll según el número de textos
+                        start: `${(i * 25) + 15}% center`,
+                        end: `${((i + 1) * 25) + 15}% center`,
+                        scrub: true
+                    }
                 }
-            }
-        );
-    });
-}); // Cierre de forEach de escenas
-
-// ==========================================================
-// CURSOR CUBOS
-// ==========================================================
-
-const cubes = document.getElementById("cubes");
-
-if (cubes) {
-
-    const GRID = 24;
-    const LIFE = 700;
-    const FADE = 300;
-
-    const map = new Map();
-
-    const snap = (v) => Math.floor(v / GRID) * GRID;
-
-    window.addEventListener("mousemove", (e) => {
-
-        const x = snap(e.clientX);
-        const y = snap(e.clientY);
-        const key = `${x},${y}`;
-
-        if (map.has(key)) return;
-
-        const cube = document.createElement("div");
-
-        cube.className = "cube";
-        cube.style.left = `${x}px`;
-        cube.style.top = `${y}px`;
-
-        cubes.appendChild(cube);
-        map.set(key, cube);
-
-        setTimeout(() => {
-
-            cube.classList.add("is-dying");
-
-            setTimeout(() => {
-
-                cube.remove();
-                map.delete(key);
-
-            }, FADE);
-
-        }, LIFE);
-
-    });
-
-}
-window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
+            );
+        });
+    }
 });
