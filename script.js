@@ -200,7 +200,7 @@ document.querySelectorAll(".scene-content").forEach(content=>{
 });
 
 // ==========================================================
-// ARTE (Apertura de Imágenes Acelerada)
+// ARTE (Desplazamiento Lateral Rápido)
 // ==========================================================
 
 const arte = document.querySelector("#arte");
@@ -216,7 +216,7 @@ if (arte) {
             trigger: arte,
             start: "top top",
             end: "bottom bottom",
-            scrub: 0.5 // Un scrub más bajo (0.5 en vez de 1) hace que responda más instantáneamente al dedo/rueda
+            scrub: 0.5 // Mantiene la respuesta rápida al interactuar
         }
     });
 
@@ -227,59 +227,52 @@ if (arte) {
         0
     );
 
-    // 2. Apertura veloz de compuertas (Ocurre inmediatamente al iniciar y termina rápido)
+    // 2. Desplazamiento lateral plano y veloz (Hacia los lados opuestos)
     tl.to(leftDoor, {
-        rotateY: -95,
-        xPercent: -12,       // Un poco más afuera para despejar el centro rápido
-        opacity: 0,          // Se desvanece sutilmente al abrirse para un look más editorial
-        duration: 0.2,       // Duración corta dentro de la timeline = animación rápida en scroll
-        ease: "power1.out"   // Salida limpia y rápida
+        xPercent: -100,      // Se desliza completamente hacia la izquierda fuera de la pantalla
+        opacity: 0,          // Desvanecimiento sutil para mayor suavidad visual
+        duration: 0.25,      // Duración corta para que despeje rápido el centro
+        ease: "power2.inOut"
     }, 0);
 
     tl.to(rightDoor, {
-        rotateY: 95,
-        xPercent: 12,
+        xPercent: 100,       // Se desliza completamente hacia la derecha fuera de la pantalla
         opacity: 0,
-        duration: 0.2,
-        ease: "power1.out"
+        duration: 0.25,
+        ease: "power2.inOut"
     }, 0);
 
-    // 3. Zoom de las imágenes internas de los paneles (Acelerado a la par)
-    gsap.to(".panel img", {
-        scale: 1.1,
+    // 3. Zoom coordinado en las imágenes de los paneles mientras se deslizan
+    tl.to(".panel img", {
+        scale: 1.12,
         ease: "none",
-        scrollTrigger: {
-            trigger: arte,
-            start: "top top",
-            end: "25% top", // Termina el escalado al 25% del scroll de la sección
-            scrub: true
-        }
-    });
+        duration: 0.25
+    }, 0);
 
-    // 4. Textos secuenciales (Empiezan JUSTO DESPUÉS de que las puertas se abrieron por completo)
-    if(captions[0]){
+    // 4. Textos secuenciales (Empiezan justo después de que las imágenes salieron de pantalla)
+    if (captions[0]) {
         gsap.fromTo(captions[0],
             { opacity: 0, y: 40 },
             {
                 opacity: 1, y: 0,
                 scrollTrigger: {
                     trigger: arte,
-                    start: "25% center", // Espera a que las puertas se abran (pasado el 20%)
-                    end: "40% center",
+                    start: "30% center", // Espera al 30% del scroll para mostrar el primer texto
+                    end: "45% center",
                     scrub: true
                 }
             }
         );
     }
 
-    if(captions[1]){
+    if (captions[1]) {
         gsap.fromTo(captions[1],
             { opacity: 0, y: 40 },
             {
                 opacity: 1, y: 0,
                 scrollTrigger: {
                     trigger: arte,
-                    start: "45% center",
+                    start: "50% center",
                     end: "65% center",
                     scrub: true
                 }
@@ -287,7 +280,7 @@ if (arte) {
         );
     }
 
-    if(captions[2]){
+    if (captions[2]) {
         gsap.fromTo(captions[2],
             { opacity: 0, y: 40 },
             {
@@ -295,14 +288,13 @@ if (arte) {
                 scrollTrigger: {
                     trigger: arte,
                     start: "70% center",
-                    end: "90% center",
+                    end: "85% center",
                     scrub: true
                 }
             }
         );
     }
 }
-
 
     // --------------------------
     // Imagen del fondo
