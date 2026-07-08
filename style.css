@@ -1,371 +1,1023 @@
+/* ==========================================================
+   RESET
+========================================================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html{
+    scroll-behavior:auto;
 }
 
-body {
-  background: #111;
-  color: #fff;
-  font-family: "Inter", sans-serif;
-  overflow-x: hidden;
+body{
+
+    font-family:"Inter",sans-serif;
+    background:#111;
+    color:#fff;
+
+    overflow-x:hidden;
+
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+
+    transition:
+        background-color .8s ease,
+        color .8s ease;
+
 }
 
-/* ---------------- NAV ---------------- */
+/* ==========================================================
+   VARIABLES
+========================================================== */
 
-.nav-editorial {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 30px 5vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  pointer-events: none;
+:root{
+
+    --container:8vw;
+
+    --white:#ffffff;
+    --black:#111111;
+
+    --mono:"IBM Plex Mono", monospace;
+    --serif:"Times New Roman", serif;
+
 }
 
-.logo,
-.nav-links {
-  pointer-events: auto;
+/* ==========================================================
+   LINKS
+========================================================== */
+
+a{
+
+    color:inherit;
+    text-decoration:none;
+
 }
 
-.logo {
-  font-family: "Times New Roman", serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -.03em;
+/* ==========================================================
+   NAV
+========================================================== */
+
+.nav-editorial{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    padding:34px var(--container);
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    z-index:1000;
+
+    mix-blend-mode:difference;
+
 }
 
-.nav-links {
-  display: flex;
-  gap: 30px;
+.logo{
+
+    font-family:var(--serif);
+
+    font-size:1.8rem;
+
+    font-weight:700;
+
+    letter-spacing:-.03em;
+
 }
 
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: .75rem;
-  letter-spacing: .15em;
-  opacity: .8;
-  transition: opacity .3s;
+.nav-links{
+
+    display:flex;
+
+    gap:34px;
+
 }
 
-.nav-links a:hover {
-  opacity: 1;
+.nav-links a{
+
+    font-family:var(--mono);
+
+    text-transform:uppercase;
+
+    letter-spacing:.18em;
+
+    font-size:.72rem;
+
+    opacity:.75;
+
+    transition:.35s;
+
 }
 
-/* ---------------- ESCENAS ---------------- */
+.nav-links a:hover{
 
-.scene {
-  height: 400vh;
-  position: relative;
-}
-
-.intro {
-  height: 200vh;
-}
-
-.contacto {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-/* ---------------- STICKY ---------------- */
-
-.sticky-scene {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.sticky-scene::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, .35);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* ---------------- HERO ---------------- */
-
-.hero {
-  position: relative;
-  z-index: 3;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 8vw;
-}
-
-.hero-title {
-  font-family: "Times New Roman", serif;
-  font-size: 10vw;
-  font-weight: 700;
-  line-height: .82;
-  letter-spacing: -.05em;
-}
-
-.hero-subtitle {
-  margin-top: 30px;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: .85rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  opacity: .7;
-}
-
-/* ---------------- IMÁGENES ---------------- */
-
-.layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  z-index: 0;
-  transition: opacity 1.5s ease;
-  will-change: transform, opacity;
-}
-/* Imagen de fondo de Arte */
-
-#arte .layer-3{
     opacity:1;
-    z-index:0;
+
+    transform:translateY(-2px);
+
 }
 
-.layer:first-child {
-  opacity: 1;
+/* ==========================================================
+   HERO
+========================================================== */
+
+.hero{
+
+    height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 var(--container);
+
+    position:relative;
+
 }
 
-/* ---------------- SPLIT GALLERY (ARTE) ---------------- */
+.hero-content{
 
-.split-gallery {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  z-index: 2;
+    max-width:900px;
 
-  perspective: 2200px;
-  transform-style: preserve-3d;
 }
 
-.panel {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
+.hero-title{
 
-  transform-style: preserve-3d;
-  will-change: transform;
+    font-family:var(--serif);
+
+    font-size:clamp(5rem,13vw,11rem);
+
+    font-weight:700;
+
+    line-height:.82;
+
+    letter-spacing:-.06em;
+
+}
+
+.hero-subtitle{
+
+    margin-top:28px;
+
+    font-family:var(--mono);
+
+    text-transform:uppercase;
+
+    letter-spacing:.18em;
+
+    font-size:.8rem;
+
+    opacity:.65;
+
+}
+
+/* ==========================================================
+   MAIN
+========================================================== */
+
+main{
+
+    position:relative;
+
+    width:100%;
+
+}
+
+/* ==========================================================
+   SCENES
+========================================================== */
+
+.scene{
+
+    position:relative;
+
+    height:300vh;
+
+}
+
+.scene-inner{
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* ==========================================================
+   BACKGROUNDS
+========================================================== */
+
+.scene-background{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+}
+
+.layer{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+.layer-1{
+
+    opacity:1;
+
+}
+
+/* ==========================================================
+   OVERLAY
+========================================================== */
+
+.scene::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.28);
+
+    pointer-events:none;
+
+    z-index:2;
+
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.scene-content{
+
+    position:absolute;
+
+    left:var(--container);
+
+    bottom:12vh;
+
+    z-index:10;
+
+    width:min(700px,80vw);
+
+}
+
+.scene-number{
+
+    display:block;
+
+    font-family:var(--mono);
+
+    font-size:clamp(4rem,10vw,8rem);
+
+    opacity:.12;
+
+    margin-bottom:24px;
+
+}
+
+.scene-content h2{
+
+    font-family:var(--serif);
+
+    font-size:clamp(3rem,7vw,7rem);
+
+    line-height:.9;
+
+    letter-spacing:-.05em;
+
+    margin-bottom:28px;
+
+}
+
+.captions{
+
+    position:relative;
+
+    min-height:140px;
+
+}
+
+.caption{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+.caption.active{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+.caption p{
+
+    font-size:1.2rem;
+
+    line-height:1.7;
+
+    max-width:520px;
+
+}
+
+/* ==========================================================
+   SPLIT GALLERY (ARTE)
+========================================================== */
+
+.split-gallery{
+
+    position:absolute;
+    inset:0;
+
+    display:flex;
+
+    z-index:5;
+
+    perspective:2400px;
+
+    transform-style:preserve-3d;
+
+    overflow:hidden;
+
 }
 
 .panel{
-    box-shadow:0 0 60px rgba(0,0,0,.15);
+
+    position:relative;
+
+    width:50%;
+    height:100%;
+
+    overflow:hidden;
+
+    transform-style:preserve-3d;
+
+    will-change:transform;
+
 }
 
-.panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.panel img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transform:scale(1.02);
+
+    will-change:transform;
+
 }
 
-.panel-left {
-  transform-origin: left center;
+.panel-left{
+
+    transform-origin:left center;
+
 }
 
-.panel-right {
-  transform-origin: right center;
+.panel-right{
+
+    transform-origin:right center;
+
 }
 
-/* Sombras de las puertas */
-
-.panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .45;
+/* ==========================================================
+   SOMBRAS DE LAS PUERTAS
+========================================================== */
+.panel.open::before{
+    opacity:.6;
 }
 
-.panel-left::after {
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,.45),
-    transparent 55%
-  );
+.panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.35;
+
+    transition:opacity .6s;
+
 }
 
-.panel-right::after {
-  background: linear-gradient(
-    to left,
-    rgba(0,0,0,.45),
-    transparent 55%
-  );
+.panel-left::before{
+
+    background:linear-gradient(
+        to right,
+        rgba(0,0,0,.55),
+        rgba(0,0,0,0)
+    );
+
 }
 
-/* ---------------- TEXTOS ---------------- */
+.panel-right::before{
 
-.caption {
-  position: absolute;
-  left: 8vw;
-  bottom: 15vh;
-  max-width: 600px;
-  z-index: 3;
-  opacity: 0;
+    background:linear-gradient(
+        to left,
+        rgba(0,0,0,.55),
+        rgba(0,0,0,0)
+    );
+
 }
 
-.caption-1 {
-  opacity: 1;
+/* ==========================================================
+   VIÑETA CINEMATOGRÁFICA
+========================================================== */
+
+.scene-background::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(0,0,0,0) 45%,
+        rgba(0,0,0,.35) 100%
+    );
+
+    pointer-events:none;
+
 }
 
-.numero {
-  display: block;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 10vw;
-  line-height: .8;
-  opacity: .15;
-  margin-bottom: 20px;
+/* ==========================================================
+   CAPAS
+========================================================== */
+
+.layer{
+
+    transition:none;
+
+    transform-origin:center center;
+
+    backface-visibility:hidden;
+
 }
 
-.caption h2 {
-  font-family: "Times New Roman", serif;
-  font-size: 7vw;
-  font-weight: 700;
-  line-height: .9;
-  letter-spacing: -.04em;
-  margin-bottom: 25px;
+/* ==========================================================
+   EFECTO DE PROFUNDIDAD
+========================================================== */
+
+.layer-1{
+
+    z-index:1;
+
 }
 
-.caption p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  max-width: 500px;
+.layer-2{
+
+    z-index:2;
+
 }
 
-/* ---------------- CONTACTO ---------------- */
+.layer-3{
 
-.contacto-contenido {
-  width: 100%;
-  padding: 0 8vw;
+    z-index:3;
+
 }
 
-.contacto-contenido h2 {
-  font-family: "Times New Roman", serif;
-  font-size: 6vw;
-  line-height: .9;
-  margin-bottom: 40px;
+/* ==========================================================
+   TITULARES
+========================================================== */
+
+.scene-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-end;
+
 }
 
-.email {
-  display: inline-block;
-  color: white;
-  text-decoration: none;
-  font-size: 4vw;
-  margin-bottom: 50px;
+.scene-content h2{
+
+    max-width:700px;
+
 }
 
-.redes {
-  display: flex;
-  gap: 30px;
+.scene-number{
+
+    user-select:none;
+
 }
 
-.redes a {
-  color: white;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-size: .8rem;
-  opacity: .7;
-  transition: opacity .3s;
+/* ==========================================================
+   CAPTIONS
+========================================================== */
+
+.captions{
+
+    overflow:hidden;
+
 }
 
-.redes a:hover {
-  opacity: 1;
+.caption{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    transition:none;
+
 }
 
-/* ---------------- MÓVIL ---------------- */
+.caption p{
 
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
+    font-weight:300;
 
-  .hero {
-    padding: 0 8vw;
-  }
+    color:rgba(255,255,255,.92);
 
-  .hero-title {
-    font-size: 4rem;
-  }
-
-  .hero-subtitle {
-    font-size: .75rem;
-  }
-
-  .caption {
-    left: 8vw;
-    right: 8vw;
-    bottom: 10vh;
-  }
-
-  .numero {
-    font-size: 5rem;
-  }
-
-  .caption h2 {
-    font-size: 3rem;
-  }
-
-  .caption p {
-    font-size: 1rem;
-  }
-
-  .contacto-contenido h2 {
-    font-size: 3rem;
-  }
-
-  .email {
-    font-size: 1.6rem;
-  }
-
-  .redes {
-    flex-direction: column;
-    gap: 15px;
-  }
 }
 
-#cubes {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
+/* ==========================================================
+   MICRODETALLES
+========================================================== */
+
+.scene-content h2{
+
+    text-wrap:balance;
+
 }
 
-.cube {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: rgb(255, 255, 255);
-  border: none;
-  backdrop-filter: blur(2px);
-  transform: translate(-50%, -50%);
-  transition: opacity .35s ease;
+.caption p{
+
+    text-wrap:pretty;
+
 }
 
-.cube.is-dying {
-  opacity: 0;
+/* ==========================================================
+   EFECTO DE GRANO
+========================================================== */
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.05;
+
+    z-index:999;
+
+    background-image:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.20) 1px,transparent 1px),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.18) 1px,transparent 1px);
+
+    background-size:140px 140px;
+
 }
+
+/* ==========================================================
+   SUAVIDAD GENERAL
+========================================================== */
+
+img{
+
+    user-select:none;
+
+    -webkit-user-drag:none;
+
+}
+
+.scene,
+.panel,
+.layer{
+
+    will-change:transform;
+
+}
+
+/* ==========================================================
+   CONTACTO
+========================================================== */
+
+.contact-section{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:12vh var(--container);
+
+    background:#111;
+
+}
+
+.contact-wrapper{
+
+    width:min(1000px,100%);
+
+}
+
+.contact-label{
+
+    display:block;
+
+    margin-bottom:20px;
+
+    font-family:var(--mono);
+
+    font-size:.75rem;
+
+    letter-spacing:.22em;
+
+    opacity:.55;
+
+}
+
+.contact-wrapper h2{
+
+    font-family:var(--serif);
+
+    font-size:clamp(3rem,7vw,7rem);
+
+    line-height:.9;
+
+    letter-spacing:-.05em;
+
+    margin-bottom:40px;
+
+}
+
+.contact-mail{
+
+    display:inline-block;
+
+    font-size:clamp(1.6rem,4vw,3rem);
+
+    margin-bottom:50px;
+
+    transition:.35s;
+
+}
+
+.contact-mail:hover{
+
+    opacity:.7;
+
+}
+
+.contact-links{
+
+    display:flex;
+
+    gap:32px;
+
+    flex-wrap:wrap;
+
+}
+
+.contact-links a{
+
+    font-family:var(--mono);
+
+    text-transform:uppercase;
+
+    letter-spacing:.18em;
+
+    font-size:.75rem;
+
+    opacity:.7;
+
+    transition:.3s;
+
+}
+
+.contact-links a:hover{
+
+    opacity:1;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================================
+   CURSOR CUBES
+========================================================== */
+
+#cubes{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+}
+
+.cube{
+
+    position:absolute;
+
+    width:24px;
+
+    height:24px;
+
+    background:#fff;
+
+    transform:translate(-50%,-50%);
+
+    opacity:.95;
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+
+}
+
+.cube.is-dying{
+
+    opacity:0;
+
+    transform:translate(-50%,-50%) scale(.35);
+
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#111;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#555;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#888;
+
+}
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width:992px){
+
+    .nav-editorial{
+
+        padding:28px 6vw;
+
+    }
+
+    .scene-content{
+
+        left:6vw;
+
+        width:88vw;
+
+    }
+
+    .contact-section{
+
+        padding:10vh 6vw;
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:768px){
+
+    :root{
+
+        --container:6vw;
+
+    }
+
+    .nav-links{
+
+        display:none;
+
+    }
+
+    .hero{
+
+        align-items:flex-end;
+
+        padding-bottom:14vh;
+
+    }
+
+    .hero-title{
+
+        font-size:4.5rem;
+
+    }
+
+    .hero-subtitle{
+
+        font-size:.72rem;
+
+        max-width:260px;
+
+    }
+
+    .scene{
+
+        height:250vh;
+
+    }
+
+    .scene-content{
+
+        bottom:8vh;
+
+    }
+
+    .scene-number{
+
+        font-size:4rem;
+
+    }
+
+    .scene-content h2{
+
+        font-size:3rem;
+
+    }
+
+    .caption p{
+
+        font-size:1rem;
+
+        line-height:1.6;
+
+    }
+
+    .panel{
+
+        width:50%;
+
+    }
+
+    .contact-wrapper h2{
+
+        font-size:3rem;
+
+    }
+
+    .contact-mail{
+
+        font-size:1.5rem;
+
+    }
+
+    .contact-links{
+
+        flex-direction:column;
+
+        gap:18px;
+
+    }
+
+}
+
+/* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+@media (max-width:480px){
+
+    .hero-title{
+
+        font-size:3.6rem;
+
+    }
+
+    .scene-content h2{
+
+        font-size:2.5rem;
+
+    }
+
+    .caption p{
+
+        font-size:.95rem;
+
+    }
+
+    .contact-wrapper h2{
+
+        font-size:2.5rem;
+
+    }
+
+    .contact-mail{
+
+        font-size:1.2rem;
+
+    }
+
+}
+
+/* ==========================================================
+   PERFORMANCE
+========================================================== */
+
+.scene,
+.scene-inner,
+.scene-background,
+.layer,
+.panel,
+.panel img{
+
+    transform:translateZ(0);
+
+    backface-visibility:hidden;
+
+}
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+/* ==========================================================
+   SELECCIÓN
+========================================================== */
+
+::selection{
+
+    background:#fff;
+
+    color:#111;
+
+}
+

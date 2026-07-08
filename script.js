@@ -1,311 +1,623 @@
-// =========================
+// ==========================================================
+// INPAR PORTFOLIO
 // GSAP + LENIS
-// =========================
+// ==========================================================
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ==========================================================
+// LENIS
+// ==========================================================
+
 const lenis = new Lenis({
-  duration: 1.4,
-  smoothWheel: true,
-  smoothTouch: false
+    duration: 1.2,
+    smoothWheel: true,
+    smoothTouch: false
 });
+
 
 lenis.on("scroll", ScrollTrigger.update);
 
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000);
+// sincronizar GSAP
+
+gsap.ticker.add((time)=>{
+    lenis.raf(time * 1000);
 });
 
 gsap.ticker.lagSmoothing(0);
 
-// =========================
-// INTRO
-// =========================
+// ==========================================================
+// HERO
+// ==========================================================
 
-gsap.to(".hero-title", {
-  y: -250,
-  opacity: 0,
-  ease: "none",
-  scrollTrigger: {
-    trigger: ".intro",
-    start: "top top",
-    end: "bottom top",
-    scrub: true
-  }
-});
+const hero = gsap.timeline({
 
-gsap.to(".hero-subtitle", {
-  y: -120,
-  opacity: 0,
-  ease: "none",
-  scrollTrigger: {
-    trigger: ".intro",
-    start: "top top",
-    end: "bottom top",
-    scrub: true
-  }
-});
+    scrollTrigger:{
 
-// =========================
-// SCENES
-// =========================
+        trigger:".hero",
 
-gsap.utils.toArray(".scene").forEach((scene, index) => {
+        start:"top top",
 
-  const images = scene.querySelectorAll(".layer");
-  const captions = scene.querySelectorAll(".caption");
+        end:"bottom top",
 
-  // Mantiene la escena fija
-  ScrollTrigger.create({
-    trigger: scene,
-    start: "top top",
-    end: "+=250%",
-    pin: true,
-    scrub: true,
-    anticipatePin: 1
-  });
+        scrub:true
 
-  // PARALLAX
-  images.forEach((img, i) => {
-
-    gsap.fromTo(
-      img,
-      {
-        scale: 1,
-        yPercent: 0
-      },
-      {
-        scale: 1.18,
-        yPercent: -(8 + i * 6),
-        ease: "none",
-        scrollTrigger: {
-          trigger: scene,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      }
-    );
-
-  });
-
-  // Imagen inicial
-
-  if(images[0]){
-      gsap.set(images[0],{
-          opacity:1
-      });
-  }
-
-  // Imagen 2
-
-  if(images[1]){
-
-      gsap.fromTo(images[1],
-      {
-          opacity:0
-      },
-      {
-          opacity:1,
-          ease:"none",
-          scrollTrigger:{
-              trigger:scene,
-              start:"25% center",
-              end:"50% center",
-              scrub:true
-          }
-      });
-
-  }
-
-  // Imagen 3
-
-  if(images[2]){
-
-      gsap.fromTo(images[2],
-      {
-          opacity:0
-      },
-      {
-          opacity:1,
-          ease:"none",
-          scrollTrigger:{
-              trigger:scene,
-              start:"55% center",
-              end:"80% center",
-              scrub:true
-          }
-      });
-
-  }
-
-  // =========================
-  // TEXTOS
-  // =========================
-
-  captions.forEach((caption, i)=>{
-
-      gsap.fromTo(caption,
-      {
-          opacity:0,
-          y:80,
-          filter:"blur(12px)"
-      },
-      {
-          opacity:1,
-          y:0,
-          filter:"blur(0px)",
-          ease:"power1.out",
-          scrollTrigger:{
-              trigger:scene,
-              start:`${15 + i*25}% center`,
-              end:`${30 + i*25}% center`,
-              scrub:true
-          }
-      });
-
-      if(i<captions.length-1){
-
-          gsap.to(caption,{
-              opacity:0,
-              y:-80,
-              filter:"blur(10px)",
-              ease:"none",
-              scrollTrigger:{
-                  trigger:scene,
-                  start:`${30 + i*25}% center`,
-                  end:`${45 + i*25}% center`,
-                  scrub:true
-              }
-          });
-
-      }
-
-  });
+    }
 
 });
 
-// =========================
-// CAMBIO DE COLOR DE FONDO
-// =========================
+hero
 
-const colors = [
-    "#f5efe6",
-    "#f7d7cf",
-    "#efe5d2",
-    "#d8d2c8",
-    "#111111"
-];
+.to(".hero-title",{
 
-gsap.utils.toArray(".scene").forEach((scene,i)=>{
+    y:-220,
 
-    gsap.to("body",{
+    opacity:0,
 
-        backgroundColor:colors[i % colors.length],
+    scale:.9,
 
-        duration:1,
+    ease:"none"
 
-        ease:"power1.out",
+},0)
 
-        scrollTrigger:{
-            trigger:scene,
-            start:"top center",
-            end:"bottom center",
-            toggleActions:"play reverse play reverse"
-        }
+.to(".hero-subtitle",{
 
-    });
+    y:-80,
 
-});
+    opacity:0,
 
-// =========================
+    ease:"none"
+
+},0);
+
+// ==========================================================
 // MENÚ
-// =========================
+// ==========================================================
 
-document.querySelectorAll(".nav-links a").forEach((link)=>{
+document.querySelectorAll(".nav-links a").forEach(link=>{
 
     link.addEventListener("click",(e)=>{
 
         e.preventDefault();
 
         lenis.scrollTo(
+
             link.getAttribute("href"),
+
             {
-                duration:2
+
+                duration:1.8
+
             }
+
         );
 
     });
 
 });
 
-// =========================
-// CURSOR CUBES
-// =========================
+// ==========================================================
+// PIN GENERAL
+// ==========================================================
 
-const cubesEl = document.getElementById("cubes");
+const scenes = gsap.utils.toArray(".scene");
 
-const GRID = 24;
-const CUBE_LIFETIME = 800;
-const CUBE_FADE_MS = 350;
+scenes.forEach(scene=>{
 
-const cubeMap = new Map();
+    ScrollTrigger.create({
 
-function snap(v){
-    return Math.floor(v/GRID)*GRID;
-}
+        trigger:scene,
 
-function key(x,y){
-    return `${x},${y}`;
-}
+        start:"top top",
 
-function addCube(x,y){
+        end:"bottom+=200% top",
 
-    const k = key(x,y);
+        pin:scene.querySelector(".scene-inner"),
 
-    if(cubeMap.has(k)) return;
+        pinSpacing:true,
 
-    const cube = document.createElement("div");
+        anticipatePin:1
 
-    cube.className = "cube";
+    });
 
-    cube.style.left = `${x}px`;
-    cube.style.top = `${y}px`;
+});
 
-    cubesEl.appendChild(cube);
+// ==========================================================
+// PARALLAX DE TODAS LAS CAPAS
+// ==========================================================
 
-    cubeMap.set(k,cube);
+document.querySelectorAll(".layer").forEach((layer,index)=>{
 
-    setTimeout(()=>{
+    gsap.fromTo(
 
-        if(!cubeMap.has(k)) return;
+        layer,
 
-        cube.classList.add("is-dying");
+        {
 
-        setTimeout(()=>{
+            scale:1,
 
-            cube.remove();
-            cubeMap.delete(k);
+            yPercent:0
 
-        },CUBE_FADE_MS);
+        },
 
-    },CUBE_LIFETIME);
+        {
 
-}
+            scale:1.15,
 
-window.addEventListener("mousemove",(e)=>{
+            yPercent:-(8+index*3),
 
-    addCube(
-        snap(e.clientX),
-        snap(e.clientY)
+            ease:"none",
+
+            scrollTrigger:{
+
+                trigger:layer.closest(".scene"),
+
+                start:"top bottom",
+
+                end:"bottom top",
+
+                scrub:true
+
+            }
+
+        }
+
     );
 
 });
 
-// =========================
-// REFRESH
-// =========================
+// ==========================================================
+// TITULARES
+// ==========================================================
 
+document.querySelectorAll(".scene-content").forEach(content=>{
+
+    gsap.from(content.querySelector("h2"),{
+
+        y:80,
+
+        opacity:0,
+
+        duration:1,
+
+        scrollTrigger:{
+
+            trigger:content,
+
+            start:"top 80%"
+
+        }
+
+    });
+
+});
+
+// ==========================================================
+// ARTE
+// ==========================================================
+
+const arte = document.querySelector("#arte");
+
+if (arte) {
+
+    const leftDoor = arte.querySelector(".panel-left");
+    const rightDoor = arte.querySelector(".panel-right");
+
+    const background = arte.querySelector(".layer");
+
+    const captions = arte.querySelectorAll(".caption");
+
+    const tl = gsap.timeline({
+
+        scrollTrigger:{
+
+            trigger:arte,
+
+            start:"top top",
+
+            end:"bottom bottom",
+
+            scrub:1
+
+        }
+
+    });
+
+    // --------------------------
+    // Imagen del fondo
+    // --------------------------
+
+    tl.fromTo(
+
+        background,
+
+        {
+
+            scale:1,
+            opacity:.8
+
+        },
+
+        {
+
+            scale:1.18,
+            opacity:1,
+            ease:"none"
+
+        },
+
+        0
+
+    );
+
+    // --------------------------
+    // Apertura puertas
+    // --------------------------
+
+    tl.to(
+
+        leftDoor,
+
+        {
+
+            rotateY:-95,
+            xPercent:-8,
+            ease:"power2.inOut"
+
+        },
+
+        .15
+
+    );
+
+    tl.to(
+
+        rightDoor,
+
+        {
+
+            rotateY:95,
+            xPercent:8,
+            ease:"power2.inOut"
+
+        },
+
+        .15
+
+    );
+
+    // --------------------------
+    // Zoom imágenes puertas
+    // --------------------------
+
+    gsap.to(".panel img",{
+
+        scale:1.15,
+
+        ease:"none",
+
+        scrollTrigger:{
+
+            trigger:arte,
+
+            start:"top top",
+
+            end:"bottom bottom",
+
+            scrub:true
+
+        }
+
+    });
+
+leftDoor.classList.add("open");
+rightDoor.classList.add("open");    // --------------------------
+    // Texto 1
+    // --------------------------
+
+    if(captions[0]){
+
+        gsap.fromTo(
+
+            captions[0],
+
+            {
+
+                opacity:0,
+                y:80
+
+            },
+
+            {
+
+                opacity:1,
+                y:0,
+
+                scrollTrigger:{
+
+                    trigger:arte,
+
+                    start:"10% center",
+
+                    end:"25% center",
+
+                    scrub:true
+
+                }
+
+            }
+
+        );
+
+    }
+
+    // --------------------------
+    // Texto 2
+    // --------------------------
+
+    if(captions[1]){
+
+        gsap.fromTo(
+
+            captions[1],
+
+            {
+
+                opacity:0,
+                y:80
+
+            },
+
+            {
+
+                opacity:1,
+                y:0,
+
+                scrollTrigger:{
+
+                    trigger:arte,
+
+                    start:"35% center",
+
+                    end:"55% center",
+
+                    scrub:true
+
+                }
+
+            }
+
+        );
+
+    }
+
+    // --------------------------
+    // Texto 3
+    // --------------------------
+
+    if(captions[2]){
+
+        gsap.fromTo(
+
+            captions[2],
+
+            {
+
+                opacity:0,
+                y:80
+
+            },
+
+            {
+
+                opacity:1,
+                y:0,
+
+                scrollTrigger:{
+
+                    trigger:arte,
+
+                    start:"65% center",
+
+                    end:"85% center",
+
+                    scrub:true
+
+                }
+
+            }
+
+        );
+
+    }
+
+}
+// ==========================================================
+// ESCENAS GENERALES
+// Multimedia / Diseño / Música
+// ==========================================================
+
+["#multimedia", "#diseno", "#musica"].forEach((id) => {
+
+    const scene = document.querySelector(id);
+
+    if (!scene) return;
+
+    const layers = scene.querySelectorAll(".layer");
+    const captions = scene.querySelectorAll(".caption");
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: scene,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1
+        }
+    });
+
+    // -----------------------
+    // IMAGEN 1
+    // -----------------------
+
+    if (layers[0]) {
+
+        tl.fromTo(
+            layers[0],
+            {
+                opacity: 1,
+                scale: 1
+            },
+            {
+                opacity: 1,
+                scale: 1.12,
+                ease: "none"
+            },
+            0
+        );
+
+    }
+
+    // -----------------------
+    // IMAGEN 2
+    // -----------------------
+
+    if (layers[1]) {
+
+        tl.fromTo(
+            layers[1],
+            {
+                opacity: 0,
+                scale: 1.05
+            },
+            {
+                opacity: 1,
+                scale: 1.15,
+                ease: "none"
+            },
+            0.35
+        );
+
+    }
+
+    // -----------------------
+    // IMAGEN 3
+    // -----------------------
+
+    if (layers[2]) {
+
+        tl.fromTo(
+            layers[2],
+            {
+                opacity: 0,
+                scale: 1.05
+            },
+            {
+                opacity: 1,
+                scale: 1.18,
+                ease: "none"
+            },
+            0.7
+        );
+
+    }
+
+    // -----------------------
+    // TEXTOS
+    // -----------------------
+
+    captions.forEach((caption, i) => {
+
+        gsap.fromTo(
+            caption,
+            {
+                opacity: 0,
+                y: 80,
+                filter: "blur(10px)"
+            },
+            {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                scrollTrigger: {
+                    trigger: scene,
+                    start: `${15 + i * 25}% center`,
+                    end: `${30 + i * 25}% center`,
+                    scrub: true
+                }
+            }
+        );
+
+        if (i < captions.length - 1) {
+
+            gsap.to(
+                caption,
+                {
+                    opacity: 0,
+                    y: -60,
+                    filter: "blur(10px)",
+                    scrollTrigger: {
+                        trigger: scene,
+                        start: `${30 + i * 25}% center`,
+                        end: `${45 + i * 25}% center`,
+                        scrub: true
+                    }
+                }
+            );
+
+        }
+
+    });
+
+});
+// ==========================================================
+// CURSOR CUBOS
+// ==========================================================
+
+const cubes = document.getElementById("cubes");
+
+if (cubes) {
+
+    const GRID = 24;
+    const LIFE = 700;
+    const FADE = 300;
+
+    const map = new Map();
+
+    const snap = (v) => Math.floor(v / GRID) * GRID;
+
+    window.addEventListener("mousemove", (e) => {
+
+        const x = snap(e.clientX);
+        const y = snap(e.clientY);
+        const key = `${x},${y}`;
+
+        if (map.has(key)) return;
+
+        const cube = document.createElement("div");
+
+        cube.className = "cube";
+        cube.style.left = `${x}px`;
+        cube.style.top = `${y}px`;
+
+        cubes.appendChild(cube);
+        map.set(key, cube);
+
+        setTimeout(() => {
+
+            cube.classList.add("is-dying");
+
+            setTimeout(() => {
+
+                cube.remove();
+                map.delete(key);
+
+            }, FADE);
+
+        }, LIFE);
+
+    });
+
+}
 window.addEventListener("load", () => {
-  ScrollTrigger.refresh();
+    ScrollTrigger.refresh();
 });

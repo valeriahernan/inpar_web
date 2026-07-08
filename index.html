@@ -1,230 +1,414 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valeria Hernández | Portafolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>INPAR | Valeria Hernández</title>
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1/bundled/lenis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1/bundled/lenis.min.js"></script>
+
 </head>
+
 <body>
+
 <div id="cubes"></div>
 
-<div class="cursor"></div>
-<div class="cursor-follower"></div>
+<nav class="nav-editorial">
 
-
-  <!-- NAV -->
-  <nav class="nav-editorial">
-    <div class="logo">INPAR*</div>
+    <div class="logo">
+        INPAR*
+    </div>
 
     <div class="nav-links">
-      <a href="#arte">Arte</a>
-      <a href="#multimedia">Multimedia</a>
-      <a href="#diseno">Diseño</a>
-      <a href="#musica">Música</a>
-      <a href="#contacto">Contacto</a>
+
+        <a href="#arte">Arte</a>
+        <a href="#multimedia">Multimedia</a>
+        <a href="#diseno">Diseño</a>
+        <a href="#musica">Música</a>
+        <a href="#contacto">Contacto</a>
+
     </div>
-  </nav>
 
-  <!-- INTRO -->
-  <section class="scene intro">
+</nav>
 
-    <div class="sticky-scene">
+<header class="hero" id="inicio">
 
-      <div class="hero">
+    <div class="hero-content">
+
         <h1 class="hero-title">
-          INPAR<br>
-          
+            INPAR
         </h1>
 
         <p class="hero-subtitle">
-          PORTAFOLIO VALERIA HERNÁNDEZ · EDICIÓN 2026
+            PORTAFOLIO · VALERIA HERNÁNDEZ · 2026
         </p>
-      </div>
 
     </div>
 
-  </section>
+</header>
 
-  ```html
+<main>
+
+<!-- ========================================================= -->
 <!-- ARTE -->
-<section id="arte" class="scene">
+<!-- ========================================================= -->
 
-  <div class="sticky-scene">
+<section class="scene" id="arte">
 
-    <!-- Imagen que aparecerá cuando las puertas se abran -->
-    <img class="layer layer-3"
-         src="assets/images/4.png"
-         alt=""
-         aria-hidden="true">
+    <div class="scene-inner">
 
-    <!-- Puertas -->
-    <div class="split-gallery">
+        <!-- Fondo -->
 
-      <div class="panel panel-left">
-        <img src="assets/images/1.png"
-             alt=""
-             aria-hidden="true">
-      </div>
+        <div class="scene-background">
 
-      <div class="panel panel-right">
-        <img src="assets/images/3.png"
-             alt=""
-             aria-hidden="true">
-      </div>
+            <img
+                class="layer layer-1"
+                src="assets/images/4.png"
+                alt="">
+
+        </div>
+
+        <!-- Puertas -->
+
+        <div class="split-gallery">
+
+            <div class="panel panel-left">
+
+                <img
+                    src="assets/images/1.png"
+                    alt="Arte">
+
+            </div>
+
+            <div class="panel panel-right">
+
+                <img
+                    src="assets/images/3.png"
+                    alt="Arte">
+
+            </div>
+
+        </div>
+
+        <!-- Información -->
+
+        <div class="scene-content">
+
+            <span class="scene-number">
+                01
+            </span>
+
+            <h2>
+                Arte
+            </h2>
+
+            <div class="captions">
+
+                <div class="caption active">
+
+                    <p>
+                        Exploraciones gráficas y dibujo contemporáneo.
+                    </p>
+
+                </div>
+
+                <div class="caption">
+
+                    <p>
+                        El trazo como archivo de la memoria, el cuerpo y el territorio.
+                    </p>
+
+                </div>
+
+                <div class="caption">
+
+                    <p>
+                        Obras analógicas desarrolladas desde una mirada editorial y experimental.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
-
-    <!-- Textos -->
-
-    <div class="caption caption-1">
-
-      <span class="numero">01</span>
-
-      <h2>Arte</h2>
-
-      <p>
-        Exploraciones gráficas y dibujo contemporáneo.
-      </p>
-
-    </div>
-
-    <div class="caption caption-2">
-
-      <p>
-        El trazo como archivo de la memoria y del cuerpo.
-      </p>
-
-    </div>
-
-    <div class="caption caption-3">
-
-      <p>
-        Obras analógicas con sensibilidad editorial.
-      </p>
-
-    </div>
-
-  </div>
 
 </section>
-```
 
+<!-- ========================================================= -->
+<!-- MULTIMEDIA -->
+<!-- ========================================================= -->
 
-  <!-- MULTIMEDIA -->
-  <section id="multimedia" class="scene">
+<section class="scene" id="multimedia">
 
-    <div class="sticky-scene">
+    <div class="scene-inner">
 
-      <img class="layer layer-1" src="assets/images/2.png" alt="" aria-hidden="true">
-      <img class="layer layer-2" src="assets/images/4.png" alt="" aria-hidden="true">
-      <img class="layer layer-3" src="assets/images/1.png" alt="" aria-hidden="true">
+        <div class="scene-background">
 
-      <div class="caption caption-1">
-        <span class="numero">02</span>
-        <h2>Multimedia</h2>
-        <p>Experiencias digitales inmersivas.</p>
-      </div>
+            <img
+                class="layer layer-1"
+                src="assets/images/2.png"
+                alt="">
 
-      <div class="caption caption-2">
-        <p>Instalaciones y nuevos medios.</p>
-      </div>
+            <img
+                class="layer layer-2"
+                src="assets/images/4.png"
+                alt="">
 
-      <div class="caption caption-3">
-        <p>Exploración entre arte y tecnología.</p>
-      </div>
+            <img
+                class="layer layer-3"
+                src="assets/images/1.png"
+                alt="">
 
-    </div>
+        </div>
 
-  </section>
+        <div class="scene-content">
 
-  <!-- DISEÑO -->
-  <section id="diseno" class="scene">
+            <span class="scene-number">
+                02
+            </span>
 
-    <div class="sticky-scene">
+            <h2>
+                Multimedia
+            </h2>
 
-      <img class="layer layer-1" src="assets/images/1.png" alt="" aria-hidden="true">
-      <img class="layer layer-2" src="assets/images/2.png" alt="" aria-hidden="true">
-      <img class="layer layer-3" src="assets/images/3.png" alt="" aria-hidden="true">
+            <div class="captions">
 
-      <div class="caption caption-1">
-        <span class="numero">03</span>
-        <h2>Diseño</h2>
-        <p>Dirección de arte y diseño editorial.</p>
-      </div>
+                <div class="caption active">
 
-      <div class="caption caption-2">
-        <p>Construcción de identidades visuales.</p>
-      </div>
+                    <p>
+                        Experiencias digitales inmersivas.
+                    </p>
 
-      <div class="caption caption-3">
-        <p>Sistemas gráficos y narrativas impresas.</p>
-      </div>
+                </div>
 
-    </div>
+                <div class="caption">
 
-  </section>
+                    <p>
+                        Instalaciones, video y exploración de nuevos medios.
+                    </p>
 
-  <!-- MÚSICA -->
-  <section id="musica" class="scene">
+                </div>
 
-    <div class="sticky-scene">
+                <div class="caption">
 
-      <img class="layer layer-1" src="assets/images/1.png" alt="" aria-hidden="true">
-      <img class="layer layer-2" src="assets/images/4.png" alt="" aria-hidden="true">
-      <img class="layer layer-3" src="assets/images/3.png" alt="" aria-hidden="true">
+                    <p>
+                        La tecnología entendida como una herramienta narrativa y sensorial.
+                    </p>
 
-      <div class="caption caption-1">
-        <span class="numero">04</span>
-        <h2>Música</h2>
-        <p>Composición y diseño sonoro.</p>
-      </div>
+                </div>
 
-      <div class="caption caption-2">
-        <p>Paisajes acústicos y experimentación.</p>
-      </div>
+            </div>
 
-      <div class="caption caption-3">
-        <p>La escucha como experiencia espacial.</p>
-      </div>
+        </div>
 
     </div>
 
-  </section>
+</section>
 
-  <!-- CONTACTO -->
-  <section id="contacto" class="contacto">
+<!-- ========================================================= -->
+<!-- DISEÑO -->
+<!-- ========================================================= -->
 
-    <div class="contacto-contenido">
+<section class="scene" id="diseno">
 
-      <h2>¿Creamos algo juntos?</h2>
+    <div class="scene-inner">
 
-      <a href="mailto:hola@inpar.cl" class="email">
-        hola@inpar.cl
-      </a>
+        <div class="scene-background">
 
-      <div class="redes">
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Behance</a>
-      </div>
+            <img
+                class="layer layer-1"
+                src="assets/images/1.png"
+                alt="">
+
+            <img
+                class="layer layer-2"
+                src="assets/images/2.png"
+                alt="">
+
+            <img
+                class="layer layer-3"
+                src="assets/images/3.png"
+                alt="">
+
+        </div>
+
+        <div class="scene-content">
+
+            <span class="scene-number">
+                03
+            </span>
+
+            <h2>
+                Diseño
+            </h2>
+
+            <div class="captions">
+
+                <div class="caption active">
+
+                    <p>
+                        Dirección de arte y diseño editorial.
+                    </p>
+
+                </div>
+
+                <div class="caption">
+
+                    <p>
+                        Construcción de identidades visuales con un enfoque contemporáneo.
+                    </p>
+
+                </div>
+
+                <div class="caption">
+
+                    <p>
+                        Sistemas gráficos, publicaciones y narrativas visuales impresas y digitales.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-  </section>
+</section>
 
-  <script src="script.js"></script>
+<!-- ========================================================= -->
+<!-- MÚSICA -->
+<!-- ========================================================= -->
+
+<section class="scene" id="musica">
+
+    <div class="scene-inner">
+
+        <div class="scene-background">
+
+            <img
+                class="layer layer-1"
+                src="assets/images/1.png"
+                alt="">
+
+            <img
+                class="layer layer-2"
+                src="assets/images/4.png"
+                alt="">
+
+            <img
+                class="layer layer-3"
+                src="assets/images/3.png"
+                alt="">
+
+        </div>
+
+        <div class="scene-content">
+
+            <span class="scene-number">
+                04
+            </span>
+
+            <h2>
+                Música
+            </h2>
+
+            <div class="captions">
+
+                <div class="caption active">
+
+                    <p>
+                        Composición, experimentación y diseño sonoro.
+                    </p>
+
+                </div>
+
+                <div class="caption">
+
+                    <p>
+                        Paisajes acústicos que dialogan con la imagen y el espacio.
+                    </p>
+
+                </div>
+
+                <div class="caption">
+
+                    <p>
+                        El sonido como una extensión del lenguaje visual.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================================= -->
+<!-- CONTACTO -->
+<!-- ========================================================= -->
+
+<section id="contacto" class="contact-section">
+
+    <div class="contact-wrapper">
+
+        <span class="contact-label">
+            CONTACTO
+        </span>
+
+        <h2>
+            ¿Creamos algo juntos?
+        </h2>
+
+        <a
+            href="mailto:hola@inpar.cl"
+            class="contact-mail">
+
+            hola@inpar.cl
+
+        </a>
+
+        <div class="contact-links">
+
+            <a href="#">
+                Instagram
+            </a>
+
+            <a href="#">
+                Behance
+            </a>
+
+            <a href="#">
+                LinkedIn
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
