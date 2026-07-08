@@ -74,26 +74,27 @@ hero
 // MENÚ
 // ==========================================================
 
-document.querySelectorAll(".nav-links a").forEach(link=>{
-
-    link.addEventListener("click",(e)=>{
-
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", (e) => {
         e.preventDefault();
+        
+        const targetId = link.getAttribute("href");
+        const targetScene = document.querySelector(targetId);
+        
+        if (targetScene) {
+            // Buscamos el ScrollTrigger específico asignado a esa escena
+            const st = ScrollTrigger.getAll().find(trigger => trigger.trigger === targetScene);
+            
+            // Si el trigger existe, nos desplazamos a su punto de inicio exacto ('start')
+            // De lo contrario, usamos la posición nativa del elemento
+            const scrollTarget = st ? st.start : targetScene.offsetTop;
 
-        lenis.scrollTo(
-
-            link.getAttribute("href"),
-
-            {
-
-                duration:1.8
-
-            }
-
-        );
-
+            lenis.scrollTo(scrollTarget, {
+                duration: 1.5,
+                ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // Desaceleración suave editorial
+            });
+        }
     });
-
 });
 
 // ==========================================================
@@ -310,8 +311,7 @@ if (arte) {
 
     });
 
-leftDoor.classList.add("open");
-rightDoor.classList.add("open");    // --------------------------
+    // --------------------------
     // Texto 1
     // --------------------------
 
@@ -524,51 +524,31 @@ rightDoor.classList.add("open");    // --------------------------
     // -----------------------
     // TEXTOS
     // -----------------------
-
+    // -----------------------
+    // TEXTOS (Cierre correcto del bucle que se encontraba cortado)
+    // -----------------------
     captions.forEach((caption, i) => {
-
         gsap.fromTo(
             caption,
             {
                 opacity: 0,
-                y: 80,
-                filter: "blur(10px)"
+                y: 40
             },
             {
                 opacity: 1,
                 y: 0,
-                filter: "blur(0px)",
                 scrollTrigger: {
                     trigger: scene,
-                    start: `${15 + i * 25}% center`,
-                    end: `${30 + i * 25}% center`,
+                    // Divide el scroll de la sección equitativamente para activar cada texto
+                    start: `${(i * 30) + 10}% center`,
+                    end: `${((i + 1) * 30) + 10}% center`,
                     scrub: true
                 }
             }
         );
-
-        if (i < captions.length - 1) {
-
-            gsap.to(
-                caption,
-                {
-                    opacity: 0,
-                    y: -60,
-                    filter: "blur(10px)",
-                    scrollTrigger: {
-                        trigger: scene,
-                        start: `${30 + i * 25}% center`,
-                        end: `${45 + i * 25}% center`,
-                        scrub: true
-                    }
-                }
-            );
-
-        }
-
     });
+}); // Cierre de forEach de escenas
 
-});
 // ==========================================================
 // CURSOR CUBOS
 // ==========================================================
