@@ -71,7 +71,7 @@ hero
 },0);
 
 // ==========================================================
-// MENÚ
+// MENÚ (Optimizado para evitar Glitches con Pins)
 // ==========================================================
 
 document.querySelectorAll(".nav-links a").forEach(link => {
@@ -82,20 +82,26 @@ document.querySelectorAll(".nav-links a").forEach(link => {
         const targetScene = document.querySelector(targetId);
         
         if (targetScene) {
-            // Buscamos el ScrollTrigger específico asignado a esa escena
+            // Buscamos el objeto ScrollTrigger global asignado a esa escena
             const st = ScrollTrigger.getAll().find(trigger => trigger.trigger === targetScene);
             
-            // Si el trigger existe, nos desplazamos a su punto de inicio exacto ('start')
-            // De lo contrario, usamos la posición nativa del elemento
-            const scrollTarget = st ? st.start : targetScene.offsetTop;
-
-            lenis.scrollTo(scrollTarget, {
-                duration: 1.5,
-                ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // Desaceleración suave editorial
-            });
+            if (st) {
+                // Si el trigger ya calculó la posición del pin, Lenis viaja directo allí
+                lenis.scrollTo(st.start, {
+                    duration: 1.5,
+                    force: true, // Fuerza a Lenis a saltarse el cálculo nativo
+                    immediate: false
+                });
+            } else {
+                // Respaldo alternativo por si no ha cargado ScrollTrigger
+                lenis.scrollTo(targetScene, {
+                    duration: 1.5
+                });
+            }
         }
     });
 });
+
 
 // ==========================================================
 // PIN GENERAL
@@ -194,35 +200,109 @@ document.querySelectorAll(".scene-content").forEach(content=>{
 });
 
 // ==========================================================
-// ARTE
+// ARTE (Apertura de Imágenes Acelerada)
 // ==========================================================
 
 const arte = document.querySelector("#arte");
 
 if (arte) {
-
     const leftDoor = arte.querySelector(".panel-left");
     const rightDoor = arte.querySelector(".panel-right");
-
     const background = arte.querySelector(".layer");
-
     const captions = arte.querySelectorAll(".caption");
 
     const tl = gsap.timeline({
-
-        scrollTrigger:{
-
-            trigger:arte,
-
-            start:"top top",
-
-            end:"bottom bottom",
-
-            scrub:1
-
+        scrollTrigger: {
+            trigger: arte,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.5 // Un scrub más bajo (0.5 en vez de 1) hace que responda más instantáneamente al dedo/rueda
         }
-
     });
+
+    // 1. Imagen de fondo fija/escala
+    tl.fromTo(background,
+        { scale: 1, opacity: 0.6 },
+        { scale: 1.12, opacity: 1, ease: "none" },
+        0
+    );
+
+    // 2. Apertura veloz de compuertas (Ocurre inmediatamente al iniciar y termina rápido)
+    tl.to(leftDoor, {
+        rotateY: -95,
+        xPercent: -12,       // Un poco más afuera para despejar el centro rápido
+        opacity: 0,          // Se desvanece sutilmente al abrirse para un look más editorial
+        duration: 0.2,       // Duración corta dentro de la timeline = animación rápida en scroll
+        ease: "power1.out"   // Salida limpia y rápida
+    }, 0);
+
+    tl.to(rightDoor, {
+        rotateY: 95,
+        xPercent: 12,
+        opacity: 0,
+        duration: 0.2,
+        ease: "power1.out"
+    }, 0);
+
+    // 3. Zoom de las imágenes internas de los paneles (Acelerado a la par)
+    gsap.to(".panel img", {
+        scale: 1.1,
+        ease: "none",
+        scrollTrigger: {
+            trigger: arte,
+            start: "top top",
+            end: "25% top", // Termina el escalado al 25% del scroll de la sección
+            scrub: true
+        }
+    });
+
+    // 4. Textos secuenciales (Empiezan JUSTO DESPUÉS de que las puertas se abrieron por completo)
+    if(captions[0]){
+        gsap.fromTo(captions[0],
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1, y: 0,
+                scrollTrigger: {
+                    trigger: arte,
+                    start: "25% center", // Espera a que las puertas se abran (pasado el 20%)
+                    end: "40% center",
+                    scrub: true
+                }
+            }
+        );
+    }
+
+    if(captions[1]){
+        gsap.fromTo(captions[1],
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1, y: 0,
+                scrollTrigger: {
+                    trigger: arte,
+                    start: "45% center",
+                    end: "65% center",
+                    scrub: true
+                }
+            }
+        );
+    }
+
+    if(captions[2]){
+        gsap.fromTo(captions[2],
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1, y: 0,
+                scrollTrigger: {
+                    trigger: arte,
+                    start: "70% center",
+                    end: "90% center",
+                    scrub: true
+                }
+            }
+        );
+    }
+}
+
 
     // --------------------------
     // Imagen del fondo
