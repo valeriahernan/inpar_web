@@ -511,7 +511,6 @@ if (arte) {
 
     }
 
-}
 // ==========================================================
 // ESCENAS GENERALES
 // Multimedia / Diseño / Música
