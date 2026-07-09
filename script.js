@@ -19,30 +19,24 @@ lenis.raf(time*1000);
 });
 
 gsap.ticker.lagSmoothing(0);
+const cubeCursor=document.querySelector(".cube-cursor");
+const cube=document.querySelector(".cube");
 
-const cursor=document.querySelector(".cursor");
-
-if(cursor){
+if(cubeCursor&&cube){
 window.addEventListener("mousemove",e=>{
-gsap.to(cursor,{
+gsap.to(cubeCursor,{
 x:e.clientX,
 y:e.clientY,
-duration:.25,
+duration:.5,
 ease:"power3.out"
 });
-});
-document.querySelectorAll("a").forEach(link=>{
-link.addEventListener("mouseenter",()=>{
-gsap.to(cursor,{
-scale:2,
-duration:.3
-});
-});
-link.addEventListener("mouseleave",()=>{
-gsap.to(cursor,{
-scale:1,
-duration:.3
-});
+let rotateY=(e.clientX/window.innerWidth-.5)*60;
+let rotateX=(e.clientY/window.innerHeight-.5)*-60;
+gsap.to(cube,{
+rotateX:rotateX,
+rotateY:rotateY,
+duration:.8,
+ease:"power3.out"
 });
 });
 }

@@ -69,18 +69,49 @@ background-image:url("assets/images/noise.png");
 background-size:220px;
 z-index:999;
 }
-.cursor{
+.cube-cursor{
 position:fixed;
-top:0;
-left:0;
-width:18px;
-height:18px;
-border:1px solid #111;
-border-radius:50%;
+top:50%;
+left:50%;
+width:80px;
+height:80px;
+perspective:500px;
 pointer-events:none;
-transform:translate(-50%,-50%);
 z-index:9999;
-transition:transform .2s ease,width .2s ease,height .2s ease;
+transform:translate(-50%,-50%);
+}
+.cube{
+width:80px;
+height:80px;
+position:relative;
+transform-style:preserve-3d;
+transition:transform .15s ease-out;
+}
+.face{
+position:absolute;
+width:80px;
+height:80px;
+border:1px solid rgba(255,255,255,.6);
+background:rgba(255,255,255,.04);
+backdrop-filter:blur(4px);
+}
+.front{
+transform:translateZ(40px);
+}
+.back{
+transform:rotateY(180deg) translateZ(40px);
+}
+.right{
+transform:rotateY(90deg) translateZ(40px);
+}
+.left{
+transform:rotateY(-90deg) translateZ(40px);
+}
+.top{
+transform:rotateX(90deg) translateZ(40px);
+}
+.bottom{
+transform:rotateX(-90deg) translateZ(40px);
 }
 .loader{
 position:fixed;
