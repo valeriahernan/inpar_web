@@ -181,7 +181,7 @@ text-transform:uppercase;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.05em;
-  text-transform: lowercase; /* Minúscila */
+  text-transform: uppercase; /* MAYUS MINUS */
 }
 
 .hero-overlay p{ 
