@@ -626,11 +626,9 @@ gap:1rem;
   position: absolute;
   width: 24px;   /* Tamaño de la cuadrícula */
   height: 24px;
-  /* Usamos tu color verde (--text) con transparencia para el fondo del cubo */
   background-color: rgb(88, 189, 122); 
   box-sizing: border-box;
-  /* Usamos tu color verde (--text) con más opacidad para el borde neón */
-  border: 1px solid rgb(255, 255, 255);   
+  /* border: 1px solid rgb(255, 255, 255);   */
   opacity: 1;
   transition: opacity 350ms ease; /* Tiempo de desaparición gradual */
 }
