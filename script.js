@@ -14,20 +14,65 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 
-// 2. Custom 3D Cube Cursor Smooth Tracking & Auto-Tumble Logic
-const cubeCursor = document.querySelector(".cube-cursor");
-const cube = document.querySelector(".cube");
+const cubes=document.getElementById("cubes");
+const cursor=document.querySelector(".cursor");
 
-if (cubeCursor && cube) {
-  // Hide standard cursor on Desktop viewports
-  document.documentElement.style.cursor = 'none';
-  document.body.style.cursor = 'none';
+const GRID=24;
+const cubeMap=new Map();
 
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let currentX = mouseX;
-  let currentY = mouseY;
+let mouseX=0;
+let mouseY=0;
 
+function snap(v){
+return Math.floor(v/GRID)*GRID;
+}
+
+function addCube(x,y){
+
+const key=`${x},${y}`;
+
+if(cubeMap.has(key))return;
+
+const cube=document.createElement("div");
+
+cube.className="cube";
+cube.style.left=x+"px";
+cube.style.top=y+"px";
+
+cubes.appendChild(cube);
+
+cubeMap.set(key,cube);
+
+setTimeout(()=>{
+
+cube.classList.add("is-dying");
+
+setTimeout(()=>{
+cube.remove();
+cubeMap.delete(key);
+},350);
+
+},1000);
+
+}
+
+window.addEventListener("mousemove",e=>{
+
+mouseX=e.clientX;
+mouseY=e.clientY;
+
+gsap.to(cursor,{
+x:mouseX,
+y:mouseY,
+duration:.2
+});
+
+addCube(
+snap(mouseX),
+snap(mouseY)
+);
+
+});
   // Variables for tracking 3D rotation angles
   let rotateX = 45;
   let rotateY = 45;
@@ -46,22 +91,6 @@ if (cubeCursor && cube) {
     // Linear interpolation loop (Lerp) to smoothly glide toward the mouse pointer position
     currentX += (mouseX - currentX) * 0.12;
     currentY += (mouseY - currentY) * 0.12;
-
-    // FIXED: Offsets coordinates by exactly -40px to dead-center the 80x80px cube layout on your mouse tip
-gsap.set(cubeCursor,{
-x:currentX,
-y:currentY
-});
-
-    // Ambient spin calculation: keeps the cube alive and rotating even when the mouse stops moving
-    rotateX += 0.3;
-    rotateY += 0.3;
-
-    gsap.set(cube, {
-      transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-    });
-  });
-}
 
 // 3. Page Loading Screen Animation Setup
 const loader = document.querySelector(".loader");
