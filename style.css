@@ -57,8 +57,18 @@ min-height:100vh;
 position:fixed;
 inset:0;
 background:var(--bg);
-z-index:-2;
-transition:background .8s var(--transition);
+z-index:0;
+pointer-events:none;
+}
+
+main,
+.header,
+.loader,
+.noise,
+#cubes,
+.cursor{
+position:relative;
+z-index:1;
 }
 .noise{
 position:fixed;
@@ -156,12 +166,13 @@ letter-spacing:.22em;
 text-transform:uppercase;
 }
 .hero-overlay h1{
+font-family:"Kablammo",sans-serif;
 font-size:clamp(6rem,18vw,18rem);
 font-weight:600;
 line-height:.9;
 letter-spacing:-.06em;
 }
-.hero-overlay p{
+.hero-overlay p{ 
 margin-top:1rem;
 font-size:1rem;
 font-weight:300;
@@ -535,6 +546,7 @@ overflow:hidden;
 .reveal>*{
 will-change:transform,opacity;
 }
+
 @media(max-width:992px){
 .header{
 padding:0 2rem;
@@ -592,7 +604,10 @@ flex-direction:column;
 align-items:flex-start;
 gap:1rem;
 }
+}
 
+
+/* KABLAMMO CURSOR */
 #cubes{
 position:fixed;
 inset:0;
@@ -607,6 +622,7 @@ height:24px;
 background:#fff;
 mix-blend-mode:difference;
 will-change:transform,opacity;
+animation:cubeOut .8s forwards;
 }
 
 .cursor{
@@ -621,4 +637,13 @@ transform:translate(-50%,-50%);
 mix-blend-mode:difference;
 }
 
+@keyframes cubeOut{
+0%{
+opacity:1;
+transform:scale(1) rotate(0);
+}
+100%{
+opacity:0;
+transform:scale(.2) rotate(180deg);
+}
 }

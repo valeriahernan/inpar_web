@@ -6,6 +6,11 @@ smoothTouch:false
 
 gsap.registerPlugin(ScrollTrigger);
 
+gsap.config({
+  nullTargetWarn:false
+});
+
+ScrollTrigger.normalizeScroll(true);
 lenis.on("scroll",ScrollTrigger.update);
 
 gsap.ticker.add(time=>{
