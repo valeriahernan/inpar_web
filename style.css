@@ -1,8 +1,8 @@
 :root{
---bg:#f7f5f1;
---text:#111;
---accent:#d9d3cb;
---border:rgba(0,0,0,.08);
+--bg:#7655d3;
+--text:#58bd7a;
+--accent:#ffb8d0;
+--border:rgba(4, 255, 38, 0.08);
 --transition:cubic-bezier(.77,0,.175,1);
 --header:90px;
 }
