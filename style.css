@@ -418,7 +418,7 @@ will-change:transform;
 position:absolute;
 left:8vw;
 bottom:8vh;
-color:#fff;
+color:#a7ffba;
 mix-blend-mode:difference;
 }
 .fullscreen-title h2{
@@ -478,7 +478,7 @@ gap:3rem;
 padding:12vw 8vw;
 text-align:center;
 background:#111;
-color:#fff;
+color:#ffc5bd;
 }
 .manifest-number{
 font-size:.8rem;
@@ -508,7 +508,7 @@ object-fit:cover;
 position:absolute;
 left:8vw;
 bottom:8vh;
-color:#fff;
+color:#cdc4ff;
 mix-blend-mode:difference;
 }
 .video-overlay h2{
@@ -526,7 +526,7 @@ gap:2rem;
 min-height:100vh;
 padding:8vw;
 text-align:center;
-background:#f7f5f1;
+background:#ffe5b1;
 }
 .contact-label{
 font-size:.75rem;
