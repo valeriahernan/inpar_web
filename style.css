@@ -68,16 +68,18 @@ background-image:url("assets/images/14.jpg");
 background-size:220px;
 z-index:999;
 }
-.cube-cursor{
-position:fixed;
-top:50%;
-left:50%;
-width:80px;
-height:80px;
-perspective:500px;
-pointer-events:none;
-z-index:9999;
-transform:translate(-50%,-50%);
+/* FIXED: Clean Base Layer Initialization for Coordinates */
+.cube-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  perspective: 500px;
+  pointer-events: none;
+  z-index: 99999; /* Higher layer priority index to stay on top of .noise */
+  transform: translate3d(0px, 0px, 0px); /* Clean canvas starting position */
+  will-change: transform;
 }
 .cube{
 width:80px;
