@@ -69,64 +69,7 @@ background-image:url("assets/images/20.jpg");
 background-size:220px;
 z-index:999;
 }
-/* FIXED: Clean Base Layer Initialization for Coordinates */
-#cubes{
-position:fixed;
-inset:0;
-z-index:9999;
-pointer-events:none;
-color:#fff;
-}
-.cube{
-position:absolute;
-width:24px;
-height:24px;
-background:currentColor;
-mix-blend-mode:difference;
-will-change:transform,opacity;
-transition:opacity .35s ease,transform .35s ease;
-}
-.cube.is-dying{
-opacity:0;
-transform:scale(.85);
-}
-.cursor{
-position:fixed;
-z-index:10000;
-pointer-events:none;
-width:8px;
-height:8px;
-background:#fff;
-border-radius:50%;
-transform:translate(-50%,-50%);
-mix-blend-mode:difference;
-}
-.face{
-position:absolute;
-width:80px;
-height:80px;
-border:1px solid rgba(255,255,255,.6);
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(4px);
-}
-.front{
-transform:translateZ(40px);
-}
-.back{
-transform:rotateY(180deg) translateZ(40px);
-}
-.right{
-transform:rotateY(90deg) translateZ(40px);
-}
-.left{
-transform:rotateY(-90deg) translateZ(40px);
-}
-.top{
-transform:rotateX(90deg) translateZ(40px);
-}
-.bottom{
-transform:rotateX(-90deg) translateZ(40px);
-}
+
 .loader{
 position:fixed;
 inset:0;
@@ -649,27 +592,23 @@ flex-direction:column;
 align-items:flex-start;
 gap:1rem;
 }
-}
+
 #cubes{
 position:fixed;
 inset:0;
 z-index:9999;
 pointer-events:none;
-color:#fff;
 }
+
 .cube{
 position:absolute;
 width:24px;
 height:24px;
-background:currentColor;
+background:#fff;
 mix-blend-mode:difference;
 will-change:transform,opacity;
-transition:opacity .35s ease,transform .35s ease;
 }
-.cube.is-dying{
-opacity:0;
-transform:scale(.85);
-}
+
 .cursor{
 position:fixed;
 z-index:10000;
@@ -681,17 +620,5 @@ border-radius:50%;
 transform:translate(-50%,-50%);
 mix-blend-mode:difference;
 }
-.face{
-position:absolute;
-width:80px;
-height:80px;
-border:1px solid rgba(255,255,255,.6);
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(4px);
+
 }
-.front{transform:translateZ(40px);}
-.back{transform:rotateY(180deg) translateZ(40px);}
-.right{transform:rotateY(90deg) translateZ(40px);}
-.left{transform:rotateY(-90deg) translateZ(40px);}
-.top{transform:rotateX(90deg) translateZ(40px);}
-.bottom{transform:rotateX(-90deg) translateZ(40px);}
