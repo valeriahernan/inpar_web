@@ -175,13 +175,15 @@ font-size:.75rem;
 letter-spacing:.22em;
 text-transform:uppercase;
 }
-.hero-overlay h1{
-font-family: 'Cavalhatriz', sans-serif;
-font-size:clamp(6rem,18vw,18rem);
-font-weight:600;
-line-height:.9;
-letter-spacing:-.06em;
+.hero-overlay h1 {
+  font-family: 'Cavalhatriz', sans-serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: lowercase; /* Minúscila */
 }
+
 .hero-overlay p{ 
 margin-top:1rem;
 font-size:1rem;
