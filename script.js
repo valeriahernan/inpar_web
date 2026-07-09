@@ -36,23 +36,6 @@ gsap.ticker.add((time)=>{
 
 gsap.ticker.lagSmoothing(0);
 
-
-gsap.to(
-    cube,
-    {
-        opacity:0,
-        delay:.8,
-        duration:.4,
-        onComplete(){
-
-            cube.remove();
-
-            cubeMap.delete(key);
-
-        }
-    }
-);
-
 // =====================================
 // LOADER
 // =====================================
