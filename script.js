@@ -19,6 +19,7 @@ lenis.raf(time*1000);
 });
 
 gsap.ticker.lagSmoothing(0);
+
 const cubeCursor=document.querySelector(".cube-cursor");
 const cube=document.querySelector(".cube");
 
@@ -30,11 +31,9 @@ y:e.clientY,
 duration:.5,
 ease:"power3.out"
 });
-let rotateY=(e.clientX/window.innerWidth-.5)*60;
-let rotateX=(e.clientY/window.innerHeight-.5)*-60;
 gsap.to(cube,{
-rotateX:rotateX,
-rotateY:rotateY,
+rotationX:(e.clientY/window.innerHeight-.5)*40,
+rotationY:(e.clientX/window.innerWidth-.5)*40,
 duration:.8,
 ease:"power3.out"
 });
