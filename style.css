@@ -16,8 +16,8 @@ scroll-behavior:auto;
 }
 
 @font-face {
-  font-family: 'CSBrisaPixel';
-  src: url('fonts/CSBrisaPixel-Regular.otf') format('opentype');
+  font-family: 'Cavalhatriz';
+  src: url('fonts/Cavalhatriz.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -176,7 +176,7 @@ letter-spacing:.22em;
 text-transform:uppercase;
 }
 .hero-overlay h1{
-font-family: 'CSBrisaPixel', sans-serif;
+font-family: 'Cavalhatriz', sans-serif;
 font-size:clamp(6rem,18vw,18rem);
 font-weight:600;
 line-height:.9;
