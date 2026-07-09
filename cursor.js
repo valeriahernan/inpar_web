@@ -1,117 +1,115 @@
-const cubes=document.querySelector("#cubes");
-const cursor=document.querySelector(".cursor");
-const GRID=24;
-const cubeMap=new Map();
-let mouse={x:window.innerWidth*.5,y:window.innerHeight*.5};
-let render={x:mouse.x,y:mouse.y};
-const lerp=(a,b,n)=>a+(b-a)*n;
-const snap=v=>Math.floor(v/GRID)*GRID;
+(() => {
+  "use strict";
 
-function createCube(x,y){
-const key=`${x},${y}`;
-if(cubeMap.has(key))return;
-const cube=document.createElement("div");
-cube.className="cube";
-cube.style.left=x+"px";
-cube.style.top=y+"px";
-cubes.appendChild(cube);
-cubeMap.set(key,cube);
-gsap.fromTo(cube,{scale:.25,rotation:-20,opacity:0},{scale:1,rotation:0,opacity:1,duration:.28,ease:"power2.out"});
-gsap.to(cube,{delay:.45,scale:.15,rotation:120,opacity:0,duration:.55,ease:"power2.in",onComplete:()=>{cube.remove();cubeMap.delete(key);}});
-}
+  const CUBE_LIFETIME = 1000; // Tiempo que el cubo permanece visible (1 segundo)
+  const CUBE_FADE_MS = 350;    // Tiempo que tarda en desvanecerse
+  const GRID = 24;            // Tamaño de cada celda en píxeles
 
-window.addEventListener("mousemove",e=>{
-mouse.x=e.clientX;
-mouse.y=e.clientY;
-const gx=snap(mouse.x);
-const gy=snap(mouse.y);
-createCube(gx,gy);
-});
+  const cubesEl = document.getElementById("cubes");
+  const cubeMap = new Map();
 
-window.addEventListener("mousedown",()=>cursor.classList.add("active"));
-window.addEventListener("mouseup",()=>cursor.classList.remove("active"));
-window.addEventListener("mouseleave",()=>gsap.to(cursor,{opacity:0,duration:.2}));
-window.addEventListener("mouseenter",()=>gsap.to(cursor,{opacity:1,duration:.2}));
+  let isPointerDown = false;
+  let dragMode = "draw";
+  let rafMove = null;
+  let lastEvent = null;
 
-const trail=[];
-const TRAIL=8;
+  const keyOf = (x, y) => `${x},${y}`;
+  const snap = (v) => Math.floor(v / GRID) * GRID;
 
-function animateCursor(){
-render.x=lerp(render.x,mouse.x,.22);
-render.y=lerp(render.y,mouse.y,.22);
-gsap.set(cursor,{x:render.x,y:render.y});
-trail.unshift({x:render.x,y:render.y});
-if(trail.length>TRAIL)trail.pop();
-requestAnimationFrame(animateCursor);
-}
+  function addCube(x, y) {
+    if (!cubesEl) return;
+    const key = keyOf(x, y);
+    if (cubeMap.has(key)) return;
 
-animateCursor();
+    const d = document.createElement("div");
+    d.className = "cube";
+    d.style.left = `${x}px`;
+    d.style.top = `${y}px`;
 
-document.querySelectorAll("a,button").forEach(el=>{
-el.addEventListener("mouseenter",()=>{
-gsap.to(".cursor span",{scale:2,duration:.25,ease:"power2.out"});
-});
-el.addEventListener("mouseleave",()=>{
-gsap.to(".cursor span",{scale:1,duration:.25,ease:"power2.out"});
-});
-});
+    cubesEl.appendChild(d);
+    cubeMap.set(key, d);
 
-window.addEventListener("resize",()=>{
-mouse.x=window.innerWidth*.5;
-mouse.y=window.innerHeight*.5;
-render.x=mouse.x;
-render.y=mouse.y;
-});
+    window.setTimeout(() => {
+      if (!cubeMap.has(key)) return;
+      d.classList.add("is-dying");
 
-document.addEventListener("visibilitychange",()=>{
-if(document.hidden){
-gsap.set(cursor,{opacity:0});
-}else{
-gsap.set(cursor,{opacity:1});
-}
-});
+      window.setTimeout(() => {
+        if (!cubeMap.has(key)) return;
+        d.remove();
+        cubeMap.delete(key);
+      }, CUBE_FADE_MS);
+    }, CUBE_LIFETIME);
+  }
 
-let lastX=mouse.x,lastY=mouse.y,lastGX=-1,lastGY=-1;
+  function removeCube(x, y) {
+    const key = keyOf(x, y);
+    const el = cubeMap.get(key);
+    if (!el) return;
+    el.remove();
+    cubeMap.delete(key);
+  }
 
-function updateCubes(){
-const gx=snap(render.x);
-const gy=snap(render.y);
-if(gx!==lastGX||gy!==lastGY){
-createCube(gx,gy);
-lastGX=gx;
-lastGY=gy;
-}
-const dx=render.x-lastX;
-const dy=render.y-lastY;
-const speed=Math.min(Math.hypot(dx,dy),40);
-const angle=Math.atan2(dy,dx)*180/Math.PI;
-gsap.set(cursor,{rotation:angle,scale:1+speed*.015});
-lastX=render.x;
-lastY=render.y;
-requestAnimationFrame(updateCubes);
-}
+  function inBounds(x, y, rect) {
+    return x >= 0 && y >= 0 && x <= rect.width - GRID && y <= rect.height - GRID;
+  }
 
-updateCubes();
+  function getLocalPoint(e) {
+    const rect = cubesEl.getBoundingClientRect();
+    const x = snap(e.clientX - rect.left);
+    const y = snap(e.clientY - rect.top);
+    const clampedX = Math.max(0, Math.min(x, snap(rect.width - GRID)));
+    const clampedY = Math.max(0, Math.min(y, snap(rect.height - GRID)));
+    return { x: clampedX, y: clampedY, rect };
+  }
 
-document.addEventListener("mousedown",()=>{
-gsap.to(".cursor span",{scale:.65,duration:.12,ease:"power2.out"});
-});
+  function paintAtEvent(e, forceMode = null) {
+    if (!cubesEl) return;
+    const { x, y, rect } = getLocalPoint(e);
+    if (!inBounds(x, y, rect)) return;
 
-document.addEventListener("mouseup",()=>{
-gsap.to(".cursor span",{scale:1,duration:.25,ease:"power2.out"});
-});
+    const key = keyOf(x, y);
+    const has = cubeMap.has(key);
+    const mode = forceMode ?? dragMode;
 
-document.querySelectorAll("img,video").forEach(el=>{
-el.addEventListener("mouseenter",()=>{
-gsap.to(".cursor span",{scale:2.5,duration:.3,ease:"power3.out"});
-});
-el.addEventListener("mouseleave",()=>{
-gsap.to(".cursor span",{scale:1,duration:.3,ease:"power3.out"});
-});
-});
+    if (mode === "erase") {
+      if (has) removeCube(x, y);
+    } else {
+      addCube(x, y);
+    }
+  }
 
-gsap.ticker.add(()=>{
-cursor.style.willChange="transform";
-});
+  function onMoveRaf() {
+    rafMove = null;
+    if (!lastEvent) return;
 
-console.log("INPAR Cursor Loaded");
+    if (isPointerDown) {
+      paintAtEvent(lastEvent);
+    } else {
+      paintAtEvent(lastEvent, "draw");
+    }
+  }
+
+  window.addEventListener("pointermove", (e) => {
+    lastEvent = e;
+    if (!rafMove) rafMove = requestAnimationFrame(onMoveRaf);
+  });
+
+  window.addEventListener("pointerdown", (e) => {
+    if (e.button !== 0) return;
+    isPointerDown = true;
+
+    const { x, y } = getLocalPoint(e);
+    dragMode = cubeMap.has(keyOf(x, y)) ? "erase" : "draw";
+    paintAtEvent(e);
+  });
+
+  window.addEventListener("pointerup", () => {
+    isPointerDown = false;
+    dragMode = "draw";
+  });
+
+  window.addEventListener("blur", () => {
+    isPointerDown = false;
+    dragMode = "draw";
+  });
+})();

@@ -75,7 +75,7 @@ position:fixed;
 inset:0;
 pointer-events:none;
 opacity:.03;
-background-image:url("assets/images/20.jpg");
+background-image:url("assets/images/16.jpg");
 background-size:220px;
 z-index:999;
 }
@@ -610,90 +610,32 @@ gap:1rem;
    CURSOR
 ======================================================= */
 
-html{
-    cursor:none;
+/* Modifica tu regla #cubes existente para que cubra toda la pantalla de fondo */
+#cubes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1; /* Mantiene el z-index que ya definiste */
 }
 
-body{
-    cursor:none;
+/* El bloque interactivo que dibuja el mouse */
+.cube {
+  position: absolute;
+  width: 24px;   /* Tamaño de la cuadrícula */
+  height: 24px;
+  /* Usamos tu color verde (--text) con transparencia para el fondo del cubo */
+  background-color: rgba(88, 189, 122, 0.15); 
+  box-sizing: border-box;
+  /* Usamos tu color verde (--text) con más opacidad para el borde neón */
+  border: 1px solid rgba(88, 189, 122, 0.6);   
+  opacity: 1;
+  transition: opacity 350ms ease; /* Tiempo de desaparición gradual */
 }
 
-#cubes{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:9998;
-}
-
-.cursor{
-
-    position:fixed;
-
-    left:0;
-    top:0;
-
-    width:14px;
-    height:14px;
-
-    transform:translate(-50%,-50%);
-
-    pointer-events:none;
-
-    z-index:9999;
-
-    mix-blend-mode:difference;
-
-    will-change:transform;
-}
-
-.cursor span{
-
-    display:block;
-
-    width:100%;
-    height:100%;
-
-    border-radius:50%;
-
-    background:white;
-
-    transform:scale(1);
-
-    transition:
-    transform .25s cubic-bezier(.22,.61,.36,1);
-
-}
-
-.cursor.active span{
-
-    transform:scale(1.7);
-
-}
-
-.cube{
-
-    position:absolute;
-
-    width:24px;
-    height:24px;
-
-    border:1px solid rgba(255,255,255,.9);
-
-    background:rgba(255,255,255,.05);
-
-    backdrop-filter:blur(6px);
-
-    -webkit-backdrop-filter:blur(6px);
-
-    mix-blend-mode:difference;
-
-    transform:scale(.25) rotate(-20deg);
-
-    opacity:0;
-
-    will-change:
-    transform,
-    opacity;
-
+/* Estado de desvanecimiento */
+.cube.is-dying {
+  opacity: 0;
 }
