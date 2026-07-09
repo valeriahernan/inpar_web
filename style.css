@@ -606,44 +606,94 @@ gap:1rem;
 }
 }
 
+/* =======================================================
+   CURSOR
+======================================================= */
 
-/* KABLAMMO CURSOR */
-#cubes{
-position:fixed;
-inset:0;
-z-index:9999;
-pointer-events:none;
+html{
+    cursor:none;
 }
 
-.cube{
-position:absolute;
-width:24px;
-height:24px;
-background:#fff;
-mix-blend-mode:difference;
-will-change:transform,opacity;
-animation:cubeOut .8s forwards;
+body{
+    cursor:none;
+}
+
+#cubes{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:9998;
 }
 
 .cursor{
-position:fixed;
-z-index:10000;
-pointer-events:none;
-width:8px;
-height:8px;
-background:#fff;
-border-radius:50%;
-transform:translate(-50%,-50%);
-mix-blend-mode:difference;
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:14px;
+    height:14px;
+
+    transform:translate(-50%,-50%);
+
+    pointer-events:none;
+
+    z-index:9999;
+
+    mix-blend-mode:difference;
+
+    will-change:transform;
 }
 
-@keyframes cubeOut{
-0%{
-opacity:1;
-transform:scale(1) rotate(0);
+.cursor span{
+
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    border-radius:50%;
+
+    background:white;
+
+    transform:scale(1);
+
+    transition:
+    transform .25s cubic-bezier(.22,.61,.36,1);
+
 }
-100%{
-opacity:0;
-transform:scale(.2) rotate(180deg);
+
+.cursor.active span{
+
+    transform:scale(1.7);
+
 }
+
+.cube{
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
+
+    border:1px solid rgba(255,255,255,.9);
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(6px);
+
+    -webkit-backdrop-filter:blur(6px);
+
+    mix-blend-mode:difference;
+
+    transform:scale(.25) rotate(-20deg);
+
+    opacity:0;
+
+    will-change:
+    transform,
+    opacity;
+
 }
