@@ -377,8 +377,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==============================
-  // FINAL GSAP REFRESH
+  // TRANSICIONES Y ANIMACIONES PARA IMÁGENES
   // ==============================
-  ScrollTrigger.refresh();
+
+  // Agrega transiciones CSS para todas las imágenes
+  const imgs = document.querySelectorAll('img');
+  imgs.forEach(img => {
+    img.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+  });
+
+  // Animación de entrada para imágenes en vista
+  gsap.utils.toArray('img').forEach((img) => {
+    gsap.from(img, {
+      opacity: 0,
+      scale: 0.95,
+      duration: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: img,
+        start: 'top 90%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+  });
 
 });
