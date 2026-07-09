@@ -37,110 +37,21 @@ gsap.ticker.add((time)=>{
 gsap.ticker.lagSmoothing(0);
 
 
+gsap.to(
+    cube,
+    {
+        opacity:0,
+        delay:.8,
+        duration:.4,
+        onComplete(){
 
+            cube.remove();
 
-// =====================================
-// CURSOR + CUBOS
-// =====================================
+            cubeMap.delete(key);
 
-
-const cubes = document.querySelector("#cubes");
-const cursor = document.querySelector(".cursor");
-
-
-const GRID = 24;
-const cubeMap = new Map();
-
-
-
-function snap(value){
-
-    return Math.floor(value / GRID) * GRID;
-
-}
-
-
-
-function createCube(x,y){
-
-    if(!cubes) return;
-
-
-    const key = `${x},${y}`;
-
-
-    if(cubeMap.has(key)) return;
-
-
-
-    const cube=document.createElement("div");
-
-    cube.className="cube";
-
-    cube.style.left=x+"px";
-    cube.style.top=y+"px";
-
-
-    cubes.appendChild(cube);
-
-
-    cubeMap.set(key,cube);
-
-
-
-    gsap.to(
-        cube,
-        {
-            opacity:0,
-            scale:.8,
-            delay:.8,
-            duration:.4,
-            onComplete(){
-
-                cube.remove();
-
-                cubeMap.delete(key);
-
-            }
         }
-    );
-
-}
-
-
-
-window.addEventListener(
-"mousemove",
-(e)=>{
-
-
-    if(cursor){
-
-        gsap.to(
-            cursor,
-            {
-                x:e.clientX,
-                y:e.clientY,
-                duration:.25,
-                ease:"power3.out"
-            }
-        );
-
     }
-
-
-
-    createCube(
-        snap(e.clientX),
-        snap(e.clientY)
-    );
-
-
-});
-
-
-
-
+);
 
 // =====================================
 // LOADER
@@ -1191,8 +1102,6 @@ ScrollTrigger.refresh();
 
 
 
-
-
 window.addEventListener(
 "resize",
 ()=>{
@@ -1335,4 +1244,3 @@ ScrollTrigger.refresh();
 
 
 });
-
