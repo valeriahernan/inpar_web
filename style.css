@@ -14,6 +14,14 @@ box-sizing:border-box;
 html{
 scroll-behavior:auto;
 }
+
+@font-face {
+  font-family: 'CSBrisaPixel';
+  src: url('../fonts/CSBrisaPixel-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 body{
 font-family:"Inter",sans-serif;
 background:var(--bg);
@@ -22,6 +30,8 @@ overflow-x:hidden;
 -webkit-font-smoothing:antialiased;
 text-rendering:optimizeLegibility;
 }
+
+
 
 img{
 display:block;
@@ -166,7 +176,7 @@ letter-spacing:.22em;
 text-transform:uppercase;
 }
 .hero-overlay h1{
-font-family:"Kablammo",sans-serif;
+font-family: 'CSBrisaPixel', sans-serif;
 font-size:clamp(6rem,18vw,18rem);
 font-weight:600;
 line-height:.9;
