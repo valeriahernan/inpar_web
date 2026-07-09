@@ -48,10 +48,10 @@ if (cubeCursor && cube) {
     currentY += (mouseY - currentY) * 0.12;
 
     // FIXED: Offsets coordinates by exactly -40px to dead-center the 80x80px cube layout on your mouse tip
-    gsap.set(cubeCursor, {
-      x: currentX - 40,
-      y: currentY - 40
-    });
+gsap.set(cubeCursor,{
+x:currentX,
+y:currentY
+});
 
     // Ambient spin calculation: keeps the cube alive and rotating even when the mouse stops moving
     rotateX += 0.3;

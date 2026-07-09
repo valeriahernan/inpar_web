@@ -22,6 +22,7 @@ overflow-x:hidden;
 -webkit-font-smoothing:antialiased;
 text-rendering:optimizeLegibility;
 }
+
 img{
 display:block;
 width:100%;
@@ -69,17 +70,17 @@ background-size:220px;
 z-index:999;
 }
 /* FIXED: Clean Base Layer Initialization for Coordinates */
-.cube-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 80px;
-  height: 80px;
-  perspective: 500px;
-  pointer-events: none;
-  z-index: 99999; /* Higher layer priority index to stay on top of .noise */
-  transform: translate3d(0px, 0px, 0px); /* Clean canvas starting position */
-  will-change: transform;
+.cube-cursor{
+position:fixed;
+top:0;
+left:0;
+width:80px;
+height:80px;
+perspective:500px;
+pointer-events:none;
+z-index:99999;
+transform:translate(-50%,-50%);
+will-change:transform;
 }
 .cube{
 width:80px;
@@ -641,30 +642,31 @@ gap:1rem;
 position:fixed;
 top:0;
 left:0;
-width:70px;
-height:70px;
-perspective:600px;
+width:80px;
+height:80px;
+perspective:500px;
 pointer-events:none;
 z-index:99999;
 transform:translate(-50%,-50%);
+will-change:transform;
 }
 .cube{
+width:80px;
+height:80px;
 position:relative;
-width:70px;
-height:70px;
 transform-style:preserve-3d;
 }
 .face{
 position:absolute;
-width:70px;
-height:70px;
-border:1px solid rgba(255,255,255,.8);
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(5px);
+width:80px;
+height:80px;
+border:1px solid rgba(255,255,255,.6);
+background:rgba(255,255,255,.04);
+backdrop-filter:blur(4px);
 }
-.front{transform:translateZ(35px);}
-.back{transform:rotateY(180deg) translateZ(35px);}
-.right{transform:rotateY(90deg) translateZ(35px);}
-.left{transform:rotateY(-90deg) translateZ(35px);}
-.top{transform:rotateX(90deg) translateZ(35px);}
-.bottom{transform:rotateX(-90deg) translateZ(35px);}
+.front{transform:translateZ(40px);}
+.back{transform:rotateY(180deg) translateZ(40px);}
+.right{transform:rotateY(90deg) translateZ(40px);}
+.left{transform:rotateY(-90deg) translateZ(40px);}
+.top{transform:rotateX(90deg) translateZ(40px);}
+.bottom{transform:rotateX(-90deg) translateZ(40px);}
