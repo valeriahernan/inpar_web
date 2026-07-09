@@ -65,7 +65,7 @@ position:fixed;
 inset:0;
 pointer-events:none;
 opacity:.03;
-background-image:url("assets/images/noise.png");
+background-image:url("assets/images/14.jpg");
 background-size:220px;
 z-index:999;
 }
@@ -119,8 +119,8 @@ inset:0;
 display:flex;
 align-items:center;
 justify-content:center;
-background:#111;
-color:#fff;
+background:#072715;
+color:#d3a5ff;
 z-index:10000;
 }
 .loader-logo{
@@ -140,7 +140,7 @@ align-items:center;
 justify-content:space-between;
 z-index:900;
 mix-blend-mode:difference;
-color:#fff;
+color:#d3a5ff;
 }
 .logo{
 font-size:.85rem;
@@ -234,7 +234,7 @@ display:grid;
 grid-template-columns:18vw 1fr;
 align-items:center;
 padding:12vw 8vw;
-background:#fff;
+background:#e4de8a;
 }
 .statement-left{
 font-size:.9rem;
