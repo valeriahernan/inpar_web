@@ -17,7 +17,7 @@ scroll-behavior:auto;
 
 @font-face {
   font-family: 'CSBrisaPixel';
-  src: url('../fonts/CSBrisaPixel-Regular.otf') format('opentype');
+  src: url('fonts/CSBrisaPixel-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
