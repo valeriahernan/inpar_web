@@ -1,593 +1,343 @@
-// ==========================================================
-// INPAR PORTFOLIO
-// GSAP + LENIS
-// ==========================================================
+const lenis=new Lenis({
+duration:1.4,
+smoothWheel:true,
+smoothTouch:false
+});
+
+function raf(time){
+lenis.raf(time);
+requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ==========================================================
-// LENIS
-// ==========================================================
+lenis.on("scroll",ScrollTrigger.update);
 
-const lenis = new Lenis({
-    duration: 1.2,
-    smoothWheel: true,
-    smoothTouch: false
-});
-
-
-lenis.on("scroll", ScrollTrigger.update);
-
-// sincronizar GSAP
-
-gsap.ticker.add((time)=>{
-    lenis.raf(time * 1000);
+gsap.ticker.add(time=>{
+lenis.raf(time*1000);
 });
 
 gsap.ticker.lagSmoothing(0);
 
-// ==========================================================
-// HERO
-// ==========================================================
+const cursor=document.querySelector(".cursor");
 
-const hero = gsap.timeline({
-
-    scrollTrigger:{
-
-        trigger:".hero",
-
-        start:"top top",
-
-        end:"bottom top",
-
-        scrub:true
-
-    }
-
+if(cursor){
+window.addEventListener("mousemove",e=>{
+gsap.to(cursor,{
+x:e.clientX,
+y:e.clientY,
+duration:.25,
+ease:"power3.out"
 });
-
-hero
-
-.to(".hero-title",{
-
-    y:-220,
-
-    opacity:0,
-
-    scale:.9,
-
-    ease:"none"
-
-},0)
-
-.to(".hero-subtitle",{
-
-    y:-80,
-
-    opacity:0,
-
-    ease:"none"
-
-},0);
-
-// ==========================================================
-// MENÚ (Optimizado para evitar Glitches con Pins)
-// ==========================================================
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", (e) => {
-        e.preventDefault();
-        
-        const targetId = link.getAttribute("href");
-        const targetScene = document.querySelector(targetId);
-        
-        if (targetScene) {
-            // Buscamos el objeto ScrollTrigger global asignado a esa escena
-            const st = ScrollTrigger.getAll().find(trigger => trigger.trigger === targetScene);
-            
-            if (st) {
-                // Si el trigger ya calculó la posición del pin, Lenis viaja directo allí
-                lenis.scrollTo(st.start, {
-                    duration: 1.5,
-                    force: true, // Fuerza a Lenis a saltarse el cálculo nativo
-                    immediate: false
-                });
-            } else {
-                // Respaldo alternativo por si no ha cargado ScrollTrigger
-                lenis.scrollTo(targetScene, {
-                    duration: 1.5
-                });
-            }
-        }
-    });
 });
-
-
-// ==========================================================
-// PIN GENERAL
-// ==========================================================
-
-const scenes = gsap.utils.toArray(".scene");
-
-scenes.forEach(scene=>{
-
-    ScrollTrigger.create({
-
-        trigger:scene,
-
-        start:"top top",
-
-        end:"bottom+=200% top",
-
-        pin:scene.querySelector(".scene-inner"),
-
-        pinSpacing:true,
-
-        anticipatePin:1
-
-    });
-
+document.querySelectorAll("a").forEach(link=>{
+link.addEventListener("mouseenter",()=>{
+gsap.to(cursor,{
+scale:2,
+duration:.3
 });
-
-// ==========================================================
-// PARALLAX DE TODAS LAS CAPAS
-// ==========================================================
-
-document.querySelectorAll(".layer").forEach((layer,index)=>{
-
-    gsap.fromTo(
-
-        layer,
-
-        {
-
-            scale:1,
-
-            yPercent:0
-
-        },
-
-        {
-
-            scale:1.15,
-
-            yPercent:-(8+index*3),
-
-            ease:"none",
-
-            scrollTrigger:{
-
-                trigger:layer.closest(".scene"),
-
-                start:"top bottom",
-
-                end:"bottom top",
-
-                scrub:true
-
-            }
-
-        }
-
-    );
-
 });
-
-// ==========================================================
-// TITULARES
-// ==========================================================
-
-document.querySelectorAll(".scene-content").forEach(content=>{
-
-    gsap.from(content.querySelector("h2"),{
-
-        y:80,
-
-        opacity:0,
-
-        duration:1,
-
-        scrollTrigger:{
-
-            trigger:content,
-
-            start:"top 80%"
-
-        }
-
-    });
-
+link.addEventListener("mouseleave",()=>{
+gsap.to(cursor,{
+scale:1,
+duration:.3
 });
-
-// ==========================================================
-// ARTE (Desplazamiento Lateral Plano y Corregido)
-// ==========================================================
-
-const arte = document.querySelector("#arte");
-
-if (arte) {
-    const leftDoor = arte.querySelector(".panel-left");
-    const rightDoor = arte.querySelector(".panel-right");
-    const background = arte.querySelector(".layer");
-    const captions = arte.querySelectorAll(".caption");
-
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: arte,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 0.5
-        }
-    });
-
-    // 1. Imagen de fondo fija/escala
-    tl.fromTo(background,
-        { scale: 1, opacity: 0.6 },
-        { scale: 1.12, opacity: 1, ease: "none" },
-        0
-    );
-
-    // 2. Desplazamiento lateral plano hacia los extremos (Efecto Cortina)
-    if (leftDoor) {
-        tl.to(leftDoor, {
-            xPercent: -100, // Se barre completamente a la izquierda
-            opacity: 0,
-            duration: 0.25,
-            ease: "power2.inOut"
-        }, 0);
-    }
-
-    if (rightDoor) {
-        tl.to(rightDoor, {
-            xPercent: 100, // Se barre completamente a la derecha
-            opacity: 0,
-            duration: 0.25,
-            ease: "power2.inOut"
-        }, 0);
-    }
-
-    // 3. Zoom de las imágenes mientras se deslizan
-    tl.to(".panel img", {
-        scale: 1.12,
-        ease: "none",
-        duration: 0.25
-    }, 0);
-
-    // 4. Textos secuenciales (Corrección de índices e IFs estables)
-    if (captions.length > 0 && captions[0]) {
-        gsap.fromTo(captions[0],
-            { opacity: 0, y: 40 },
-            {
-                opacity: 1, y: 0,
-                scrollTrigger: {
-                    trigger: arte,
-                    start: "28% center",
-                    end: "45% center",
-                    scrub: true
-                }
-            }
-        );
-    }
-
-    if (captions.length > 1 && captions[1]) {
-        gsap.fromTo(captions[1],
-            { opacity: 0, y: 40 },
-            {
-                opacity: 1, y: 0,
-                scrollTrigger: {
-                    trigger: arte,
-                    start: "48% center",
-                    end: "65% center",
-                    scrub: true
-                }
-            }
-        );
-    }
-
-    if (captions.length > 2 && captions[2]) {
-        gsap.fromTo(captions[2],
-            { opacity: 0, y: 40 },
-            {
-                opacity: 1, y: 0,
-                scrollTrigger: {
-                    trigger: arte,
-                    start: "68% center",
-                    end: "85% center",
-                    scrub: true
-                }
-            }
-        );
-    }
+});
+});
 }
 
-    // --------------------------
-    // Imagen del fondo
-    // --------------------------
-
-    tl.fromTo(
-
-        background,
-
-        {
-
-            scale:1,
-            opacity:.8
-
-        },
-
-        {
-
-            scale:1.18,
-            opacity:1,
-            ease:"none"
-
-        },
-
-        0
-
-    );
-
-    // --------------------------
-    // Apertura puertas
-    // --------------------------
-
-    tl.to(
-
-        leftDoor,
-
-        {
-
-            rotateY:-95,
-            xPercent:-8,
-            ease:"power2.inOut"
-
-        },
-
-        .15
-
-    );
-
-    tl.to(
-
-        rightDoor,
-
-        {
-
-            rotateY:95,
-            xPercent:8,
-            ease:"power2.inOut"
-
-        },
-
-        .15
-
-    );
-
-    // --------------------------
-    // Zoom imágenes puertas
-    // --------------------------
-
-    gsap.to(".panel img",{
-
-        scale:1.15,
-
-        ease:"none",
-
-        scrollTrigger:{
-
-            trigger:arte,
-
-            start:"top top",
-
-            end:"bottom bottom",
-
-            scrub:true
-
-        }
-
-    });
-
-    // --------------------------
-    // Texto 1
-    // --------------------------
-
-    if(captions[0]){
-
-        gsap.fromTo(
-
-            captions[0],
-
-            {
-
-                opacity:0,
-                y:80
-
-            },
-
-            {
-
-                opacity:1,
-                y:0,
-
-                scrollTrigger:{
-
-                    trigger:arte,
-
-                    start:"10% center",
-
-                    end:"25% center",
-
-                    scrub:true
-
-                }
-
-            }
-
-        );
-
-    }
-
-    // --------------------------
-    // Texto 2
-    // --------------------------
-
-    if(captions[1]){
-
-        gsap.fromTo(
-
-            captions[1],
-
-            {
-
-                opacity:0,
-                y:80
-
-            },
-
-            {
-
-                opacity:1,
-                y:0,
-
-                scrollTrigger:{
-
-                    trigger:arte,
-
-                    start:"35% center",
-
-                    end:"55% center",
-
-                    scrub:true
-
-                }
-
-            }
-
-        );
-
-    }
-
-    // --------------------------
-    // Texto 3
-    // --------------------------
-
-    if(captions[2]){
-
-        gsap.fromTo(
-
-            captions[2],
-
-            {
-
-                opacity:0,
-                y:80
-
-            },
-
-            {
-
-                opacity:1,
-                y:0,
-
-                scrollTrigger:{
-
-                    trigger:arte,
-
-                    start:"65% center",
-
-                    end:"85% center",
-
-                    scrub:true
-
-                }
-
-            }
-
-        );
-
-    }
-// ==========================================================
-// ESCENAS GENERALES (Multimedia / Diseño / Música)
-// Corrección de textos cortados y sincronización limpia
-// ==========================================================
-
-["#multimedia", "#diseno", "#musica"].forEach((id) => {
-
-    const scene = document.querySelector(id);
-
-    if (!scene) return;
-
-    const layers = scene.querySelectorAll(".layer");
-    const captions = scene.querySelectorAll(".caption");
-
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: scene,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1
-        }
-    });
-
-    // -----------------------
-    // IMAGEN 1
-    // -----------------------
-    if (layers[0]) {
-        tl.fromTo(
-            layers[0],
-            { opacity: 1, scale: 1 },
-            { opacity: 1, scale: 1.12, ease: "none" },
-            0
-        );
-    }
-
-    // -----------------------
-    // IMAGEN 2
-    // -----------------------
-    if (layers[1]) {
-        tl.fromTo(
-            layers[1],
-            { opacity: 0, scale: 1.05 },
-            { opacity: 1, scale: 1.15, ease: "none" },
-            0.35
-        );
-    }
-
-    // -----------------------
-    // IMAGEN 3
-    // -----------------------
-    if (layers[2]) {
-        tl.fromTo(
-            layers[2],
-            { opacity: 0, scale: 1.05 },
-            { opacity: 1, scale: 1.18, ease: "none" },
-            0.7
-        );
-    }
-
-    // -----------------------
-    // TEXTOS SECUENCIALES (Reparado y Sincronizado)
-    // -----------------------
-    if (captions.length > 0) {
-        captions.forEach((caption, i) => {
-            gsap.fromTo(
-                caption,
-                {
-                    opacity: 0,
-                    y: 30
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scrollTrigger: {
-                        trigger: scene,
-                        // Divide proporcionalmente el scroll según el número de textos
-                        start: `${(i * 25) + 15}% center`,
-                        end: `${((i + 1) * 25) + 15}% center`,
-                        scrub: true
-                    }
-                }
-            );
-        });
-    }
+const loader=document.querySelector(".loader");
+
+if(loader){
+window.addEventListener("load",()=>{
+gsap.to(loader,{
+opacity:0,
+duration:1,
+delay:.5,
+ease:"power3.inOut",
+onComplete:()=>{
+loader.style.display="none";
+}
+});
+});
+}
+
+const heroImage=document.querySelector(".hero-media img");
+
+if(heroImage){
+gsap.to(heroImage,{
+scale:1,
+ease:"none",
+scrollTrigger:{
+trigger:".hero",
+start:"top top",
+end:"bottom top",
+scrub:true
+}
+});
+}
+
+document.querySelectorAll(".editorial-media img,.split-media img,.gallery-item img,.fullscreen img,.floating img").forEach(img=>{
+gsap.to(img,{
+scale:1,
+ease:"none",
+scrollTrigger:{
+trigger:img,
+start:"top bottom",
+end:"bottom top",
+scrub:true
+}
+});
+});
+
+document.querySelectorAll(".split,.hero-overlay span,.hero-overlay p,.editorial-content span,.editorial-content h2,.editorial-content p,.split-content span,.split-content h2,.split-content p").forEach(el=>{
+gsap.from(el,{
+y:80,
+opacity:0,
+duration:1.2,
+ease:"power4.out",
+scrollTrigger:{
+trigger:el,
+start:"top 80%",
+toggleActions:"play none none reverse"
+}
+});
+});
+
+document.querySelectorAll(".panel").forEach(section=>{
+gsap.fromTo(section,{
+opacity:.6
+},{
+opacity:1,
+scrollTrigger:{
+trigger:section,
+start:"top 80%",
+end:"top 30%",
+scrub:true
+}
+});
+});
+
+document.querySelectorAll(".fullscreen,.video-section").forEach(section=>{
+const media=section.querySelector("img,video");
+if(media){
+gsap.fromTo(media,{
+scale:1.15
+},{
+scale:1,
+ease:"none",
+scrollTrigger:{
+trigger:section,
+start:"top bottom",
+end:"bottom top",
+scrub:true
+}
+});
+}
+});
+
+const floatingItems=document.querySelectorAll(".floating");
+
+floatingItems.forEach((item,index)=>{
+gsap.to(item,{
+y:index%2===0?120:-120,
+rotate:index%2===0?3:-3,
+ease:"none",
+scrollTrigger:{
+trigger:".floating-gallery",
+start:"top bottom",
+end:"bottom top",
+scrub:true
+}
+});
+});
+
+const backgrounds=[
+"#f7f5f1",
+"#ffffff",
+"#111111",
+"#e8e1d8",
+"#f7f5f1"
+];
+
+document.querySelectorAll(".panel").forEach((section,index)=>{
+ScrollTrigger.create({
+trigger:section,
+start:"top center",
+end:"bottom center",
+onEnter:()=>{
+gsap.to(".bg-layer",{
+backgroundColor:backgrounds[index%backgrounds.length],
+duration:.8,
+ease:"power2.out"
+});
+},
+onEnterBack:()=>{
+gsap.to(".bg-layer",{
+backgroundColor:backgrounds[index%backgrounds.length],
+duration:.8,
+ease:"power2.out"
+});
+}
+});
+});
+
+const sections=document.querySelectorAll(".chapter,.editorial,.split-section");
+
+sections.forEach(section=>{
+ScrollTrigger.create({
+trigger:section,
+start:"top top",
+end:"+=200%",
+pin:true,
+pinSpacing:true
+});
+});
+
+gsap.utils.toArray(".quote p,.manifest h2").forEach(text=>{
+gsap.from(text,{
+scale:.8,
+opacity:0,
+duration:1.5,
+scrollTrigger:{
+trigger:text,
+start:"top 75%",
+end:"top 30%",
+scrub:true
+}
+});
+});
+
+gsap.utils.toArray(".gallery-item").forEach((item,i)=>{
+gsap.from(item,{
+y:100,
+opacity:0,
+duration:1,
+delay:i*.15,
+scrollTrigger:{
+trigger:item,
+start:"top 85%",
+toggleActions:"play none none reverse"
+}
+});
+});
+
+window.addEventListener("load",()=>{
+ScrollTrigger.refresh();
+});
+
+document.querySelectorAll(".editorial-media,.split-media,.hero-media,.fullscreen,.video-section").forEach(container=>{
+const image=container.querySelector("img,video");
+if(!image)return;
+gsap.fromTo(container,{
+clipPath:"inset(12% 12% 12% 12%)"
+},{
+clipPath:"inset(0% 0% 0% 0%)",
+ease:"power3.out",
+scrollTrigger:{
+trigger:container,
+start:"top 75%",
+end:"top 25%",
+scrub:true
+}
+});
+});
+
+document.querySelectorAll(".gallery-item,.floating").forEach(item=>{
+gsap.fromTo(item,{
+clipPath:"inset(100% 0 0 0)"
+},{
+clipPath:"inset(0% 0 0 0)",
+duration:1.2,
+ease:"power4.out",
+scrollTrigger:{
+trigger:item,
+start:"top 85%",
+toggleActions:"play none none reverse"
+}
+});
+});
+
+const navLinks=document.querySelectorAll(".nav a");
+
+navLinks.forEach(link=>{
+link.addEventListener("click",e=>{
+const target=document.querySelector(link.getAttribute("href"));
+if(target){
+e.preventDefault();
+lenis.scrollTo(target,{
+offset:-80,
+duration:1.5
+});
+}
+});
+});
+
+const header=document.querySelector(".header");
+
+ScrollTrigger.create({
+start:"top -100",
+onUpdate:self=>{
+if(self.direction===-1){
+gsap.to(header,{
+y:0,
+duration:.4
+});
+}else{
+gsap.to(header,{
+y:-100,
+duration:.4
+});
+}
+}
+});
+
+const sectionsReveal=document.querySelectorAll(".statement,.manifest,.contact");
+
+sectionsReveal.forEach(section=>{
+const elements=section.querySelectorAll("h2,p,a,span");
+gsap.from(elements,{
+y:60,
+opacity:0,
+stagger:.08,
+duration:1,
+ease:"power3.out",
+scrollTrigger:{
+trigger:section,
+start:"top 70%",
+toggleActions:"play none none reverse"
+}
+});
+});
+
+const body=document.body;
+
+ScrollTrigger.create({
+trigger:".contact",
+start:"top center",
+onEnter:()=>{
+body.classList.add("light-mode");
+},
+onLeaveBack:()=>{
+body.classList.remove("light-mode");
+}
+});
+
+window.addEventListener("resize",()=>{
+ScrollTrigger.refresh();
+});
+
+document.addEventListener("DOMContentLoaded",()=>{
+gsap.set(".hero-overlay h1",{
+y:100,
+opacity:0
+});
+gsap.to(".hero-overlay h1",{
+y:0,
+opacity:1,
+duration:1.8,
+delay:.8,
+ease:"power4.out"
+});
 });
