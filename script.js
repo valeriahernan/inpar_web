@@ -1,605 +1,1338 @@
-const lenis=new Lenis({
-duration:1.4,
-smoothWheel:true,
-smoothTouch:false
+// =====================================
+// INPAR PORTFOLIO
+// GSAP + LENIS CINEMATIC SCROLL
+// =====================================
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+// =====================================
+// LENIS SMOOTH SCROLL
+// =====================================
+
+const lenis = new Lenis({
+    duration:1.4,
+    smoothWheel:true,
+    smoothTouch:false
 });
+
 
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.config({
-  nullTargetWarn:false
+
+lenis.on(
+    "scroll",
+    ScrollTrigger.update
+);
+
+
+gsap.ticker.add((time)=>{
+
+    lenis.raf(time * 1000);
+
 });
 
-ScrollTrigger.normalizeScroll(true);
-lenis.on("scroll",ScrollTrigger.update);
-
-gsap.ticker.add(time=>{
-lenis.raf(time*1000);
-});
 
 gsap.ticker.lagSmoothing(0);
 
 
-// CURSOR CUBOS
 
-const cubes=document.getElementById("cubes");
-const cursor=document.querySelector(".cursor");
 
-const GRID=24;
-const cubeMap=new Map();
+// =====================================
+// CURSOR + CUBOS
+// =====================================
 
-function snap(v){
-return Math.floor(v/GRID)*GRID;
-}
 
-function addCube(x,y){
+const cubes = document.querySelector("#cubes");
+const cursor = document.querySelector(".cursor");
 
-if(!cubes)return;
 
-const key=`${x},${y}`;
+const GRID = 24;
+const cubeMap = new Map();
 
-if(cubeMap.has(key))return;
 
-const cube=document.createElement("div");
 
-cube.className="cube";
-cube.style.left=x+"px";
-cube.style.top=y+"px";
+function snap(value){
 
-cubes.appendChild(cube);
-
-cubeMap.set(key,cube);
-
-setTimeout(()=>{
-
-cube.style.opacity=0;
-cube.style.transform="scale(.85)";
-
-setTimeout(()=>{
-cube.remove();
-cubeMap.delete(key);
-},350);
-
-},900);
+    return Math.floor(value / GRID) * GRID;
 
 }
 
-window.addEventListener("mousemove",e=>{
 
-if(cursor){
 
-gsap.to(cursor,{
-x:e.clientX,
-y:e.clientY,
-duration:.2,
-ease:"power3.out"
+function createCube(x,y){
+
+    if(!cubes) return;
+
+
+    const key = `${x},${y}`;
+
+
+    if(cubeMap.has(key)) return;
+
+
+
+    const cube=document.createElement("div");
+
+    cube.className="cube";
+
+    cube.style.left=x+"px";
+    cube.style.top=y+"px";
+
+
+    cubes.appendChild(cube);
+
+
+    cubeMap.set(key,cube);
+
+
+
+    gsap.to(
+        cube,
+        {
+            opacity:0,
+            scale:.8,
+            delay:.8,
+            duration:.4,
+            onComplete(){
+
+                cube.remove();
+
+                cubeMap.delete(key);
+
+            }
+        }
+    );
+
+}
+
+
+
+window.addEventListener(
+"mousemove",
+(e)=>{
+
+
+    if(cursor){
+
+        gsap.to(
+            cursor,
+            {
+                x:e.clientX,
+                y:e.clientY,
+                duration:.25,
+                ease:"power3.out"
+            }
+        );
+
+    }
+
+
+
+    createCube(
+        snap(e.clientX),
+        snap(e.clientY)
+    );
+
+
 });
 
-}
-
-addCube(
-snap(e.clientX),
-snap(e.clientY)
-);
-
-});
 
 
+
+
+// =====================================
 // LOADER
+// =====================================
+
 
 const loader=document.querySelector(".loader");
 
+
 if(loader){
 
-window.addEventListener("load",()=>{
 
-gsap.to(loader,{
-opacity:0,
-duration:1,
-delay:.5,
-ease:"power3.inOut",
-onComplete:()=>{
-loader.style.display="none";
+    window.addEventListener(
+    "load",
+    ()=>{
+
+
+        gsap.to(
+            loader,
+            {
+                opacity:0,
+                duration:1,
+                delay:.4,
+                ease:"power4.inOut",
+
+                onComplete(){
+
+                    loader.style.display="none";
+
+                }
+
+            }
+        );
+
+
+    });
+
+
 }
-});
-
-});
-
-}
 
 
-// HERO SCALE
 
-const heroImage=document.querySelector(".hero-media img");
+
+
+
+
+// =====================================
+// HERO IMAGE ZOOM
+// =====================================
+
+
+const heroImage=document.querySelector(
+".hero-media img"
+);
+
+
 
 if(heroImage){
 
-gsap.to(heroImage,{
+
+gsap.to(
+heroImage,
+{
+
 scale:1,
+
 ease:"none",
+
 scrollTrigger:{
+
 trigger:".hero",
+
 start:"top top",
+
 end:"bottom top",
+
 scrub:true
+
 }
+
 });
 
+
 }
 
 
-// PARALLAX IMÁGENES
 
-document.querySelectorAll(
-".editorial-media img,.split-media img,.gallery-item img,.fullscreen img,.floating img"
-).forEach(img=>{
 
-gsap.to(img,{
+
+
+// =====================================
+// PARALLAX GENERAL IMAGES
+// =====================================
+
+
+const images=document.querySelectorAll(
+
+".editorial-media img,\
+.split-media img,\
+.gallery-item img,\
+.fullscreen img,\
+.floating img"
+
+);
+
+
+
+images.forEach(img=>{
+
+
+gsap.to(
+img,
+{
+
 scale:1,
+
 ease:"none",
+
 scrollTrigger:{
+
 trigger:img,
+
 start:"top bottom",
+
 end:"bottom top",
+
 scrub:true
+
 }
+
+
 });
 
+
 });
 
 
-// REVELADO TIPOGRAFÍA
+// =====================================
+// REVELADO DE TEXTOS
+// =====================================
+
+
+const revealElements=document.querySelectorAll(
+
+".split,\
+.hero-overlay span,\
+.hero-overlay p,\
+.editorial-content span,\
+.editorial-content h2,\
+.editorial-content p,\
+.split-content span,\
+.split-content h2,\
+.split-content p"
+
+);
+
+
+
+revealElements.forEach(el=>{
+
+
+gsap.from(
+el,
+{
+
+y:90,
+
+opacity:0,
+
+duration:1.2,
+
+ease:"power4.out",
+
+scrollTrigger:{
+
+trigger:el,
+
+start:"top 85%",
+
+toggleActions:"play none none reverse"
+
+}
+
+}
+
+);
+
+
+});
+
+
+
+
+
+
+// =====================================
+// FADE CINEMÁTICO DE SECCIONES
+// =====================================
+
+
+document.querySelectorAll(".panel")
+.forEach(section=>{
+
+
+gsap.fromTo(
+section,
+{
+
+opacity:.65
+
+},
+{
+
+opacity:1,
+
+
+scrollTrigger:{
+
+trigger:section,
+
+start:"top 80%",
+
+end:"top 30%",
+
+scrub:true
+
+}
+
+
+});
+
+
+});
+
+
+
+
+
+
+
+// =====================================
+// FULLSCREEN + VIDEO SCALE
+// =====================================
+
 
 document.querySelectorAll(
-".split,.hero-overlay span,.hero-overlay p,.editorial-content span,.editorial-content h2,.editorial-content p,.split-content span,.split-content h2,.split-content p"
-).forEach(el=>{
-
-gsap.from(el,{
-y:80,
-opacity:0,
-duration:1.2,
-ease:"power4.out",
-scrollTrigger:{
-trigger:el,
-start:"top 80%",
-toggleActions:"play none none reverse"
-}
-});
-
-});
-
-document.querySelectorAll(".panel").forEach(section=>{
-
-gsap.fromTo(section,{
-opacity:.6
-},{
-opacity:1,
-scrollTrigger:{
-trigger:section,
-start:"top 80%",
-end:"top 30%",
-scrub:true
-}
-});
-
-});
+".fullscreen,.video-section"
+)
+.forEach(section=>{
 
 
-// FULLSCREEN + VIDEO
+const media=
+section.querySelector("img,video");
 
-document.querySelectorAll(".fullscreen,.video-section").forEach(section=>{
 
-const media=section.querySelector("img,video");
 
-if(media){
+if(!media)return;
 
-gsap.fromTo(media,{
+
+
+gsap.fromTo(
+media,
+{
+
 scale:1.15
-},{
+
+},
+{
+
 scale:1,
+
 ease:"none",
+
+
 scrollTrigger:{
+
 trigger:section,
+
 start:"top bottom",
+
 end:"bottom top",
+
 scrub:true
-}
-});
 
 }
 
+}
+
+);
+
+
+
 });
 
 
-// GALERÍA FLOTANTE
 
-document.querySelectorAll(".floating").forEach((item,index)=>{
 
-gsap.to(item,{
-y:index%2===0?120:-120,
-rotate:index%2===0?3:-3,
+
+
+
+
+// =====================================
+// GALERÍA FLOTANTE PARALLAX
+// =====================================
+
+
+const floatingItems=
+document.querySelectorAll(".floating");
+
+
+
+floatingItems.forEach(
+(item,index)=>{
+
+
+gsap.to(
+item,
+{
+
+
+y:index%2===0 ? 140 : -140,
+
+
+rotate:index%2===0 ? 4 : -4,
+
+
 ease:"none",
+
+
 scrollTrigger:{
+
 trigger:".floating-gallery",
+
 start:"top bottom",
+
 end:"bottom top",
+
 scrub:true
+
 }
+
+
 });
 
+
 });
 
 
-// CAMBIO DE FONDO POR SECCIONES
+
+
+
+
+
+// =====================================
+// CAMBIO DE COLOR DE FONDO
+// =====================================
+
 
 const backgrounds=[
+
+
 "#7655d3",
+
 "#9a8ae4",
+
 "#111111",
+
 "#e8e1d8",
+
 "#ffe5b1"
+
 ];
 
-document.querySelectorAll(".panel").forEach((section,index)=>{
+
+
+
+document.querySelectorAll(".panel")
+.forEach((section,index)=>{
+
 
 ScrollTrigger.create({
 
 trigger:section,
+
 
 start:"top center",
 
+
 end:"bottom center",
 
-onEnter:()=>{
 
-gsap.to(".bg-layer",{
-backgroundColor:backgrounds[index%backgrounds.length],
+
+onEnter(){
+
+
+gsap.to(
+".bg-layer",
+{
+
+backgroundColor:
+backgrounds[index % backgrounds.length],
+
 duration:.8,
+
 ease:"power2.out"
-});
-
-},
-
-onEnterBack:()=>{
-
-gsap.to(".bg-layer",{
-backgroundColor:backgrounds[index%backgrounds.length],
-duration:.8,
-ease:"power2.out"
-});
 
 }
 
-});
+);
+
+
+},
+
+
+
+
+onEnterBack(){
+
+
+gsap.to(
+".bg-layer",
+{
+
+backgroundColor:
+backgrounds[index % backgrounds.length],
+
+duration:.8,
+
+ease:"power2.out"
+
+}
+
+);
+
+
+}
+
+
 
 });
 
 
-// PIN SECCIONES
+
+});
+
+
+
+
+
+
+
+
+
+// =====================================
+// PIN CINEMÁTICO
+// (tipo Magnolia Magazine)
+// =====================================
+
+
 
 document.querySelectorAll(
-".editorial,.split-section"
-).forEach(section=>{
+
+".editorial,\
+.split-section"
+
+)
+
+.forEach(section=>{
+
 
 ScrollTrigger.create({
 
 trigger:section,
 
+
 start:"top top",
 
-end:"+=150%",
+
+end:"+=120%",
+
 
 pin:true,
 
+
 pinSpacing:true
 
+
+
 });
 
+
+
 });
 
 
-// ESCALA TEXTOS GRANDES
+
+
+
+
+
+// =====================================
+// ESCALA DE FRASES GRANDES
+// =====================================
+
+
 
 gsap.utils.toArray(
-".quote p,.manifest h2"
-).forEach(text=>{
 
-gsap.from(text,{
+".quote p,\
+.manifest h2"
 
-scale:.8,
+)
+
+.forEach(text=>{
+
+
+gsap.from(
+
+text,
+
+{
+
+scale:.75,
 
 opacity:0,
 
-duration:1.5,
+
+ease:"power3.out",
+
+
 
 scrollTrigger:{
 
 trigger:text,
 
-start:"top 75%",
 
-end:"top 30%",
+start:"top 80%",
+
+
+end:"top 35%",
+
 
 scrub:true
 
+
+
 }
 
-});
+
+}
+
+);
+
+
 
 });
 
 
-// ENTRADA GALERÍA
 
-gsap.utils.toArray(".gallery-item").forEach((item,i)=>{
 
-gsap.from(item,{
 
-y:100,
+
+
+
+
+// =====================================
+// ENTRADA CASCADA GALERÍA
+// =====================================
+
+
+
+gsap.utils.toArray(
+".gallery-item"
+)
+.forEach(
+(item,index)=>{
+
+
+gsap.from(
+
+item,
+
+{
+
+
+y:120,
 
 opacity:0,
 
+
 duration:1,
 
-delay:i*.15,
+
+delay:index*.15,
+
+ease:"power3.out",
+
+
 
 scrollTrigger:{
 
+
 trigger:item,
+
 
 start:"top 85%",
 
-toggleActions:"play none none reverse"
+
+toggleActions:
+"play none none reverse"
+
+
 
 }
 
-});
+
+}
+
+);
+
 
 });
 
 
-// CLIP PATH EDITORIAL
+
+
+
+
+
+
+
+// =====================================
+// CLIP PATH CINEMÁTICO
+// =====================================
+
+
 
 document.querySelectorAll(
-".editorial-media,.split-media,.hero-media,.fullscreen,.video-section"
-).forEach(container=>{
 
-const media=container.querySelector("img,video");
+".editorial-media,\
+.split-media,\
+.hero-media,\
+.fullscreen,\
+.video-section"
+
+)
+
+.forEach(container=>{
+
+
+const media =
+container.querySelector("img,video");
+
+
 
 if(!media)return;
 
-gsap.fromTo(container,{
 
-clipPath:"inset(12% 12% 12% 12%)"
 
-},{
+gsap.fromTo(
 
-clipPath:"inset(0% 0% 0% 0%)",
+container,
+
+{
+
+
+clipPath:
+"inset(15% 15% 15% 15%)"
+
+
+},
+
+{
+
+
+clipPath:
+"inset(0% 0% 0% 0%)",
+
 
 ease:"power3.out",
 
+
+
 scrollTrigger:{
+
 
 trigger:container,
 
-start:"top 75%",
+
+start:"top 80%",
+
 
 end:"top 25%",
 
+
 scrub:true
+
+
 
 }
 
-});
+
+
+}
+
+);
+
+
 
 });
-document.querySelectorAll(".gallery-item,.floating").forEach(item=>{
 
-gsap.fromTo(item,{
 
-clipPath:"inset(100% 0 0 0)"
 
-},{
 
-clipPath:"inset(0% 0 0 0)",
+
+
+
+
+// =====================================
+// REVELADO DE TARJETAS
+// =====================================
+
+
+document.querySelectorAll(
+
+".gallery-item,\
+.floating"
+
+)
+
+.forEach(item=>{
+
+
+gsap.fromTo(
+
+item,
+
+{
+
+
+clipPath:
+"inset(100% 0 0 0)"
+
+},
+
+
+{
+
+
+clipPath:
+"inset(0% 0 0 0)",
+
 
 duration:1.2,
 
+
 ease:"power4.out",
 
+
+
 scrollTrigger:{
+
 
 trigger:item,
 
+
 start:"top 85%",
 
-toggleActions:"play none none reverse"
+
+toggleActions:
+"play none none reverse"
+
+
 
 }
 
-});
+
+
+}
+
+);
+
+
 
 });
 
 
-// NAVEGACIÓN LENIS
+// =====================================
+// NAVEGACIÓN SUAVE LENIS
+// =====================================
 
-const navLinks=document.querySelectorAll(".nav a");
+
+const navLinks=document.querySelectorAll(
+".nav a, .logo"
+);
+
+
 
 navLinks.forEach(link=>{
 
-link.addEventListener("click",e=>{
 
-const target=document.querySelector(
-link.getAttribute("href")
-);
+link.addEventListener(
+"click",
+(e)=>{
+
+
+const href=
+link.getAttribute("href");
+
+
+
+if(!href || !href.startsWith("#")) return;
+
+
+
+const target=
+document.querySelector(href);
+
+
 
 if(target){
 
+
 e.preventDefault();
 
-lenis.scrollTo(target,{
-offset:-80,
-duration:1.5
-});
+
+
+lenis.scrollTo(
+target,
+{
+
+offset:-90,
+
+duration:1.5,
+
+ease:
+(t)=>1-Math.pow(1-t,4)
 
 }
 
-});
+);
+
+
+}
+
+
 
 });
 
 
-// HEADER OCULTAR / MOSTRAR
 
-const header=document.querySelector(".header");
+});
+
+
+
+
+
+
+
+
+// =====================================
+// HEADER AUTO HIDE / SHOW
+// =====================================
+
+
+
+const header=
+document.querySelector(".header");
+
+
+
+let lastScroll=0;
+
+
 
 if(header){
 
+
 ScrollTrigger.create({
 
-start:"top -100",
+start:"top top",
 
-onUpdate:self=>{
 
-if(self.direction===-1){
+end:99999,
 
-gsap.to(header,{
-y:0,
-duration:.4,
+
+onUpdate(self){
+
+
+const current=
+self.scroll();
+
+
+
+if(current > lastScroll && current>150){
+
+
+gsap.to(
+header,
+{
+
+y:-120,
+
+duration:.5,
+
 ease:"power3.out"
-});
+
+}
+
+);
+
 
 }else{
 
-gsap.to(header,{
-y:-100,
-duration:.4,
+
+gsap.to(
+header,
+{
+
+y:0,
+
+duration:.5,
+
 ease:"power3.out"
-});
 
 }
 
-}
-
-});
-
-}
-
-
-// REVELADO SECCIONES IMPORTANTES
-
-document.querySelectorAll(
-".statement,.manifest,.contact"
-).forEach(section=>{
-
-const elements=section.querySelectorAll(
-"h2,p,a,span"
 );
 
-gsap.from(elements,{
 
-y:60,
-
-opacity:0,
-
-stagger:.08,
-
-duration:1,
-
-ease:"power3.out",
-
-scrollTrigger:{
-
-trigger:section,
-
-start:"top 70%",
-
-toggleActions:"play none none reverse"
 
 }
 
-});
+
+
+lastScroll=current;
+
+
+
+}
+
 
 });
 
 
-// CONTACTO CAMBIO DE CONTRASTE
 
-const body=document.body;
+}
 
-const contact=document.querySelector(".contact");
+
+
+
+
+
+
+
+
+// =====================================
+// CONTACTO CAMBIO DE TEMA
+// =====================================
+
+
+
+const contact=
+document.querySelector(".contact");
+
+
+
+const body=
+document.body;
+
+
 
 if(contact){
+
+
 
 ScrollTrigger.create({
 
 trigger:contact,
 
+
 start:"top center",
 
-onEnter:()=>{
 
-body.classList.add("light-mode");
+
+onEnter(){
+
+
+body.classList.add(
+"light-mode"
+);
+
+
 
 },
 
-onLeaveBack:()=>{
 
-body.classList.remove("light-mode");
+
+onLeaveBack(){
+
+
+body.classList.remove(
+"light-mode"
+);
+
+
 
 }
 
+
+
 });
+
+
 
 }
 
 
-// REFRESH
 
-window.addEventListener("load",()=>{
+
+
+
+
+
+
+// =====================================
+// REFRESH GSAP
+// =====================================
+
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+setTimeout(()=>{
+
 
 ScrollTrigger.refresh();
 
+
+},500);
+
+
+
 });
 
-window.addEventListener("resize",()=>{
+
+
+
+
+window.addEventListener(
+"resize",
+()=>{
+
 
 ScrollTrigger.refresh();
 
+
+
 });
 
 
-// HERO ENTRADA
 
-document.addEventListener("DOMContentLoaded",()=>{
 
-const title=document.querySelector(
+
+
+
+
+
+
+// =====================================
+// ENTRADA HERO INPAR
+// =====================================
+
+
+
+const heroTitle=
+document.querySelector(
 ".hero-overlay h1"
 );
 
-if(title){
 
-gsap.set(title,{
-y:100,
+
+const heroMeta=
+document.querySelectorAll(
+".hero-overlay span,\
+.hero-overlay p"
+);
+
+
+
+if(heroTitle){
+
+
+
+gsap.set(
+heroTitle,
+{
+
+y:120,
+
 opacity:0
-});
-
-
-gsap.to(title,{
-
-y:0,
-
-opacity:1,
-
-duration:1.8,
-
-delay:.8,
-
-ease:"power4.out"
-
-});
 
 }
 
+);
+
+
+
+gsap.to(
+heroTitle,
+{
+
+y:0,
+
+
+opacity:1,
+
+
+duration:1.8,
+
+
+delay:.6,
+
+
+ease:"power4.out"
+
+
+
+}
+
+);
+
+
+
+}
+
+
+
+if(heroMeta.length){
+
+
+
+gsap.from(
+heroMeta,
+{
+
+y:40,
+
+opacity:0,
+
+
+stagger:.15,
+
+
+duration:1,
+
+
+delay:.8,
+
+
+ease:"power3.out"
+
+
+
+}
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================================
+// LIMPIEZA FINAL SCROLLTRIGGER
+// =====================================
+
+
+ScrollTrigger.refresh();
+
+
+
+
 });
+

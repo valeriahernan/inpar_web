@@ -1,194 +1,666 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>INPAR | Valeria Hernández</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Kablammo&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>INPAR | Valeria Hernández</title>
 
 
-  <!-- Modern CDN Dependency Links -->
+<!-- FONTS -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Kablammo&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+<!-- CSS -->
+
+<link rel="stylesheet" href="style.css">
+
+
+<!-- GSAP -->
+
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
+
+<!-- LENIS -->
+
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1/bundled/lenis.min.js"></script>
 
-<script src="script.js"></script>
 
 </head>
 
+
 <body>
+
+
+<!-- CURSOR -->
+
 <div id="cubes"></div>
+
 <div class="cursor"></div>
 
-  <div class="bg-layer"></div>
-  <div class="loader">
-    <div class="loader-logo">INPAR</div>
-  </div>
 
-  <div class="noise"></div>
 
-  <header class="header">
-    <a href="#hero" class="logo">INPAR</a>
-    <nav class="nav">
-      <a href="#arte">Arte</a>
-      <a href="#multimedia">Multimedia</a>
-      <a href="#diseno">Diseño</a>
-      <a href="#musica">Música</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
+<!-- BACKGROUND -->
 
-  <main>
-    <section class="hero panel" id="hero">
-      <div class="hero-media">
-        <img src="assets/images/noise.jpg" alt="">
-      </div>
-      <div class="hero-overlay">
-        <span>PORTAFOLIO 2026</span>
-        <h1 class="split">INPAR</h1>
-        <p>Valeria Hernández</p>
-      </div>
-      <div class="scroll-indicator">
-        <span>Scroll</span>
-      </div>
-    </section>
+<div class="bg-layer"></div>
 
-    <section class="statement panel">
-      <div class="statement-left">
-        <span>01</span>
-      </div>
-      <div class="statement-right">
-        <h2 class="split">
-          La imagen como territorio.<br>
-          El diseño como narrativa.
-        </h2>
-      </div>
-    </section>
+<div class="noise"></div>
 
-    <section class="editorial panel" id="arte">
-      <div class="editorial-media">
-        <img src="assets/images/1.jpg" alt="">
-      </div>
-      <div class="editorial-content">
-        <span>Arte</span>
-        <h2 class="split">Exploraciones gráficas.</h2>
-        <p>Dibujo contemporáneo, gráfica experimental y procesos de investigación visual.</p>
-      </div>
-    </section>
 
-    <section class="gallery panel">
-      <figure class="gallery-item large">
-        <img src="assets/images/2.jpg" alt="">
-      </figure>
-      <figure class="gallery-item small">
-        <img src="assets/images/3.jpg" alt="">
-      </figure>
-      <figure class="gallery-item medium">
-        <img src="assets/images/4.jpg" alt="">
-      </figure>
-    </section>
 
-    <section class="quote panel">
-      <p>"La imagen también puede ser un espacio para pensar."</p>
-    </section>
+<!-- LOADER -->
 
-    <section class="split-section panel" id="multimedia">
-      <div class="split-content">
-        <span>02</span>
-        <h2 class="split">Multimedia</h2>
-        <p>Instalaciones, video, programación creativa y experiencias inmersivas donde la tecnología funciona como un lenguaje artístico.</p>
-      </div>
-      <div class="split-media">
-        <img src="assets/images/5.jpg" alt="">
-      </div>
-    </section>
+<div class="loader">
 
-    <section class="fullscreen panel">
-      <img src="assets/images/6.jpg" alt="">
-      <div class="fullscreen-title">
-        <h2 class="split">Materia · Luz · Tiempo</h2>
-      </div>
-    </section>
+<div class="loader-logo">
+INPAR
+</div>
 
-    <section class="editorial reverse panel" id="diseno">
-      <div class="editorial-content">
-        <span>03</span>
-        <h2 class="split">Diseño</h2>
-        <p>Dirección de arte, identidad visual, publicaciones editoriales y sistemas gráficos desarrollados desde una perspectiva contemporánea.</p>
-      </div>
-      <div class="editorial-media">
-        <img src="assets/images/7.jpg" alt="">
-      </div>
-    </section>
+</div>
 
-    <section class="floating-gallery panel">
-      <div class="floating one">
-        <img src="assets/images/8.jpg" alt="">
-      </div>
-      <div class="floating two">
-        <img src="assets/images/9.jpg" alt="">
-      </div>
-      <div class="floating three">
-        <img src="assets/images/10.jpg" alt="">
-      </div>
-      <div class="floating four">
-        <img src="assets/images/11.jpg" alt="">
-      </div>
-    </section>
 
-    <section class="manifest panel">
-      <div class="manifest-number">04</div>
-      <h2 class="split">Cada proyecto construye una relación distinta entre imagen, espacio, sonido y experiencia.</h2>
-    </section>
 
-    <section class="split-section reverse panel" id="musica">
-      <div class="split-media">
-        <img src="assets/images/12.jpg" alt="">
-      </div>
-      <div class="split-content">
-        <span>Música</span>
-        <h2 class="split">Paisajes Sonoros</h2>
-        <p>Composición, experimentación y diseño sonoro para proyectos audiovisuales e instalaciones.</p>
-      </div>
-    </section>
+<!-- HEADER -->
 
-    <section class="video-section panel">
-      <video autoplay muted loop playsinline>
-        <source src="assets/video/6.jpg" type="video/mp4">
-      </video>
-      <div class="video-overlay">
-        <h2 class="split">Procesos</h2>
-      </div>
-    </section>
+<header class="header">
 
-    <section class="contact panel" id="contacto">
-      <div class="contact-label">Contacto</div>
-      <h2 class="split">¿Creamos algo juntos?</h2>
-      <a href="mailto:hola@inpar.cl" class="contact-mail">hola@inpar.cl</a>
-      <div class="contact-social">
-        <a href="#">Instagram</a>
-        <a href="#">Behance</a>
-        <a href="#">LinkedIn</a>
-      </div>
-    </section>
+<a href="#hero" class="logo">
+INPAR
+</a>
 
-    <footer class="footer">
-      <div class="footer-left">
-        <p>INPAR</p>
-        <p>Portafolio de Valeria Hernández</p>
-      </div>
-      <div class="footer-right">
-        <p>©2026</p>
-      </div>
-    </footer>
-  </main>
 
-  <script src="script.js"></script>
+<nav class="nav">
+
+<a href="#arte">
+Arte
+</a>
+
+<a href="#multimedia">
+Multimedia
+</a>
+
+<a href="#diseno">
+Diseño
+</a>
+
+<a href="#musica">
+Música
+</a>
+
+<a href="#contacto">
+Contacto
+</a>
+
+
+</nav>
+
+</header>
+
+
+
+
+
+<main>
+
+
+
+<!-- HERO -->
+
+<section class="hero panel" id="hero">
+
+
+<div class="hero-media">
+
+<img src="assets/images/1.jpg" alt="">
+
+</div>
+
+
+<div class="hero-overlay">
+
+
+<span>
+PORTAFOLIO 2026
+</span>
+
+
+<h1 class="split">
+INPAR
+</h1>
+
+
+<p>
+Valeria Hernández
+</p>
+
+
+</div>
+
+
+<div class="scroll-indicator">
+
+<span>
+Scroll
+</span>
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- STATEMENT -->
+
+<section class="statement panel">
+
+
+<div class="statement-left">
+
+<span>
+01
+</span>
+
+</div>
+
+
+
+<div class="statement-right">
+
+
+<h2 class="split">
+
+La imagen como territorio.
+<br>
+
+El diseño como narrativa.
+
+</h2>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ARTE -->
+
+<section class="editorial panel" id="arte">
+
+
+<div class="editorial-media">
+
+<img src="assets/images/1.jpg" alt="">
+
+</div>
+
+
+
+<div class="editorial-content">
+
+<span>
+Arte
+</span>
+
+
+<h2 class="split">
+Exploraciones gráficas.
+</h2>
+
+
+<p>
+
+Dibujo contemporáneo, gráfica experimental y procesos de investigación visual.
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- GALERIA -->
+
+<section class="gallery panel">
+
+
+<figure class="gallery-item large">
+
+<img src="assets/images/2.jpg" alt="">
+
+</figure>
+
+
+
+<figure class="gallery-item small">
+
+<img src="assets/images/3.jpg" alt="">
+
+</figure>
+
+
+
+<figure class="gallery-item medium">
+
+<img src="assets/images/4.jpg" alt="">
+
+</figure>
+
+
+</section>
+
+
+
+
+
+<!-- QUOTE -->
+
+<section class="quote panel">
+
+
+<p>
+
+"La imagen también puede ser un espacio para pensar."
+
+</p>
+
+
+</section>
+
+
+
+
+
+<!-- MULTIMEDIA -->
+
+<section class="split-section panel" id="multimedia">
+
+
+<div class="split-content">
+
+
+<span>
+02
+</span>
+
+
+<h2 class="split">
+Multimedia
+</h2>
+
+
+<p>
+
+Instalaciones, video, programación creativa y experiencias inmersivas donde la tecnología funciona como un lenguaje artístico.
+
+</p>
+
+
+</div>
+
+
+
+<div class="split-media">
+
+
+<img src="assets/images/5.jpg" alt="">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- FULLSCREEN -->
+
+<section class="fullscreen panel">
+
+
+<img src="assets/images/6.jpg" alt="">
+
+
+<div class="fullscreen-title">
+
+
+<h2 class="split">
+
+Materia · Luz · Tiempo
+
+</h2>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- DISEÑO -->
+
+<section class="editorial reverse panel" id="diseno">
+
+
+<div class="editorial-content">
+
+
+<span>
+03
+</span>
+
+
+<h2 class="split">
+Diseño
+</h2>
+
+
+<p>
+
+Dirección de arte, identidad visual, publicaciones editoriales y sistemas gráficos desarrollados desde una perspectiva contemporánea.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="editorial-media">
+
+
+<img src="assets/images/7.jpg" alt="">
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<!-- FLOATING GALLERY -->
+
+
+<section class="floating-gallery panel">
+
+
+<div class="floating one">
+
+<img src="assets/images/8.jpg" alt="">
+
+</div>
+
+
+<div class="floating two">
+
+<img src="assets/images/9.jpg" alt="">
+
+</div>
+
+
+<div class="floating three">
+
+<img src="assets/images/10.jpg" alt="">
+
+</div>
+
+
+<div class="floating four">
+
+<img src="assets/images/11.jpg" alt="">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- MANIFEST -->
+
+<section class="manifest panel">
+
+
+<div class="manifest-number">
+
+04
+
+</div>
+
+
+
+<h2 class="split">
+
+Cada proyecto construye una relación distinta entre imagen, espacio, sonido y experiencia.
+
+</h2>
+
+
+</section>
+
+
+
+
+
+<!-- MUSICA -->
+
+
+<section class="split-section reverse panel" id="musica">
+
+
+<div class="split-media">
+
+<img src="assets/images/12.jpg" alt="">
+
+</div>
+
+
+
+<div class="split-content">
+
+
+<span>
+Música
+</span>
+
+
+<h2 class="split">
+
+Paisajes Sonoros
+
+</h2>
+
+
+<p>
+
+Composición, experimentación y diseño sonoro para proyectos audiovisuales e instalaciones.
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- VIDEO -->
+
+
+<section class="video-section panel">
+
+
+<video autoplay muted loop playsinline>
+
+
+<!-- Cambiar por tu archivo real -->
+<!-- assets/video/6.mp4 -->
+
+
+</video>
+
+
+
+<div class="video-overlay">
+
+
+<h2 class="split">
+
+Procesos
+
+</h2>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- CONTACTO -->
+
+
+<section class="contact panel" id="contacto">
+
+
+<div class="contact-label">
+
+Contacto
+
+</div>
+
+
+
+<h2 class="split">
+
+¿Creamos algo juntos?
+
+</h2>
+
+
+
+<a href="mailto:hola@inpar.cl" class="contact-mail">
+
+hola@inpar.cl
+
+</a>
+
+
+
+<div class="contact-social">
+
+
+<a href="#">
+Instagram
+</a>
+
+
+<a href="#">
+Behance
+</a>
+
+
+<a href="#">
+LinkedIn
+</a>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<!-- FOOTER -->
+
+
+<footer class="footer">
+
+
+<div class="footer-left">
+
+<p>
+INPAR
+</p>
+
+
+<p>
+Portafolio de Valeria Hernández
+</p>
+
+
+</div>
+
+
+
+<div class="footer-right">
+
+<p>
+©2026
+</p>
+
+</div>
+
+
+</footer>
+
+
+
+
+</main>
+
+
+
+
+
+<!-- JS FINAL -->
+
+
+<script src="script.js"></script>
+
+
+
 </body>
+
 </html>
