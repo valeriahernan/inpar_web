@@ -1,0 +1,132 @@
+/*========== ARTE ==========*/
+
+.arte-panel{
+position:relative;
+overflow:hidden;
+}
+
+.arte-panel .contenido-story{
+width:100%;
+height:100%;
+display:grid;
+grid-template-columns:35% 65%;
+align-items:center;
+padding:0 6vw;
+}
+
+
+.arte-panel .texto-lado{
+z-index:3;
+}
+
+
+.arte-panel .texto-lado h2{
+font-size:6vw;
+line-height:.9;
+text-transform:uppercase;
+}
+
+
+.arte-panel .texto-lado p{
+max-width:350px;
+margin-top:25px;
+line-height:1.6;
+}
+
+
+
+.arte-panel .imagen-lado{
+position:relative;
+height:80vh;
+}
+
+
+
+.arte-panel .galeria-fotos{
+position:relative;
+width:100%;
+height:100%;
+}
+
+
+
+.arte-panel .marco-foto{
+position:absolute;
+overflow:hidden;
+}
+
+
+
+.arte-panel .marco-foto:nth-child(1){
+
+width:55%;
+height:75%;
+
+right:10%;
+top:5%;
+
+z-index:3;
+
+}
+
+
+
+.arte-panel .marco-foto:nth-child(2){
+
+width:30%;
+height:40%;
+
+left:5%;
+bottom:8%;
+
+z-index:2;
+
+}
+
+
+
+.arte-panel .marco-foto:nth-child(3){
+
+width:25%;
+height:35%;
+
+right:0;
+bottom:0;
+
+z-index:4;
+
+}
+
+
+
+.arte-panel .marco-foto:nth-child(4){
+
+width:20%;
+height:25%;
+
+left:20%;
+top:5%;
+
+z-index:1;
+
+}
+
+
+
+.arte-panel img{
+
+width:100%;
+height:100%;
+object-fit:cover;
+
+transition:transform .8s cubic-bezier(.22,1,.36,1);
+
+}
+
+
+
+.arte-panel .marco-foto:hover img{
+
+transform:scale(1.08);
+
+}
