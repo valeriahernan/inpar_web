@@ -81,7 +81,9 @@ toggleActions:"play none none reverse"
 
 gsap.to(images,{
 
-yPercent:-12,
+yPercent:-20,
+scale:1.1,
+rotation,
 ease:"none",
 
 scrollTrigger:{
