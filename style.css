@@ -802,46 +802,65 @@ main {
 }
 
 /* =========================
-   Arte Section
+   Sección de Arte
 ========================= */
 
 .arte {
   position: relative;
   height: 100vh;
-  overflow: hidden;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  overflow: hidden;
+  background: transparent; /* Puedes ajustar el fondo si quieres */
 }
 
+/* Contenedor sticky para mantener la sección fija durante el scroll */
 .arte-pin {
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
+/* Contenedor principal que alinea las imágenes y la frase */
+.arte-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+/* Área de scroll horizontal con las imágenes */
 .arte-track {
   display: flex;
-  align-items: center;
   gap: 4vw;
   padding: 0 8vw;
   height: 100%;
-  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex: 1;
 }
 
+/* Cada imagen de arte */
 .arte-item {
   flex: 0 0 38vw;
   height: 65vh;
   overflow: hidden;
+  border-radius: 8px;
   transition: transform 0.6s ease;
+  flex-shrink: 0;
 }
 
+/* Imagen dentro del elemento */
 .arte-item img {
   width: 100%;
   height: 100%;
@@ -850,34 +869,55 @@ main {
   transition: transform 0.6s ease;
 }
 
-/* Active state for animations */
-.arte-item.active img {
+/* Opcional: escala la imagen en estado activo o en hover */
+.arte-item.active img,
+.arte-item:hover img {
   transform: scale(1.05);
 }
 
-.arte-item:not(.active) img {
-  transform: scale(0.95);
+/* Frase a la derecha */
+.arte-info {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2rem;
 }
 
-/* Responsividad para la sección de arte en pantallas pequeñas */
+/* Estilo del texto de la frase */
+.arte-info h2 {
+  font-family: "Cavalhatriz", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  writing-mode: vertical-rl;
+  /* Si quieres que sea de abajo hacia arriba, usa rotate */
+  /* transform: rotate(180deg); */
+}
+
+/* =========================
+   Responsividad
+========================= */
+
 @media (max-width: 992px) {
-  .arte {
-    height: auto;
-    padding: 2rem 1rem;
+  .arte-container {
     flex-direction: column;
-  }
-
-  .arte-pin {
-    position: relative;
-    top: auto;
-    height: auto;
-    width: 100%;
+    align-items: center;
     padding: 2rem 1rem;
   }
 
+  /* Ocultar la frase en pantallas pequeñas si quieres */
+  .arte-info {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+  /* Hacer que las imágenes ocupen todo el ancho y sean más pequeñas */
   .arte-track {
     flex-direction: column;
     gap: 2rem;
+    padding: 0;
   }
 
   .arte-item {
@@ -886,7 +926,7 @@ main {
     height: auto;
   }
 
-  /* Opcional: ajustar tamaño de las imágenes */
+  /* Ajustar tamaño de las imágenes */
   .arte-item img {
     object-fit: contain;
   }
