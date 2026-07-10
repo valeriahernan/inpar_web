@@ -1,4 +1,4 @@
-/*========== DISEÑO HORIZONTAL SCROLL ==========*/
+/*========== DISEÑO HORIZONTAL ==========*/
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -11,14 +11,17 @@ const track=document.querySelector(".diseno-track");
 if(!section||!track)return;
 
 
-function horizontalScroll(){
+const getDistance=()=>{
 
-const distance=track.scrollWidth-window.innerWidth;
+return track.scrollWidth-window.innerWidth;
+
+};
+
 
 
 gsap.to(track,{
 
-x:-distance,
+x:()=>-getDistance(),
 
 ease:"none",
 
@@ -28,7 +31,7 @@ trigger:section,
 
 start:"top top",
 
-end:()=>"+="+distance,
+end:()=>"+="+getDistance(),
 
 pin:true,
 
@@ -39,11 +42,6 @@ invalidateOnRefresh:true
 }
 
 });
-
-}
-
-
-horizontalScroll();
 
 
 window.addEventListener("resize",()=>{
