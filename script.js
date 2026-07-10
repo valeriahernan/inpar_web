@@ -1227,3 +1227,38 @@ ScrollTrigger.refresh();
 
 
 });
+
+//=====================================
+// ARTE HORIZONTAL
+//=====================================
+
+const arteTrack=document.querySelector(".arte-track");
+
+if(arteTrack){
+
+gsap.to(arteTrack,{
+x:()=>-(arteTrack.scrollWidth-window.innerWidth+160),
+ease:"none",
+scrollTrigger:{
+trigger:"#arte",
+start:"top top",
+end:()=>"+="+arteTrack.scrollWidth,
+pin:".arte-pin",
+scrub:1,
+invalidateOnRefresh:true
+}
+});
+
+gsap.utils.toArray(".arte-item").forEach(item=>{
+
+ScrollTrigger.create({
+trigger:item,
+containerAnimation:gsap.getTweensOf(arteTrack)[0],
+start:"left center",
+end:"right center",
+toggleClass:{targets:item,className:"active"}
+});
+
+});
+
+}
