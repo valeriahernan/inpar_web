@@ -1,57 +1,103 @@
-/*========== CUBES ==========*/
+/*========== BLUE CUBES MOUSE EFFECT ==========*/
 
 document.addEventListener("DOMContentLoaded",()=>{
+
 
 const container=document.querySelector("#cubes");
 
 if(!container)return;
 
-const GRID=24;
-const cubes=new Map();
 
-function snap(value){
-return Math.floor(value/GRID)*GRID;
-}
+const size=24;
+let lastX=0;
+let lastY=0;
+
 
 function createCube(x,y){
 
-const key=`${x},${y}`;
-
-if(cubes.has(key))return;
 
 const cube=document.createElement("div");
 
 cube.className="cube";
+
+
 cube.style.left=x+"px";
 cube.style.top=y+"px";
 
+
 container.appendChild(cube);
-cubes.set(key,cube);
 
 
-setTimeout(()=>{
 
-cube.classList.add("remove");
+gsap.fromTo(cube,
 
-setTimeout(()=>{
+{
+scale:0,
+opacity:0
+},
+
+{
+scale:1,
+opacity:1,
+duration:.35,
+ease:"power2.out"
+}
+
+);
+
+
+
+gsap.to(cube,
+
+{
+opacity:0,
+scale:.8,
+duration:1.2,
+delay:.5,
+ease:"power2.in",
+
+onComplete(){
 
 cube.remove();
-cubes.delete(key);
 
-},500);
+}
 
-},700);
+}
+
+);
+
 
 }
 
 
-document.addEventListener("mousemove",e=>{
 
-createCube(
-snap(e.clientX),
-snap(e.clientY)
+document.addEventListener("mousemove",(e)=>{
+
+
+const distance=Math.hypot(
+e.clientX-lastX,
+e.clientY-lastY
 );
 
+
+
+if(distance>size){
+
+
+createCube(
+Math.floor(e.clientX/size)*size,
+Math.floor(e.clientY/size)*size
+);
+
+
+lastX=e.clientX;
+lastY=e.clientY;
+
+
+}
+
+
 });
+
 
 });
