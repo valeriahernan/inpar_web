@@ -1,0 +1,25 @@
+/*========== CURSOR ==========*/
+
+.cursor{
+position:fixed;
+top:0;
+left:0;
+width:18px;
+height:18px;
+border:1px solid var(--text);
+border-radius:50%;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:var(--z-cursor);
+mix-blend-mode:difference;
+transition:
+width var(--transition),
+height var(--transition),
+background var(--transition);
+}
+
+.cursor.active{
+width:55px;
+height:55px;
+background:var(--white);
+}

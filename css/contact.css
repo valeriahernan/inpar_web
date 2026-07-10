@@ -1,0 +1,44 @@
+/*========== CONTACT ==========*/
+
+.contacto-panel{
+background:var(--text);
+color:var(--bg);
+}
+
+.contacto-full{
+text-align:center;
+padding-top:var(--nav-height);
+}
+
+.contacto-full h2{
+font-size:4vw;
+margin-bottom:1.5rem;
+}
+
+.email-grandote{
+display:inline-block;
+font-family:var(--font-mono);
+font-size:5vw;
+font-weight:var(--fw-bold);
+color:var(--bg);
+text-decoration:underline;
+}
+
+.redes-footer{
+display:flex;
+justify-content:center;
+gap:2.5rem;
+margin-top:4rem;
+}
+
+.redes-footer a{
+font-size:.9rem;
+font-weight:var(--fw-bold);
+text-transform:uppercase;
+letter-spacing:.08em;
+transition:opacity var(--transition);
+}
+
+.redes-footer a:hover{
+opacity:.6;
+}

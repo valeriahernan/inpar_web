@@ -1,0 +1,47 @@
+/*========== NAVIGATION ==========*/
+
+.nav-editorial{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:var(--nav-height);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 4vw;
+background:rgba(236,236,236,.85);
+backdrop-filter:blur(10px);
+border-bottom:1px solid var(--border);
+z-index:var(--z-nav);
+}
+
+.logo{
+font-family:var(--font-title);
+font-size:1.8rem;
+font-weight:var(--fw-black);
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:2rem;
+}
+
+.nav-links a{
+font-size:.8rem;
+font-weight:var(--fw-bold);
+text-transform:uppercase;
+letter-spacing:.08em;
+transition:opacity var(--transition);
+}
+
+.nav-links a:hover{
+opacity:.6;
+}
+
+.link-destacado{
+padding:.45rem 1rem;
+border:1px solid var(--text);
+border-radius:999px;
+}

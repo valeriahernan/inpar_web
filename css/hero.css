@@ -1,0 +1,84 @@
+/*========== HERO ==========*/
+
+.intro-panel{
+text-align:center;
+padding-top:var(--nav-height);
+overflow:hidden;
+}
+
+.marquee-gigante{
+position:relative;
+z-index:2;
+}
+
+.marquee-gigante h1{
+font-family:var(--font-title);
+font-size:9vw;
+font-weight:var(--fw-black);
+letter-spacing:-.07em;
+line-height:.85;
+text-transform:uppercase;
+}
+
+.sub-editorial{
+margin-top:2rem;
+font-family:var(--font-mono);
+font-size:1rem;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--text-muted);
+}
+
+
+/* Entrada inicial */
+
+.intro-panel .marquee-gigante h1{
+animation:heroTitle 1.2s cubic-bezier(.22,1,.36,1) both;
+}
+
+.intro-panel .sub-editorial{
+animation:heroSub 1.4s .3s cubic-bezier(.22,1,.36,1) both;
+}
+
+
+@keyframes heroTitle{
+
+from{
+opacity:0;
+transform:translateY(80px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+@keyframes heroSub{
+
+from{
+opacity:0;
+letter-spacing:.3em;
+}
+
+to{
+opacity:1;
+letter-spacing:.12em;
+}
+
+}
+
+
+@media(max-width:768px){
+
+.marquee-gigante h1{
+font-size:3rem;
+}
+
+.sub-editorial{
+font-size:.7rem;
+}
+
+}

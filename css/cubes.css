@@ -1,0 +1,49 @@
+/*========== CUBES ==========*/
+
+#cubes{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:var(--z-cursor);
+overflow:hidden;
+}
+
+.cube{
+position:absolute;
+width:24px;
+height:24px;
+background:var(--text);
+opacity:.12;
+transform:scale(0);
+animation:cubeIn .5s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.cube.remove{
+animation:cubeOut .5s ease forwards;
+}
+
+@keyframes cubeIn{
+
+from{
+transform:scale(0) rotate(45deg);
+}
+
+to{
+transform:scale(1) rotate(0);
+}
+
+}
+
+@keyframes cubeOut{
+
+from{
+opacity:.12;
+transform:scale(1);
+}
+
+to{
+opacity:0;
+transform:scale(0);
+}
+
+}

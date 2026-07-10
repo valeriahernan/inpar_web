@@ -1,0 +1,111 @@
+/*========== RESPONSIVE ==========*/
+
+@media(max-width:768px){
+
+.nav-editorial{
+height:70px;
+padding:0 4vw;
+}
+
+.logo{
+font-size:1.4rem;
+}
+
+.nav-links{
+gap:.8rem;
+}
+
+.nav-links a{
+font-size:.65rem;
+}
+
+.link-destacado{
+padding:.3rem .7rem;
+}
+
+.panel{
+height:auto;
+min-height:100vh;
+}
+
+.contenido-story{
+grid-template-columns:1fr;
+padding:100px 6vw 40px;
+gap:2rem;
+}
+
+.texto-lado h2{
+font-size:2.2rem;
+}
+
+.texto-lado p{
+max-width:100%;
+font-size:.95rem;
+}
+
+.imagen-lado{
+height:auto;
+}
+
+.galeria-fotos{
+grid-template-columns:1fr 1fr;
+height:auto;
+gap:.8rem;
+}
+
+.marco-foto{
+height:25vh;
+}
+
+.marquee-gigante h1{
+font-size:2.8rem;
+}
+
+.sub-editorial{
+font-size:.75rem;
+}
+
+.contacto-full h2{
+font-size:2rem;
+}
+
+.email-grandote{
+font-size:1.8rem;
+}
+
+.redes-footer{
+gap:1rem;
+flex-wrap:wrap;
+}
+
+.cursor{
+display:none;
+}
+
+}
+
+
+@media(max-width:480px){
+
+.nav-links a:not(.link-destacado){
+display:none;
+}
+
+.contenido-story{
+padding-left:5vw;
+padding-right:5vw;
+}
+
+.galeria-fotos{
+grid-template-columns:1fr;
+}
+
+.marco-foto{
+height:40vh;
+}
+
+.marquee-gigante h1{
+font-size:2rem;
+}
+
+}

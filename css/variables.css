@@ -1,0 +1,50 @@
+/*========== VARIABLES ==========*/
+
+:root{
+
+--bg:#ECECEC;
+--bg-alt:#F4F4F4;
+--surface:#DDD;
+
+--text:#1A1A1A;
+--text-light:rgba(26,26,26,.75);
+--text-muted:rgba(26,26,26,.5);
+
+--border:rgba(26,26,26,.12);
+
+--white:#FFF;
+--black:#000;
+
+--font-title:"MuseoModerno",sans-serif;
+--font-body:"Inter",sans-serif;
+--font-mono:"IBM Plex Mono",monospace;
+
+--fw-regular:400;
+--fw-bold:700;
+--fw-black:900;
+
+--radius:30px;
+
+--container:1440px;
+
+--section-x:6vw;
+--section-y:12vh;
+
+--gap-xs:.5rem;
+--gap-sm:1rem;
+--gap-md:2rem;
+--gap-lg:4rem;
+--gap-xl:6rem;
+
+--nav-height:90px;
+
+--transition:.3s ease;
+--transition-slow:.6s cubic-bezier(.22,1,.36,1);
+
+--shadow:0 10px 40px rgba(0,0,0,.08);
+
+--z-cursor:9998;
+--z-nav:2000;
+--z-overlay:3000;
+
+}
