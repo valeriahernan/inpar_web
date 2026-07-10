@@ -1236,15 +1236,18 @@ const arteTrack=document.querySelector(".arte-track");
 
 if(arteTrack){
 
+const desplazamiento=arteTrack.scrollWidth-window.innerWidth;
+
 gsap.to(arteTrack,{
-x:()=>-(arteTrack.scrollWidth-window.innerWidth+160),
+x:-desplazamiento,
 ease:"none",
 scrollTrigger:{
 trigger:"#arte",
 start:"top top",
-end:()=>"+="+arteTrack.scrollWidth,
-pin:".arte-pin",
+end:()=>"+="+desplazamiento,
+pin:true,
 scrub:1,
+anticipatePin:1,
 invalidateOnRefresh:true
 }
 });
