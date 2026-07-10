@@ -1229,24 +1229,25 @@ ScrollTrigger.refresh();
 });
 
 //=====================================
-// ARTE HORIZONTAL
+// ARTE
 //=====================================
 
-const arteTrack=document.querySelector(".arte-track");
+const arte=document.querySelector("#arte");
+const track=document.querySelector(".arte-track");
 
-if(arteTrack){
+if(arte&&track){
 
-const desplazamiento=arteTrack.scrollWidth-window.innerWidth;
+const total=track.scrollWidth-window.innerWidth;
 
-gsap.to(arteTrack,{
-x:-desplazamiento,
+gsap.to(track,{
+x:-total,
 ease:"none",
 scrollTrigger:{
-trigger:"#arte",
+trigger:arte,
 start:"top top",
-end:()=>"+="+desplazamiento,
-pin:true,
+end:()=>"+="+total,
 scrub:1,
+pin:true,
 anticipatePin:1,
 invalidateOnRefresh:true
 }
@@ -1256,12 +1257,14 @@ gsap.utils.toArray(".arte-item").forEach(item=>{
 
 ScrollTrigger.create({
 trigger:item,
-containerAnimation:gsap.getTweensOf(arteTrack)[0],
+containerAnimation:gsap.getTweensOf(track)[0],
 start:"left center",
 end:"right center",
-toggleClass:{targets:item,className:"active"}
+toggleClass:"active"
 });
 
 });
+
+ScrollTrigger.refresh();
 
 }
